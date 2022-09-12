@@ -107,6 +107,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+          
       - run:
           name: "Add Artifactory"
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
