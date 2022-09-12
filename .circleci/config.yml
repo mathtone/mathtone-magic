@@ -124,27 +124,27 @@ workflows:
     jobs:
       - prep-alpha:
           context: MATHTONE_DEV
-          filters:
-            branches:
-              only:
-                - /prerelease\/.*/
-      - run-alpha-unit-tests:
-          requires:
-            - prep-alpha
-      - publish-alphas-artifactory:
-          context: MATHTONE_DEV
-          requires:
-            - run-alpha-unit-tests
-      - prep-release:
-          context: MATHTONE_DEV
-          filters:
-            branches:
-              only:
-                - main
-      - run-release-unit-tests:
-          requires:
-            - prep-release
-      - publish-release-nuget:
-          context: MATHTONE_DEV
-          requires:
-            - run-release-unit-tests
+          # filters:
+          #   branches:
+          #     only:
+          #       - /prerelease\/.*/
+      # - run-alpha-unit-tests:
+      #     requires:
+      #       - prep-alpha
+      # - publish-alphas-artifactory:
+      #     context: MATHTONE_DEV
+      #     requires:
+      #       - run-alpha-unit-tests
+      # - prep-release:
+      #     context: MATHTONE_DEV
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      # - run-release-unit-tests:
+      #     requires:
+      #       - prep-release
+      # - publish-release-nuget:
+      #     context: MATHTONE_DEV
+      #     requires:
+      #       - run-release-unit-tests
