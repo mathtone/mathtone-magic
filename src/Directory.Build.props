@@ -6,6 +6,6 @@
 	<Description>Utilities and productivity tools.</Description>
 	<Copyright>2022 Mathtone Industries</Copyright>
 	<RepositoryUrl>https://github.com/mathtone/mathtone-magic</RepositoryUrl>
-	<VersionPrefix>0.0.1</VersionPrefix>
+	<VersionPrefix>0.0.0</VersionPrefix>
  </PropertyGroup>
 </Project>
