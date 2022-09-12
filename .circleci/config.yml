@@ -99,7 +99,7 @@ jobs:
       - run: dotnet nuget add source ~/project/packages --name Local
       # - run: dotnet restore src/chex.sln
       # - run: dotnet build src/chex.sln --configuration Release
-      - run: dotnet test src/chex.sln
+    # run: dotnet test src/chex.sln
   
   publish-alphas-artifactory:
     docker:
@@ -136,16 +136,16 @@ workflows:
            context: MATHTONE_DEV
            requires:
              - run-alpha-unit-tests
-      # - prep-release:
-      #     context: MATHTONE_DEV
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      # - run-release-unit-tests:
-      #     requires:
-      #       - prep-release
-      # - publish-release-nuget:
-      #     context: MATHTONE_DEV
-      #     requires:
-      #       - run-release-unit-tests
+      - prep-release:
+          context: MATHTONE_DEV
+          filters:
+            branches:
+              only:
+                - main
+      - run-release-unit-tests:
+          requires:
+            - prep-release
+      - publish-release-nuget:
+          context: MATHTONE_DEV
+          requires:
+            - run-release-unit-tests
