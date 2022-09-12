@@ -1,26 +1,166 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+commands:
+  swapref:
+    parameters:
+      proj:
+        type:
+          string
+      ref:
+        type:
+          string
+      pkg:
+        type:
+          string
+    steps:
+      - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
+      - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
+  pack-pre:
+    parameters:
+      project:
+        type:
+          string
+      suffix:
+        type:
+          string
+    steps:
+      - run:
+          name: Build and Pack << parameters.project >>
+          command: |
+            dotnet build << parameters.project >> --configuration Release
+            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >> 
+  pack-release:
+    parameters:
+      project:
+        type:
+          string
+    steps:
+      - run:
+          name: Build and Pack << parameters.project >>
+          command: |
+            dotnet build << parameters.project >> --configuration Release
+            dotnet pack << parameters.project >> --configuration Release --no-build --output packages
+  
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  prep-alpha:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: Add local package store
+          command: |
+            mkdir packages
+            dotnet nuget add source ~/project/packages --name Local
+      - run: dotnet nuget list source
+      - run: dotnet restore src/chex.sln
+      - pack-pre:
+          project: src/CodeMagic/CodeMagic.csproj
+          suffix: alpha
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  prep-release:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+      - run:
+          name: Add local package store
+          command: |
+            mkdir packages
+            dotnet nuget add source ~/project/packages --name Local
+      - run: dotnet nuget list source
+      - run: dotnet restore src/chex.sln
+      - pack-release:
+          project: src/Chex/Chex.csproj
+      - swapref:
+          proj: src/Chex.Testing/Chex.Testing.csproj
+          ref: ../Chex/Chex.csproj
+          pkg: Chex
+      - pack-release:
+          project: src/Chex.Testing/Chex.Testing.csproj
+      - swapref:
+          proj: src/Chex.Testing.Xunit/Chex.Testing.Xunit.csproj
+          ref: ../Chex.Testing/Chex.Testing.csproj
+          pkg: Chex.Testing
+      - pack-release:
+          project: src/Chex.Testing.Xunit/Chex.Testing.Xunit.csproj
+      - swapref:
+          proj: src/Chex.Testing.Xunit.Tests/Chex.Testing.Xunit.Tests.csproj
+          ref: ../Chex.Testing.Xunit/Chex.Testing.Xunit.csproj
+          pkg: Chex.Testing.Xunit
+      - run: dotnet build src/Chex.Testing.Xunit.Tests/Chex.Testing.Xunit.Tests.csproj
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  run-alpha-unit-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - attach_workspace:
+          at: .
+      # - run: dotnet nuget add source ~/project/packages --name Local
+      # - run: dotnet restore src/chex.sln
+      # - run: dotnet build src/chex.sln --configuration Release
+      # - run: dotnet test src/chex.sln
+
+  run-release-unit-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - attach_workspace:
+          at: .
+      - run: dotnet nuget add source ~/project/packages --name Local
+      # - run: dotnet restore src/chex.sln
+      # - run: dotnet build src/chex.sln --configuration Release
+      - run: dotnet test src/chex.sln
+  
+  publish-alphas-artifactory:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Add Artifactory"
+          command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
+      - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+  publish-release-nuget:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - attach_workspace:
+          at: .
+      - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 workflows:
-  say-hello-workflow:
+  build:
     jobs:
-      - say-hello
+      - prep-alpha:
+          context: MATHTONE_DEV
+          filters:
+            branches:
+              only:
+                - /prerelease\/.*/
+      - run-alpha-unit-tests:
+          requires:
+            - prep-alpha
+      - publish-alphas-artifactory:
+          context: MATHTONE_DEV
+          requires:
+            - run-alpha-unit-tests
+      - prep-release:
+          context: MATHTONE_DEV
+          filters:
+            branches:
+              only:
+                - main
+      - run-release-unit-tests:
+          requires:
+            - prep-release
+      - publish-release-nuget:
+          context: MATHTONE_DEV
+          requires:
+            - run-release-unit-tests
