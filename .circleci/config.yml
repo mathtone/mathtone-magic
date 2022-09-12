@@ -71,7 +71,7 @@ jobs:
             mkdir packages
             dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
-      - run: dotnet restore src/chex.sln
+      - run: dotnet restore src/mathtone-magic.sln
       - pack-release:
           project: src/CodeMagic/CodeMagic.csproj
       - persist_to_workspace:
