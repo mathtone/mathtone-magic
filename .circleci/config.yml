@@ -129,13 +129,13 @@ workflows:
             branches:
               only:
                 - /prerelease\/.*/
-      # - run-alpha-unit-tests:
-      #     requires:
-      #       - prep-alpha
-      # - publish-alphas-artifactory:
-      #     context: MATHTONE_DEV
-      #     requires:
-      #       - run-alpha-unit-tests
+       - run-alpha-unit-tests:
+           requires:
+             - prep-alpha
+       - publish-alphas-artifactory:
+           context: MATHTONE_DEV
+           requires:
+             - run-alpha-unit-tests
       # - prep-release:
       #     context: MATHTONE_DEV
       #     filters:
