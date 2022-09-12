@@ -73,24 +73,7 @@ jobs:
       - run: dotnet nuget list source
       - run: dotnet restore src/chex.sln
       - pack-release:
-          project: src/Chex/Chex.csproj
-      - swapref:
-          proj: src/Chex.Testing/Chex.Testing.csproj
-          ref: ../Chex/Chex.csproj
-          pkg: Chex
-      - pack-release:
-          project: src/Chex.Testing/Chex.Testing.csproj
-      - swapref:
-          proj: src/Chex.Testing.Xunit/Chex.Testing.Xunit.csproj
-          ref: ../Chex.Testing/Chex.Testing.csproj
-          pkg: Chex.Testing
-      - pack-release:
-          project: src/Chex.Testing.Xunit/Chex.Testing.Xunit.csproj
-      - swapref:
-          proj: src/Chex.Testing.Xunit.Tests/Chex.Testing.Xunit.Tests.csproj
-          ref: ../Chex.Testing.Xunit/Chex.Testing.Xunit.csproj
-          pkg: Chex.Testing.Xunit
-      - run: dotnet build src/Chex.Testing.Xunit.Tests/Chex.Testing.Xunit.Tests.csproj
+          project: src/CodeMagic/CodeMagic.csproj
       - persist_to_workspace:
           root: .
           paths:
