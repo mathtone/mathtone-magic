@@ -124,10 +124,10 @@ workflows:
     jobs:
       - prep-alpha:
           context: MATHTONE_DEV
-          # filters:
-          #   branches:
-          #     only:
-          #       - /prerelease\/.*/
+          filters:
+            branches:
+              only:
+                - /prerelease\/.*/
       # - run-alpha-unit-tests:
       #     requires:
       #       - prep-alpha
