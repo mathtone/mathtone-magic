@@ -52,7 +52,7 @@ jobs:
             mkdir packages
             dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
-      - run: dotnet restore src/chex.sln
+      - run: dotnet restore src/mathtone-magic.sln
       - pack-pre:
           project: src/CodeMagic/CodeMagic.csproj
           suffix: alpha
@@ -120,14 +120,15 @@ jobs:
           at: .
       - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 workflows:
+  
   build:
     jobs:
       - prep-alpha:
           context: MATHTONE_DEV
-          # filters:
-          #   branches:
-          #     only:
-          #       - /prerelease\/.*/
+           filters:
+             branches:
+               only:
+                 - /prerelease\/.*/
       # - run-alpha-unit-tests:
       #     requires:
       #       - prep-alpha
