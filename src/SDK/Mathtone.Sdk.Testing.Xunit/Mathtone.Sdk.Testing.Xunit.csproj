@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj" />
-  </ItemGroup>
-
 </Project>

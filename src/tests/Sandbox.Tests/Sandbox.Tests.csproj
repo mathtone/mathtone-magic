@@ -37,8 +37,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\SDK\Mathtone.Sdk.Data.Sql\Mathtone.Sdk.Data.Sql.csproj" />
-  </ItemGroup>
-
 </Project>

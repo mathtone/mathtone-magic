@@ -10,8 +10,4 @@
     <PackageReference Include="Npgsql" Version="6.0.6" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Mathtone.Sdk.Data\Mathtone.Sdk.Data.csproj" />
-  </ItemGroup>
-
 </Project>
