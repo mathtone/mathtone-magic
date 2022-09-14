@@ -13,7 +13,7 @@ jobs:
             dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
       - run: ls -l
-      - run: dotnet build
+      - run: dotnet build src/mathtone-magic.sln
       #- pack-pre:
       #    project: src/CodeMagic/CodeMagic.csproj
       #    suffix: alpha
