@@ -1,7 +1,7 @@
 version: 2.1
   
 jobs:
-  prep-alpha:
+  prep-project:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
@@ -14,6 +14,9 @@ jobs:
       - run: dotnet nuget list source
       - run: ls -l
       - run: dotnet build src/mathtone-magic.sln
+      - run:
+         name: run unit tests
+         command:  dotnet test src/mathtone-magic.sln
       #- pack-pre:
       #    project: src/CodeMagic/CodeMagic.csproj
       #    suffix: alpha
@@ -26,7 +29,7 @@ workflows:
   
   build:
     jobs:
-      - prep-alpha:
+      - prep-project:
           context: MATHTONE_DEV
           #filters:
           #  branches:
