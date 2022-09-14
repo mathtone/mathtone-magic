@@ -53,9 +53,9 @@ jobs:
             dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
       - run: dotnet restore src/mathtone-magic.sln
-      - pack-pre:
-          project: src/CodeMagic/CodeMagic.csproj
-          suffix: alpha
+      #- pack-pre:
+      #    project: src/CodeMagic/CodeMagic.csproj
+      #    suffix: alpha
       - persist_to_workspace:
           root: .
           paths:
