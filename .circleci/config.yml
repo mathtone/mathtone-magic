@@ -1,44 +1,4 @@
 version: 2.1
-commands:
-  swapref:
-    parameters:
-      proj:
-        type:
-          string
-      ref:
-        type:
-          string
-      pkg:
-        type:
-          string
-    steps:
-      - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
-      - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
-  pack-pre:
-    parameters:
-      project:
-        type:
-          string
-      suffix:
-        type:
-          string
-    steps:
-      - run:
-          name: Build and Pack << parameters.project >>
-          command: |
-            dotnet build << parameters.project >> --configuration Release
-            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >> 
-  pack-release:
-    parameters:
-      project:
-        type:
-          string
-    steps:
-      - run:
-          name: Build and Pack << parameters.project >>
-          command: |
-            dotnet build << parameters.project >> --configuration Release
-            dotnet pack << parameters.project >> --configuration Release --no-build --output packages
   
 jobs:
   prep-alpha:
@@ -53,6 +13,7 @@ jobs:
             dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
       - run: ls -l
+      - run: dotnet build
       #- pack-pre:
       #    project: src/CodeMagic/CodeMagic.csproj
       #    suffix: alpha
@@ -60,73 +21,7 @@ jobs:
           root: .
           paths:
             - .
-  prep-release:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - checkout
-      - run:
-          name: Add local package store
-          command: |
-            mkdir packages
-            dotnet nuget add source ~/project/packages --name Local
-      - run: dotnet nuget list source
-      - run: dotnet restore src/mathtone-magic.sln
-      - pack-release:
-          project: src/CodeMagic/CodeMagic.csproj
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  run-alpha-unit-tests:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-      - image: postgres
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test!xx123
-      - image: mcr.microsoft.com/mssql/server:2022-latest
-        environment:
-          MSSQL_SA_PASSWORD: test!xx123
-          ACCEPT_EULA: Y
-    steps:
-      - attach_workspace:
-          at: .
-      # - run: dotnet nuget add source ~/project/packages --name Local
-      # - run: dotnet restore src/chex.sln
-      # - run: dotnet build src/chex.sln --configuration Release
-      # - run: dotnet test src/chex.sln
-
-  run-release-unit-tests:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet nuget add source ~/project/packages --name Local
-      # - run: dotnet restore src/chex.sln
-      # - run: dotnet build src/chex.sln --configuration Release
-    # run: dotnet test src/chex.sln
   
-  publish-alphas-artifactory:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - attach_workspace:
-          at: .
-          
-      - run:
-          name: "Add Artifactory"
-          command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
-  publish-release-nuget:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 workflows:
   
   build:
@@ -137,23 +32,4 @@ workflows:
           #  branches:
           #    only:
           #      - /prerelease\/.*/
-      - run-alpha-unit-tests:
-           requires:
-             - prep-alpha
-      # - publish-alphas-artifactory:
-      #      context: MATHTONE_DEV
-      #      requires:
-      #        - run-alpha-unit-tests
-      - prep-release:
-          context: MATHTONE_DEV
-          filters:
-            branches:
-              only:
-                - main
-      - run-release-unit-tests:
-          requires:
-            - prep-release
-      - publish-release-nuget:
-          context: MATHTONE_DEV
-          requires:
-            - run-release-unit-tests
+     
