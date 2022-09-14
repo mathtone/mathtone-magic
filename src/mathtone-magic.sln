@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Testing", "sdk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Service", "SDK\Mathtone.Sdk.Service\Mathtone.Sdk.Service.csproj", "{86B16873-5D7A-4536-AEE3-B51B8D8A6749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.Tests", "tests\Sandbox.Tests\Sandbox.Tests.csproj", "{494A6A55-01A2-407E-95C7-0E53E2A688D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox.Tests", "tests\Sandbox.Tests\Sandbox.Tests.csproj", "{494A6A55-01A2-407E-95C7-0E53E2A688D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
