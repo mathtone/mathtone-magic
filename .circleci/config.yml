@@ -55,7 +55,7 @@ jobs:
       # - run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget
       - run: dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
-      - run: dotnet restore
+      - run: dotnet restore src/mathtone-magic.sln
       - pack-pre:
           project: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           suffix: alpha
