@@ -53,6 +53,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: dotnet nuget add source ~/project/packages --name Local
+      - run: dotnet nuget list source
       - pack-pre:
           project: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           suffix: alpha
