@@ -52,7 +52,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+      # - run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
       - run: dotnet nuget add source ~/project/packages --name Local
       - run: dotnet nuget list source
       
