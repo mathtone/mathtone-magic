@@ -7,7 +7,7 @@ namespace Mathtone.Sdk.Data {
 		public static CMD WithTemplate<CMD>(this CMD command, string tag, string value, bool autoEscape = true)
 			where CMD : IDbCommand {
 
-			var v = autoEscape ? value : value.Replace("'", "''");
+			var v = autoEscape ? value.Replace("'", "''") : value;
 			command.CommandText = command.CommandText.Replace(tag, v);
 			return command;
 		}
@@ -24,9 +24,9 @@ namespace Mathtone.Sdk.Data {
 			where CMD : IDbCommand =>
 			command.WithParameter(name, default(T), ParameterDirection.Output, size);
 
-		public static CMD WithInputOutput<CMD, T>(this CMD command, string name, int size = default)
+		public static CMD WithInputOutput<CMD>(this CMD command, string name, int size = default)
 			where CMD : IDbCommand =>
-			command.WithParameter(name, default(T), ParameterDirection.InputOutput, size);
+			command.WithInputOutput<CMD, object>(name, new(), size);
 
 		public static CMD WithInputOutput<CMD, T>(this CMD command, string name, T value, int size = default)
 			where CMD : IDbCommand =>

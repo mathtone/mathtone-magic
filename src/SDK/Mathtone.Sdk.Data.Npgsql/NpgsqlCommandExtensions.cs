@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using NpgsqlTypes;
 using System.Data;
+using Mathtone.Sdk.Data;
 
 namespace Mathtone.Sdk.Data.Npgsql {
 	public static class NpgsqlCommandExtensions {
