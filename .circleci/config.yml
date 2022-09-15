@@ -28,7 +28,7 @@ commands:
           command: |
             dotnet build << parameters.project >> --configuration Release
             dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >> 
-jobs:
+jobs: 
   prep-project:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -53,7 +53,7 @@ jobs:
       - attach_workspace:
           at: .
       - pack-pre:
-          project: src/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          project: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           suffix: alpha
       
   run-unit-tests:
