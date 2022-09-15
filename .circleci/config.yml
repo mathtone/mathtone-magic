@@ -53,7 +53,7 @@ jobs:
       - run: echo hi
       - pack-pre:
           project: src/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          siffix: alpha
+          suffix: alpha
       
   run-unit-tests:
     docker:
