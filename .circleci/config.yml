@@ -30,7 +30,7 @@ jobs:
           POSTGRES_PASSWORD: ${TEST_SQL_PWD}
       - image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
-          MSSQL_SA_PASSWORD: ${TEST_SQL_PWD}
+          MSSQL_SA_PASSWORD: test!1234
           ACCEPT_EULA: Y
     steps:
       - attach_workspace:
