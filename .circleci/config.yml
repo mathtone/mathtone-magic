@@ -27,7 +27,15 @@ commands:
           name: Build and Pack << parameters.project >>
           command: |
             dotnet build << parameters.project >> --configuration Release
-            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >> 
+            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >>
+  
+  # publish-release-nuget:
+  #   docker:
+  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 jobs: 
   prep-project:
     docker:
@@ -74,7 +82,6 @@ jobs:
           root: .
           paths:
             - .
-                  
   run-unit-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -99,6 +106,17 @@ jobs:
           root: .
           paths:
             - .
+  publish-alphas-artifactory:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - attach_workspace:
+          at: .
+          
+      - run:
+          name: "Add Artifactory"
+          command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
+      - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
 workflows:
   
   build:
@@ -113,6 +131,10 @@ workflows:
          context: MATHTONE_DEV
          requires:
            - split-packages
+      - publish-alphas-artifactory:
+          context: MATHTONE_DEV
+          requires:
+            - run-unit-tests
           #filters:
           #  branches:
           #    only:
