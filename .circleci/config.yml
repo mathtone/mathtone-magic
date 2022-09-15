@@ -1,5 +1,33 @@
 version: 2.1
-  
+commands:
+  swapref:
+    parameters:
+      proj:
+         type:
+            string
+      ref:
+         type:
+            string
+      pkg:
+         type:
+            string
+    steps:
+      - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
+      - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
+  pack-pre:
+    parameters:
+      project:
+        type:
+          string
+      suffix:
+        type:
+          string
+    steps:
+      - run:
+          name: Build and Pack << parameters.project >>
+          command: |
+            dotnet build << parameters.project >> --configuration Release
+            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >> 
 jobs:
   prep-project:
     docker:
@@ -23,6 +51,10 @@ jobs:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - run: echo hi
+      - pack-pre:
+          project: src/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          siffix: alpha
+      
   run-unit-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
