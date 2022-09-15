@@ -14,9 +14,6 @@ jobs:
       - run: dotnet nuget list source
       - run: ls -l
       - run: dotnet build src/mathtone-magic.sln
-      - run:
-         name: run unit tests
-         command:  dotnet test src/mathtone-magic.sln
       #- pack-pre:
       #    project: src/CodeMagic/CodeMagic.csproj
       #    suffix: alpha
@@ -24,13 +21,36 @@ jobs:
           root: .
           paths:
             - .
-  
+  run-unit-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test!1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: test!1234
+          ACCEPT_EULA: Y
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+         name: run unit tests
+         command:  dotnet test src/mathtone-magic.sln
+      # - run: dotnet nuget add source ~/project/packages --name Local
+      # - run: dotnet restore src/chex.sln
+      # - run: dotnet build src/chex.sln --configuration Release
+      # - run: dotnet test src/chex.sln
 workflows:
   
   build:
     jobs:
       - prep-project:
           context: MATHTONE_DEV
+      - run-unit-tests:
+         context: MATHTONE_DEV
+
           #filters:
           #  branches:
           #    only:
