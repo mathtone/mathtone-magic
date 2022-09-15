@@ -55,6 +55,10 @@ jobs:
       - pack-pre:
           project: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           suffix: alpha
+      - swapref:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
       
   run-unit-tests:
     docker:
