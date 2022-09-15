@@ -70,7 +70,8 @@ jobs:
           pkg: Mathtone.Sdk.Data
       - persist_to_workspace:
           root: .
-          paths:- run: dotnet nuget add source ~/project/packages --name Local
+          paths:
+            - .
       - run: dotnet nuget list source
       - run: dotnet restore src/mathtone-magic.sln
             - .
