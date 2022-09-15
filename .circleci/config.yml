@@ -70,7 +70,8 @@ jobs:
           pkg: Mathtone.Sdk.Data
       - persist_to_workspace:
           root: .
-          paths:
+          paths:- run: dotnet nuget add source ~/project/packages --name Local
+      - run: dotnet nuget list source
             - .
   run-unit-tests:
     docker:
@@ -86,6 +87,8 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet restore src/mathtone-magic.sln
+      
       - run:
          name: run unit tests
          command:  dotnet test src/mathtone-magic.sln
