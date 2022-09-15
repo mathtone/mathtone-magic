@@ -14,13 +14,15 @@ jobs:
       - run: dotnet nuget list source
       - run: ls -l
       - run: dotnet build src/mathtone-magic.sln
-      #- pack-pre:
-      #    project: src/CodeMagic/CodeMagic.csproj
-      #    suffix: alpha
       - persist_to_workspace:
           root: .
           paths:
             - .
+  split-packages:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - run: echo hi
   run-unit-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -48,10 +50,14 @@ workflows:
     jobs:
       - prep-project:
           context: MATHTONE_DEV
+      - split-packages:
+          context: MATHTONE_DEV
+          requires:
+           - prep-project
       - run-unit-tests:
          context: MATHTONE_DEV
          requires:
-           - prep-project
+           - split-packages
           #filters:
           #  branches:
           #    only:
