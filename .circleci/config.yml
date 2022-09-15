@@ -50,7 +50,8 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
-      - run: echo hi
+      - attach_workspace:
+          at: .
       - pack-pre:
           project: src/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           suffix: alpha
