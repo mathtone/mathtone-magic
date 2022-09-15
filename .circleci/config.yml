@@ -68,7 +68,10 @@ jobs:
           proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
-      
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   run-unit-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
