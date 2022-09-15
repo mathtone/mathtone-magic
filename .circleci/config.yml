@@ -50,8 +50,7 @@ workflows:
           context: MATHTONE_DEV
       - run-unit-tests:
          context: MATHTONE_DEV
-         requires:
-            - prep-project
+
           #filters:
           #  branches:
           #    only:
