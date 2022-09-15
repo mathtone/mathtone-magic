@@ -88,7 +88,6 @@ jobs:
       - attach_workspace:
           at: .
       - run: dotnet restore src/mathtone-magic.sln
-      
       - run:
          name: run unit tests
          command:  dotnet test src/mathtone-magic.sln
