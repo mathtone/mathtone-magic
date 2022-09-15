@@ -89,6 +89,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet nuget add source ~/project/packages --name Local
+      - run: dotnet nuget list source
+      - rin: dotnet restore src/src/mathtone-magic.sln
       - run:
          name: run unit tests
          command:  dotnet test src/mathtone-magic.sln
