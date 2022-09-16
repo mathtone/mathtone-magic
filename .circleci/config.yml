@@ -113,9 +113,11 @@ workflows:
           requires:
             - "Pack Release"
       - deploy-alpha-artifactory:
+          context: MATHTONE_DEV
           requires:
              - "Pack Alpha"
       - deploy-alpha-nuget:
+          type: approval
           context: MATHTONE_DEV
           requires:
              - "Pack Alpha"
