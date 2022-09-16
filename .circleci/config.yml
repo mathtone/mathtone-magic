@@ -85,6 +85,22 @@ workflows:
           prerelease: false
           requires:
             - run-tests
+      - deploy-beta-artifactory:
+          type: approval
+          requires:
+            - "Pack Beta"
+      - deploy-beta-nuget:
+          type: approval
+          requires:
+            - "Pack Beta"
+      - deploy-release-artifactory:
+          type: approval
+          requires:
+            - "Pack Release"
+      - deploy-release-nuget:
+          type: approval
+          requires:
+            - "Pack Release"
       # - pack-projects:
       #     suffix: alpha
       #     requires:
