@@ -136,7 +136,7 @@ workflows:
           filters:
             branches:
                ignore:
-                  - /release\/*/ # or regexes
+                  - /release.*/
           context: MATHTONE_DEV
           name: Run Unit Tests
           requires:
@@ -145,7 +145,7 @@ workflows:
           filters:
             branches:
                only:
-                  - /release\/*/
+                  - /release.*/
           context: MATHTONE_DEV
           name: Repack Project Refs
           requires:
@@ -154,7 +154,7 @@ workflows:
           filters:
             branches:
                only:
-                  - /release\/*/ # or regexes
+                  - /release.*/
           context: MATHTONE_DEV
           requires:
             - Repack Project Refs
@@ -162,7 +162,7 @@ workflows:
           filters:
             branches:
                only:
-                  - /release\/*/ # or regexes
+                  - /release.*/
           type: approval
           name: Approve Release
           requires:
@@ -171,7 +171,7 @@ workflows:
           filters:
             branches:
                only:
-                  - /release\/*/ # or regexes
+                  - /release.*/
           context: MATHTONE_DEV
           requires:
             - Approve Release
