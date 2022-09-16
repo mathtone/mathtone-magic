@@ -114,7 +114,9 @@ jobs:
       - run:
           name: "Add Artifactory"
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+      - run:
+         name: Publish to Atifactory
+         command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
         
   publish-nuget:
     docker:
@@ -122,11 +124,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: echo hi
       - run:
-          name: "Add Nuget"
-          command: dotnet nuget add source https://api.nuget.org/v3/index.json
-      - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
+         name: Publish to Nuget
+         command: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 workflows:
   build-release:
     jobs:
