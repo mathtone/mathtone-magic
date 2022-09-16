@@ -11,31 +11,56 @@ commands:
     steps:
       - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
       - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
-  
+
 jobs:
- prep-project:
+  prep-project:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
-      # - run:
-      #     name: Add local package store
-      #     command: |
-      #       mkdir packages
-      #       dotnet nuget add source ~/project/packages --name Local
-      # - run: dotnet nuget list source
-      # - run: ls -l
+    # - run:
+    #     name: Add local package store
+    #     command: |
+    #       mkdir packages
+    #       dotnet nuget add source ~/project/packages --name Local
+    # - run: dotnet nuget list source
+    # - run: ls -l
       - run: dotnet build src/mathtone-magic.sln
-      - run: dotnet test src/mathtone-magic.sln
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - .
+    #- run: dotnet test src/mathtone-magic.sln
+    # - persist_to_workspace:
+    #     root: .
+    #     paths:
+    #       - .
+  run-tests:
+    parameters:
+      suffix:
+        type: string
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: test!1234
+          ACCEPT_EULA: Y
+    steps:
+      - run: dotnet build src/mathtone-magic.sln --configuration Release
 workflows:
   
   build:
     jobs:
       - prep-project
+      
+      - run-tests:
+          suffix: alpha
+          requires:
+            - prep-project
+      # - pack-projects:
+      #     suffix: alpha
+      #     requires:
+      #       - prep-project
       # - pack-beta
       # - prep-project:
       #     context: MATHTONE_DEV
