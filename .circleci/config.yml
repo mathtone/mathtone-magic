@@ -55,7 +55,7 @@ jobs:
             not:
               equal: [ << parameters.suffix >> , '' ]
           steps:
-            - run: dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >>
+            - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages --version-suffix << parameters.suffix >>
       # swap refs
 workflows:
   
