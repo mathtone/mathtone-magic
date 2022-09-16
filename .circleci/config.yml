@@ -21,4 +21,152 @@ jobs:
 workflows:
   build:
     jobs:
+      - prep-projectversion: 2.1
+commands:
+  swapref:
+    parameters:
+      proj:
+         type: string
+      ref:
+         type: string
+      pkg:
+         type: string
+    steps:
+      - run:
+          name: swap << parameters.ref >> with reference << parameters.pkg >> 
+          command: |
+            dotnet remove << parameters.proj >> reference << parameters.ref >>
+            dotnet add << parameters.proj >> package << parameters.pkg >> --source ./packages --prerelease
+      
+  pack-proj:
+    parameters:
+      proj:
+         type: string
+    steps:
+      - run:
+          name: Determine version and build package
+          command: |
+            branch=$CIRCLE_BRANCH
+            ver=${branch/"release/"/""}
+            suffix=${ver#*-}
+            build=${ver%-*}
+            echo build- ${build} version- ${suffix}
+            if [ $suffix == "" ]
+            then
+              echo "release"
+              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build}
+            else
+              echo "prerelease" ${suffix}
+              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build} --version-suffix ${suffix}
+            fi
+            
+jobs:
+
+  prep-project:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - checkout
+      - run: |
+          branch=$CIRCLE_BRANCH
+          ver=${branch/"release/"/""}
+          suffix=${ver#*-}
+          build=${ver%-*}
+          echo build- ${build} version- ${suffix}
+  repack-projects:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: test!1234
+          ACCEPT_EULA: Y
+    working_directory: /mnt/ramdisk
+    steps:
+      - checkout
+      # - run:
+      #     name: Build Solution (Debug)
+      #     command: dotnet build src/mathtone-magic.sln --configuration Debug
+      - run: dotnet restore src/mathtone-magic.sln
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+      #- run: dotnet build src/mathtone-magic.sln
+      # - run: |
+      #     branch=$CIRCLE_BRANCH
+      #     ver=${branch/"release/"/""}
+      #     build=${ver%-*}
+      #     dotnet pack src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj --configuration Release -o packages /p:VersionPrefix=${build}
+      # - run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget
+      - run: 
+          name: Add Nuget
+          command: dotnet nuget add source ~/packages --name Local
+      - swapref:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - swapref:
+          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - run: dotnet restore src/mathtone-magic.sln
+      # - 
+      - run:
+          name: Build & Test Solution (Release)
+          command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
+      #persist projects to workspace
+      # - store_test_results:
+      #     path: test-results
+  publish-artifactory:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: "Add Artifactory"
+          command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
+      - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+        
+  publish-nuget:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - run: echo hi
+workflows:
+  build-release:
+    jobs:
       - prep-project
+      - repack-projects:
+          context: MATHTONE_DEV
+          name: Repack Project Refs
+          requires:
+            - prep-project
+      - publish-artifactory:
+          context: MATHTONE_DEV
+          requires:
+            - Repack Project Refs
+      - approve-release:
+          type: approval
+          name: Approve Release
+          requires:
+            - Repack Project Refs
+      - publish-nuget:
+          context: MATHTONE_DEV
+          requires:
+            - Approve Release
+
+      # - publish-artifactory:
+      #     requires:
+      #       - repack-projects
