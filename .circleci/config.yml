@@ -9,29 +9,6 @@ commands:
       pkg:
          type: string
     steps:
-      - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
-      - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
-jobs:
-  prep-project:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - checkout
-      - run: dotnet build src/mathtone-magic.sln
-workflows:
-  build:
-    jobs:
-      - prep-projectversion: 2.1
-commands:
-  swapref:
-    parameters:
-      proj:
-         type: string
-      ref:
-         type: string
-      pkg:
-         type: string
-    steps:
       - run:
           name: swap << parameters.ref >> with reference << parameters.pkg >> 
           command: |
