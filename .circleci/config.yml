@@ -47,6 +47,8 @@ jobs:
     parameters:
       suffix:
         type: string
+      prerelease:
+        type: boolean
     steps:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
@@ -62,7 +64,6 @@ workflows:
   build:
     jobs:
       - prep-project
-      
       - run-tests:
           suffix: alpha
           requires:
@@ -70,16 +71,19 @@ workflows:
       - pack-projects:
           name: Pack Alpha
           suffix: alpha
+          prerelease: true
           requires:
             - run-tests
       - pack-projects:
           name: Pack Beta
           suffix: beta
+          prerelease: true
           requires:
             - run-tests
       - pack-projects:
           name: Pack Release
           suffix: ''
+          prerelease: false
           requires:
             - run-tests
       # - pack-projects:
