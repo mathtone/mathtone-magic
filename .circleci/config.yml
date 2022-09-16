@@ -50,7 +50,7 @@ jobs:
         type: string
     steps:
       - checkout
-      - run: dotnet restore
+      - run: dotnet restore src/mathtone-magic.sln
       - run: dotnet pack  src/mathtone-magic.sln --configuration Release --no-build --output packages --version-suffix << parameters.suffix >>
 workflows:
   
