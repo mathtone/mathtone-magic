@@ -64,11 +64,18 @@ workflows:
           requires:
             - prep-project
       - pack-projects:
+          name: Pack Alpha
           suffix: alpha
           requires:
             - run-tests
       - pack-projects:
+          name: Pack Beta
           suffix: beta
+          requires:
+            - run-tests
+      - pack-projects:
+          name: Pack Release
+          suffix: ""
           requires:
             - run-tests
       # - pack-projects:
