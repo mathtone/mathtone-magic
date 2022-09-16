@@ -120,7 +120,13 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
+      - attach_workspace:
+          at: .
       - run: echo hi
+      - run:
+          name: "Add Nuget"
+          command: dotnet nuget add source https://api.nuget.org/v3/index.json
+      - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 workflows:
   build-release:
     jobs:
