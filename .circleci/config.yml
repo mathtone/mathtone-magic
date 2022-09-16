@@ -58,6 +58,10 @@ jobs:
               equal: [ << parameters.suffix >> , '' ]
           steps:
             - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages --version-suffix << parameters.suffix >>
+            - persist_to_workspace:
+                root: .
+                paths:
+                  - .
       # swap refs
   deploy-alpha-nuget:
     docker:
@@ -68,6 +72,8 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
+      - attach_workspace:
+          at: .
       - run: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
       - run: dotnet nuget push packages/*-alpha.nupkg --source Mathtone-Dev
 workflows:
