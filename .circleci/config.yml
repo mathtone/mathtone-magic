@@ -62,6 +62,10 @@ workflows:
           suffix: alpha
           requires:
             - run-tests
+      - pack-projects:
+          suffix: beta
+          requires:
+            - run-tests
       # - pack-projects:
       #     suffix: alpha
       #     requires:
