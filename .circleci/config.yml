@@ -78,6 +78,13 @@ jobs:
           pkg: Mathtone.Sdk.Data
       - run: dotnet nuget list source
       - run: dotnet restore src/mathtone-magic.sln
+      - pack-pre:
+          project: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          suffix: alpha
+      - pack-pre:
+          project: src/SDK/Mathtone.Sdk.Data.Npgql/Mathtone.Sdk.Data.Npgql.csproj
+          suffix: alpha
+
       - persist_to_workspace:
           root: .
           paths:
