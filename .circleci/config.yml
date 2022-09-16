@@ -106,7 +106,10 @@ workflows:
           type: approval
           requires:
             - "Pack Release"
-      - deploy-nuget:
+      - deploy-alpha-artifactory:
+          requires:
+             - "Pack Alpha"
+      - deploy-alpha-nuget:
           requires:
              - "Pack Alpha"
             
