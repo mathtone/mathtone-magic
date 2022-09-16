@@ -84,6 +84,7 @@ jobs:
       - pack-pre:
           project: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           suffix: alpha
+
       - persist_to_workspace:
           root: .
           paths:
