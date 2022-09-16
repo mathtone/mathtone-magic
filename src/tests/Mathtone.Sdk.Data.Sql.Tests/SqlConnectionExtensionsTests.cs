@@ -7,7 +7,7 @@ using Mathtone.Sdk.Data.Tests;
 
 namespace Mathtone.Sdk.Data.Sql.Tests {
 
-	public class SqlConnectionExtensionsTests : IDbConnectionExtensionsTests<SqlConnection,SqlCommand> {
+	public class SqlConnectionExtensionsTests : IDbConnectionExtensionsTests<SqlConnection, SqlCommand> {
 
 		[Fact]
 		public void CreateCommand_Returns_Command() {
@@ -25,18 +25,5 @@ namespace Mathtone.Sdk.Data.Sql.Tests {
 		protected override string GetDateQuery => "SELECT GETDATE() as Value";
 
 		protected override string Get123Query => "SELECT value FROM STRING_SPLIT('1 2 3', ' ');";
-	}
-
-	public class SqlCommandExtensionsTests {
-
-		[Fact]
-		public void CreateCommand_Returns_Command() {
-			var cmd = new SqlCommand();
-			var now = DateTimeOffset.Now;
-			cmd.WithInput("@Test", now, SqlDbType.DateTimeOffset);
-			var p = cmd.Parameters["@Test"];
-			Assert.Equal(SqlDbType.DateTimeOffset, p.SqlDbType);
-			Assert.Equal(now, p.Value);
-		}
 	}
 }
