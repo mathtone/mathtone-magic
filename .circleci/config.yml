@@ -3,25 +3,20 @@ commands:
   swapref:
     parameters:
       proj:
-         type:
-            string
+         type: string
       ref:
-         type:
-            string
+         type: string
       pkg:
-         type:
-            string
+         type: string
     steps:
       - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
       - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
   pack-pre:
     parameters:
       project:
-        type:
-          string
+        type: string
       suffix:
-        type:
-          string
+        type: string
     steps:
       - run:
           name: Build and Pack << parameters.project >>
@@ -43,7 +38,18 @@ commands:
   #     - attach_workspace:
   #         at: .
   #     - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
-jobs: 
+jobs:
+  pack-alpha:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+  pack-beta:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - checkout
+
   prep-project:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -116,7 +122,7 @@ jobs:
       - run: dotnet restore src/mathtone-magic.sln
       - run:
          name: run unit tests
-         command:  dotnet test src/mathtone-magic.sln
+         command: dotnet test src/mathtone-magic.sln
       - persist_to_workspace:
           root: .
           paths:
@@ -150,22 +156,24 @@ workflows:
   
   build:
     jobs:
-      - prep-project:
-          context: MATHTONE_DEV
-      - split-packages:
-          context: MATHTONE_DEV
-          suffix: alpha
-          requires:
-           - prep-project
-      - run-unit-tests:
-         context: MATHTONE_DEV
-         requires:
-           - split-packages
-      - publish-artifactory:
-          context: MATHTONE_DEV
-          suffix: -alpha
-          requires:
-            - run-unit-tests
+      - pack-alpha
+      - pack-beta
+      # - prep-project:
+      #     context: MATHTONE_DEV
+      # - split-packages:
+      #     context: MATHTONE_DEV
+      #     suffix: alpha
+      #     requires:
+      #      - prep-project
+      # - run-unit-tests:
+      #    context: MATHTONE_DEV
+      #    requires:
+      #      - split-packages
+      # - publish-artifactory:
+      #     context: MATHTONE_DEV
+      #     suffix: -alpha
+      #     requires:
+      #       - run-unit-tests
 
         
       # - deploy-beta-artifactory:
