@@ -68,7 +68,8 @@ jobs:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
-      - run: echo hi
+      - run: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
+      - run: dotnet nuget push packages/*-alpha.nupkg --source Mathtone-Dev
 workflows:
   build:
     jobs:
