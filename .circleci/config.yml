@@ -60,7 +60,6 @@ jobs:
             - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages --version-suffix << parameters.suffix >>
       # swap refs
 workflows:
-  
   build:
     jobs:
       - prep-project
