@@ -1,6 +1,7 @@
 ﻿using System.Data;
 
 namespace Mathtone.Sdk.Data {
+
 	public static class IDataReaderExtensions {
 
 		public static RTN[] ToArray<RDR, RTN>(this RDR reader, Func<IDataRecord, RTN> selector)
