@@ -11,153 +11,32 @@ commands:
     steps:
       - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
       - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
-  pack-pre:
-    parameters:
-      project:
-        type: string
-      suffix:
-        type: string
-    steps:
-      - run:
-          name: Build and Pack << parameters.project >>
-          command: |
-            dotnet build << parameters.project >> --configuration Release
-            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >>
   
-  pub-mathtone-dev:
-    parameters:
-      suffix:
-        type: string
-    steps:
-      - run: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run: dotnet nuget push packages/*-<< parameters.suffix >>.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
-  # publish-release-nuget:
-  #   docker:
-  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-  #     - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 jobs:
-  pack-alpha:
+ prep-project:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
-  pack-beta:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - checkout
-
-  prep-project:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - checkout
-      - run:
-          name: Add local package store
-          command: |
-            mkdir packages
-            dotnet nuget add source ~/project/packages --name Local
-      - run: dotnet nuget list source
-      - run: ls -l
+      # - run:
+      #     name: Add local package store
+      #     command: |
+      #       mkdir packages
+      #       dotnet nuget add source ~/project/packages --name Local
+      # - run: dotnet nuget list source
+      # - run: ls -l
       - run: dotnet build src/mathtone-magic.sln
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  split-packages:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    parameters:
-      suffix:
-        type: string
-    steps:
-      - attach_workspace:
-          at: .
-      # - run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget
-      - run: dotnet nuget add source ~/project/packages --name Local
-      - run: dotnet nuget list source
-      - run: dotnet restore src/mathtone-magic.sln
-      - pack-pre:
-          project: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          suffix: << parameters.suffix >>
-      - swapref:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - swapref:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - run: dotnet nuget list source
-      - run: dotnet restore src/mathtone-magic.sln
-      - pack-pre:
-          project: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          suffix: << parameters.suffix >>
-      - pack-pre:
-          project: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          suffix: << parameters.suffix >>
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  run-unit-tests:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-      - image: postgres
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test1234
-      - image: mcr.microsoft.com/mssql/server:2022-latest
-        environment:
-          MSSQL_SA_PASSWORD: test!1234
-          ACCEPT_EULA: Y
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet nuget add source ~/project/packages --name Local
-      - run: dotnet nuget list source
-      - run: dotnet restore src/mathtone-magic.sln
-      - run:
-         name: run unit tests
-         command: dotnet test src/mathtone-magic.sln
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  publish-artifactory:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    parameters:
-      suffix:
-        type: string
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: "Add Artifactory"
-          command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run: dotnet nuget push packages/*<< parameters.suffix >>.nupkg --source Mathtone-Dev
-  # publish-alphas-nuget:
-  #   docker:
-  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-          
-  #     - run:
-  #         name: "Add Artifactory"
-  #         command: dotnet nuget add source https://api.nuget.org/v3/index.json
-  #     - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
-
+      - run: dotnet test src/mathtone-magic.sln
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - .
 workflows:
   
   build:
     jobs:
-      - pack-alpha
-      - pack-beta
+      - prep-project
+      # - pack-beta
       # - prep-project:
       #     context: MATHTONE_DEV
       # - split-packages:
