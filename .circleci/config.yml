@@ -11,7 +11,6 @@ commands:
     steps:
       - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
       - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
-
 jobs:
   prep-project:
     docker:
@@ -51,8 +50,13 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
+      - when:
+          condition:
+            not:
+              equal: [ << parameters.suffix >> , '' ]
+          steps:
+            - run: echo hi
       # swap refs
-      - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages/<< parameters.suffix >> --version-suffix << parameters.suffix >>
 workflows:
   
   build:
