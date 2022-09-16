@@ -34,6 +34,8 @@ jobs:
           MSSQL_SA_PASSWORD: test!1234
           ACCEPT_EULA: Y
     steps:
+      - attach_workspace:
+          at: .
       - checkout
       - run: dotnet test src/mathtone-magic.sln --configuration Release
       - persist_to_workspace:
@@ -48,6 +50,7 @@ jobs:
         type: string
     steps:
       - run: echo hi
+      - run: dotnet pack  src/mathtone-magic.sln --configuration Release --no-build --output packages --version-suffix << parameters.suffix >>
 workflows:
   
   build:
