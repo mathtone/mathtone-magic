@@ -48,6 +48,18 @@ jobs:
     steps:
       - checkout
       - run: dotnet test src/mathtone-magic.sln --configuration Release
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  pack-projects:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    parameters:
+      suffix:
+        type: string
+    steps:
+      - run: echo hi
 workflows:
   
   build:
