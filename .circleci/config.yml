@@ -18,19 +18,7 @@ jobs:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - checkout
-    # - run:
-    #     name: Add local package store
-    #     command: |
-    #       mkdir packages
-    #       dotnet nuget add source ~/project/packages --name Local
-    # - run: dotnet nuget list source
-    # - run: ls -l
       - run: dotnet build src/mathtone-magic.sln
-    #- run: dotnet test src/mathtone-magic.sln
-    # - persist_to_workspace:
-    #     root: .
-    #     paths:
-    #       - .
   run-tests:
     parameters:
       suffix:
