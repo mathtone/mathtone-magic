@@ -51,6 +51,20 @@ jobs:
           suffix=${ver#*-}
           build=${ver%-*}
           echo build- ${build} version- ${suffix}
+  run-unit-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: test!1234
+          ACCEPT_EULA: Y
+    steps:
+      - checkout
+      - run: dotnet test src/mathtone-magic.sln
   repack-projects:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -118,6 +132,15 @@ workflows:
   build-release:
     jobs:
       - prep-project
+      - run-unit-tests:
+          filters:
+            branches:
+               exclude:
+                  - /release\/*/ # or regexes
+          context: MATHTONE_DEV
+          name: Run Unit Tests
+          requires:
+            - prep-project
       - repack-projects:
           filters:
             branches:
