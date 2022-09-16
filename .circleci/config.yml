@@ -79,7 +79,7 @@ workflows:
             - run-tests
       - pack-projects:
           name: Pack Release
-          suffix: ""
+          suffix: ''
           requires:
             - run-tests
       # - pack-projects:
