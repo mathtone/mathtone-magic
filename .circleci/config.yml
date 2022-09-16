@@ -59,6 +59,11 @@ jobs:
           steps:
             - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages --version-suffix << parameters.suffix >>
       # swap refs
+  deploy-nuget:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - run: echo hi
 workflows:
   build:
     jobs:
@@ -101,11 +106,9 @@ workflows:
           type: approval
           requires:
             - "Pack Release"
-      - deploy-alpha-nuget:
-          type: approval
+      - deploy-nuget:
           requires:
-            - run-tests
-            - "Pack Alpha"
+             - "Pack Alpha"
             
       # - pack-projects:
       #     suffix: alpha
