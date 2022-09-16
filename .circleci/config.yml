@@ -3,149 +3,152 @@ commands:
   swapref:
     parameters:
       proj:
-        type:
-          string
+         type: string
       ref:
-        type:
-          string
+         type: string
       pkg:
-        type:
-          string
-    steps:
-      - run: dotnet remove << parameters.proj >> reference << parameters.ref >>
-      - run: dotnet add << parameters.proj >> package << parameters.pkg >> --source ~/project/packages --prerelease
-  pack-pre:
-    parameters:
-      project:
-        type:
-          string
-      suffix:
-        type:
-          string
+         type: string
     steps:
       - run:
-          name: Build and Pack << parameters.project >>
+          name: swap << parameters.ref >> with reference << parameters.pkg >> 
           command: |
-            dotnet build << parameters.project >> --configuration Release
-            dotnet pack << parameters.project >> --configuration Release --no-build --output packages --version-suffix << parameters.suffix >> 
-  pack-release:
+            dotnet remove << parameters.proj >> reference << parameters.ref >>
+            dotnet add << parameters.proj >> package << parameters.pkg >> --source ./packages --prerelease
+      
+  pack-proj:
     parameters:
-      project:
-        type:
-          string
+      proj:
+         type: string
     steps:
       - run:
-          name: Build and Pack << parameters.project >>
+          name: Determine version and build package
           command: |
-            dotnet build << parameters.project >> --configuration Release
-            dotnet pack << parameters.project >> --configuration Release --no-build --output packages
-  
+            branch=$CIRCLE_BRANCH
+            ver=${branch/"release/"/""}
+            suffix=${ver#*-}
+            build=${ver%-*}
+            echo build- ${build} version- ${suffix}
+            if [ $suffix == "" ]
+            then
+              echo "release"
+              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build}
+            else
+              echo "prerelease" ${suffix}
+              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build} --version-suffix ${suffix}
+            fi
+            
 jobs:
-  prep-alpha:
+
+  prep-project:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - run:
-          name: Add local package store
-          command: |
-            mkdir packages
-            dotnet nuget add source ~/project/packages --name Local
-      - run: dotnet nuget list source
+      - run: |
+          branch=$CIRCLE_BRANCH
+          ver=${branch/"release/"/""}
+          suffix=${ver#*-}
+          build=${ver%-*}
+          echo build- ${build} version- ${suffix}
+  repack-projects:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: test!1234
+          ACCEPT_EULA: Y
+    working_directory: /mnt/ramdisk
+    steps:
+      - checkout
       - run: dotnet restore src/mathtone-magic.sln
-      - pack-pre:
-          project: src/CodeMagic/CodeMagic.csproj
-          suffix: alpha
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+      - run: 
+          name: Add Nuget
+          command: dotnet nuget add source ~/packages --name Local
+      - swapref:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - swapref:
+          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - run: dotnet restore src/mathtone-magic.sln
+      # - 
+      - run:
+          name: Build & Test Solution (Release)
+          command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
       - persist_to_workspace:
           root: .
           paths:
-            - .
-  prep-release:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - checkout
-      - run:
-          name: Add local package store
-          command: |
-            mkdir packages
-            dotnet nuget add source ~/project/packages --name Local
-      - run: dotnet nuget list source
-      - run: dotnet restore src/mathtone-magic.sln
-      - pack-release:
-          project: src/CodeMagic/CodeMagic.csproj
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  run-alpha-unit-tests:
+            - packages
+  publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - attach_workspace:
           at: .
-      # - run: dotnet nuget add source ~/project/packages --name Local
-      # - run: dotnet restore src/chex.sln
-      # - run: dotnet build src/chex.sln --configuration Release
-      # - run: dotnet test src/chex.sln
-
-  run-release-unit-tests:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet nuget add source ~/project/packages --name Local
-      # - run: dotnet restore src/chex.sln
-      # - run: dotnet build src/chex.sln --configuration Release
-    # run: dotnet test src/chex.sln
-  
-  publish-alphas-artifactory:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - attach_workspace:
-          at: .
-          
       - run:
           name: "Add Artifactory"
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
-  publish-release-nuget:
+      - run:
+         name: Publish to Atifactory
+         command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+        
+  publish-nuget:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
       - attach_workspace:
           at: .
-      - run: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
+      - run:
+         name: Publish to Nuget
+         command: dotnet nuget push packages/*.nupkg --api-key ${NUGET_PUBLISH_KEY} --source https://api.nuget.org/v3/index.json
 workflows:
-  
-  build:
+  build-release:
     jobs:
-      - prep-alpha:
-          context: MATHTONE_DEV
+      - prep-project
+      - repack-projects:
           filters:
             branches:
-              only:
-                - /prerelease\/.*/
-      - run-alpha-unit-tests:
-           requires:
-             - prep-alpha
-      - publish-alphas-artifactory:
-           context: MATHTONE_DEV
-           requires:
-             - run-alpha-unit-tests
-      - prep-release:
+               only:
+                  - /release\/*/ # or regexes
           context: MATHTONE_DEV
+          name: Repack Project Refs
+          requires:
+            - prep-project
+      - publish-artifactory:
           filters:
             branches:
-              only:
-                - main
-      - run-release-unit-tests:
-          requires:
-            - prep-release
-      - publish-release-nuget:
+               only:
+                  - /release\/*/ # or regexes
           context: MATHTONE_DEV
           requires:
-            - run-release-unit-tests
+            - Repack Project Refs
+      - approve-release:
+          filters:
+            branches:
+               only:
+                  - /release\/*/ # or regexes
+          type: approval
+          name: Approve Release
+          requires:
+            - Repack Project Refs
+      - publish-nuget:
+          filters:
+            branches:
+               only:
+                  - /release\/*/ # or regexes
+          context: MATHTONE_DEV
+          requires:
+            - Approve Release
