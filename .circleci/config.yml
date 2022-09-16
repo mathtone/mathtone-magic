@@ -104,7 +104,8 @@ workflows:
       - deploy-alpha-nuget:
           type: approval
           requires:
-            - "Pack Release"
+            - "Pack Alpha"
+            
       # - pack-projects:
       #     suffix: alpha
       #     requires:
