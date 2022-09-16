@@ -26,8 +26,8 @@ namespace Mathtone.Sdk.Data.Sql.Tests {
 			Assert.Equal(3, rslt.Length);
 		}
 
-		protected SqlConnection CreateConnection() => CreateConnection(($"Server=localhost;User Id=sa;Password=test!1234"));
+		protected SqlConnection CreateConnection() => CreateConnection($"Server=localhost;User Id=sa;Password=test!1234");
 
-		protected SqlConnection CreateConnection(string connectionString) => new(connectionString);
+		protected static SqlConnection CreateConnection(string connectionString) => new(connectionString);
 	}
 }
