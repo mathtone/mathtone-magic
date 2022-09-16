@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMagic", "CodeMagic\CodeMagic.csproj", "{9CA3E88B-C554-4729-82C2-08931C14F2DF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{3EED3E78-37B6-4404-9022-73E41EA0F366}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -24,11 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql", "SD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Npgsql", "SDK\Mathtone.Sdk.Data.Npgsql\Mathtone.Sdk.Data.Npgsql.csproj", "{0C524475-ABEE-4FF3-8ABF-24836E452C48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data.Sql.Tests", "tests\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{4AE31020-427A-40AB-A230-33900183AC24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests", "tests\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{4AE31020-427A-40AB-A230-33900183AC24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data.Npgsql.Tests", "tests\Mathtone.Sdk.Data.Npgsql.Tests\Mathtone.Sdk.Data.Npgsql.Tests.csproj", "{F940B192-9BC9-4157-B747-001237EDFFE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Npgsql.Tests", "tests\Mathtone.Sdk.Data.Npgsql.Tests\Mathtone.Sdk.Data.Npgsql.Tests.csproj", "{F940B192-9BC9-4157-B747-001237EDFFE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data.Tests", "tests\Mathtone.Sdk.Data.Tests\Mathtone.Sdk.Data.Tests.csproj", "{5B1C7B7D-19A7-4DCF-AA07-BCC27A226163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Tests", "tests\Mathtone.Sdk.Data.Tests\Mathtone.Sdk.Data.Tests.csproj", "{5B1C7B7D-19A7-4DCF-AA07-BCC27A226163}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +34,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9CA3E88B-C554-4729-82C2-08931C14F2DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CA3E88B-C554-4729-82C2-08931C14F2DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CA3E88B-C554-4729-82C2-08931C14F2DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CA3E88B-C554-4729-82C2-08931C14F2DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52D614DF-D653-4F16-8EF1-C2E2A6BAE8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52D614DF-D653-4F16-8EF1-C2E2A6BAE8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D614DF-D653-4F16-8EF1-C2E2A6BAE8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
