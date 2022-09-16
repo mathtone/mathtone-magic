@@ -133,10 +133,10 @@ workflows:
     jobs:
       - prep-project
       - run-unit-tests:
-          #filters:
-          #  branches:
-          #     exclude:
-          #        - /release\/*/ # or regexes
+          filters:
+            branches:
+               ignore:
+                  - /release\/*/ # or regexes
           context: MATHTONE_DEV
           name: Run Unit Tests
           requires:
