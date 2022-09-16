@@ -28,7 +28,7 @@ commands:
             suffix=${ver#*-}
             build=${ver%-*}
             echo build- ${build} version- ${suffix}
-            if [ $suffix == "" ]
+            if [ $suffix == $build ]
             then
               echo "release"
               dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build}
