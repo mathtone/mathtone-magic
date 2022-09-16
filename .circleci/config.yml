@@ -119,6 +119,10 @@ workflows:
     jobs:
       - prep-project
       - repack-projects:
+          filters:
+            branches:
+               only:
+                  - /release\/*/ # or regexes
           context: MATHTONE_DEV
           name: Repack Project Refs
           requires:
