@@ -59,7 +59,12 @@ jobs:
           steps:
             - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages --version-suffix << parameters.suffix >>
       # swap refs
-  deploy-nuget:
+  deploy-alpha-nuget:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    steps:
+      - run: echo hi
+  deploy-alpha-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     steps:
@@ -110,6 +115,7 @@ workflows:
           requires:
              - "Pack Alpha"
       - deploy-alpha-nuget:
+          type: approval
           requires:
              - "Pack Alpha"
             
