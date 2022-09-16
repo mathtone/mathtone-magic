@@ -47,7 +47,7 @@ jobs:
           ACCEPT_EULA: Y
     steps:
       - checkout
-      - run: dotnet build src/mathtone-magic.sln --configuration Release
+      - run: dotnet test src/mathtone-magic.sln --configuration Release
 workflows:
   
   build:
