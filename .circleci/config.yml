@@ -51,7 +51,8 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
-      - run: dotnet pack  src/mathtone-magic.sln --configuration Release --output packages --version-suffix << parameters.suffix >>
+      # swap refs
+      - run: dotnet pack src/mathtone-magic.sln --configuration Release --output packages/<< parameters.suffix >> --version-suffix << parameters.suffix >>
 workflows:
   
   build:
