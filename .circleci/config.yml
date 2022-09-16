@@ -65,19 +65,9 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      # - run:
-      #     name: Build Solution (Debug)
-      #     command: dotnet build src/mathtone-magic.sln --configuration Debug
       - run: dotnet restore src/mathtone-magic.sln
       - pack-proj:
           proj: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-      #- run: dotnet build src/mathtone-magic.sln
-      # - run: |
-      #     branch=$CIRCLE_BRANCH
-      #     ver=${branch/"release/"/""}
-      #     build=${ver%-*}
-      #     dotnet pack src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj --configuration Release -o packages /p:VersionPrefix=${build}
-      # - run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
@@ -102,9 +92,6 @@ jobs:
           root: .
           paths:
             - packages
-      #persist projects to workspace
-      # - store_test_results:
-      #     path: test-results
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -137,19 +124,27 @@ workflows:
           requires:
             - prep-project
       - publish-artifactory:
+          filters:
+            branches:
+               only:
+                  - /release\/*/ # or regexes
           context: MATHTONE_DEV
           requires:
             - Repack Project Refs
       - approve-release:
+          filters:
+            branches:
+               only:
+                  - /release\/*/ # or regexes
           type: approval
           name: Approve Release
           requires:
             - Repack Project Refs
       - publish-nuget:
+          filters:
+            branches:
+               only:
+                  - /release\/*/ # or regexes
           context: MATHTONE_DEV
           requires:
             - Approve Release
-
-      # - publish-artifactory:
-      #     requires:
-      #       - repack-projects
