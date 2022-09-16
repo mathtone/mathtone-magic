@@ -20,7 +20,7 @@ namespace Mathtone.Sdk.Data.Sql.Tests {
 
 		protected override SqlConnection CreateConnection(string connectionString) => new(connectionString);
 
-		protected override SqlCommand CreateCommand(string commandText) => new SqlCommand(commandText);
+		protected override SqlCommand CreateCommand(string commandText) => new(commandText);
 
 		protected override string GetDateQuery => "SELECT GETDATE() as Value";
 
