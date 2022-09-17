@@ -96,6 +96,11 @@ jobs:
           proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
+      
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
 
       #swap test projects
       - swapref:
@@ -111,15 +116,13 @@ jobs:
           proj: src/tests/Mathtone.Sdk.Tests/Mathtone.Sdk.Tests.csproj
           ref: ../Mathtone.Sdk/Mathtone.Sdk.csproj
           pkg: Mathtone.Sdk
+
       - run: dotnet restore src/mathtone-magic.sln
       # - 
       - run:
           name: Build & Test Solution (Release)
           command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      
       - persist_to_workspace:
           root: .
           paths:
