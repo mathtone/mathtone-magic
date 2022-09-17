@@ -4,7 +4,6 @@
 			new DictionaryRepo<ID, T>(items, idSelector, assignNewId);
 
 		public static IRepository<ID, T> ToRepository<ID, T>(this IDictionary<ID, T> items, Action<T> assignNewId)
-			where T : IIdentified<ID> =>
-			new DictionaryRepo<ID, T>(items, i => i.Id, assignNewId);
+			where T : IIdentified<ID> => items.ToRepository(i => i.Id, assignNewId);
 	}
 }
