@@ -105,11 +105,11 @@ jobs:
       #swap test projects
       - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../../SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           pkg: Mathtone.Sdk.Data.Sql
       - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          ref: ../../SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           pkg: Mathtone.Sdk.Data.Npgsql
 
       - swapref:
