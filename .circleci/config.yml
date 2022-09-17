@@ -114,7 +114,7 @@ jobs:
 
       - swapref:
           proj: src/tests/Mathtone.Sdk.Tests/Mathtone.Sdk.Tests.csproj
-          ref: ../Mathtone.Sdk/Mathtone.Sdk.csproj
+          ref: ../../SDK/Mathtone.Sdk/Mathtone.Sdk.csproj
           pkg: Mathtone.Sdk
 
       - run: dotnet restore src/mathtone-magic.sln
