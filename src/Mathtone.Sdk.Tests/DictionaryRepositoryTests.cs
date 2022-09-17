@@ -2,28 +2,30 @@ using Mathtone.Sdk.Common;
 
 namespace Mathtone.Sdk.Tests {
 	public class TestValue : Identified<int> {
-		public TestValue(int id, string value=default) : base(id) {
+		public string Value { get; set; }
+		public TestValue(int id, string value = default) : base(id) {
 			Value = value;
 		}
-
-		public string Value { get; set; }
 	}
+
 	public class DictionaryRepositoryTests {
 
 		readonly IRepository<int, TestValue> _repositiory;
 
 		public DictionaryRepositoryTests() {
 			var itemId = 3;
-			_repositiory = new Dictionary<int, TestValue>(){
-				{1,new(1) },
-				{2,new(2) },
-				{3,new(3) }
-			}.ToRepository(i => i.Id = ++itemId);
+			_repositiory = new TestValue[]{
+				new(1),
+				new(2),
+				new(3)
+			}
+			.ToDictionary(i => i.Id)
+			.ToRepository(i => i.Id = ++itemId);
 		}
 
 		[Fact]
 		public void Create() =>
-			Assert.Equal(4, _repositiory.Create(new(4)));
+			Assert.Equal(4, _repositiory.Create(new(0)));
 
 		[Fact]
 		public void Read() =>
