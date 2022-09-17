@@ -82,9 +82,12 @@ jobs:
       - run: dotnet restore src/mathtone-magic.sln
       - pack-proj:
           proj: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk/Mathtone.Sdk.csproj
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
+      # swap Mathtone.Sdk.Data.Sql
       - swapref:
           proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
@@ -93,15 +96,33 @@ jobs:
           proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
+      
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      - pack-proj:
+          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+
+      #swap test projects
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
+          ref: ../../SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          pkg: Mathtone.Sdk.Data.Sql
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
+          ref: ../../SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          pkg: Mathtone.Sdk.Data.Npgsql
+
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Tests/Mathtone.Sdk.Tests.csproj
+          ref: ../../SDK/Mathtone.Sdk/Mathtone.Sdk.csproj
+          pkg: Mathtone.Sdk
+
       - run: dotnet restore src/mathtone-magic.sln
       # - 
       - run:
           name: Build & Test Solution (Release)
           command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      
       - persist_to_workspace:
           root: .
           paths:
