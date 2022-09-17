@@ -96,27 +96,21 @@ jobs:
           proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
-      
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
 
       #swap test projects
       - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../../SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           pkg: Mathtone.Sdk.Data.Sql
       - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../../SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          ref: ../Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           pkg: Mathtone.Sdk.Data.Npgsql
 
       - swapref:
           proj: src/tests/Mathtone.Sdk.Tests/Mathtone.Sdk.Tests.csproj
-          ref: ../../SDK/Mathtone.Sdk/Mathtone.Sdk.csproj
+          ref: ../Mathtone.Sdk/Mathtone.Sdk.csproj
           pkg: Mathtone.Sdk
-
       - run: dotnet restore src/mathtone-magic.sln
       # - 
       - run:
