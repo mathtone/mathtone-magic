@@ -9,25 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestResources\Value1.txt" />
-    <None Remove="TestResources\Value2.txt" />
-    <None Remove="TestResources\Value3.txt" />
-    <None Remove="TestResources\ValueFour.txt" />
-    <None Remove="RES\Value1.txt" />
-    <None Remove="RES\Value2.txt" />
-    <None Remove="RES\Value3.txt" />
-    <None Remove="RES\ValueFour.txt" />
+    <None Remove="TestResources2\Value1.txt" />
+    <None Remove="TestResources2\Value2.txt" />
+    <None Remove="TestResources2\Value3.txt" />
+    <None Remove="TestResources2\ValueFour.txt" />
+    <None Remove="TestResources1\Value1.txt" />
+    <None Remove="TestResources1\Value2.txt" />
+    <None Remove="TestResources1\Value3.txt" />
+    <None Remove="TestResources1\ValueFour.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestResources\Value1.txt" />
-    <EmbeddedResource Include="TestResources\Value2.txt" />
-    <EmbeddedResource Include="TestResources\Value3.txt" />
-    <EmbeddedResource Include="TestResources\ValueFour.txt" />
-    <EmbeddedResource Include="RES\Value1.txt" />
-    <EmbeddedResource Include="RES\Value2.txt" />
-    <EmbeddedResource Include="RES\ValueFour.txt" />
-    <EmbeddedResource Include="RES\Value3.txt" />
+    <EmbeddedResource Include="TestResources2\Value1.txt" />
+    <EmbeddedResource Include="TestResources2\Value2.txt" />
+    <EmbeddedResource Include="TestResources2\Value3.txt" />
+    <EmbeddedResource Include="TestResources2\ValueFour.txt" />
+    <EmbeddedResource Include="TestResources1\Value1.txt" />
+    <EmbeddedResource Include="TestResources1\Value2.txt" />
+    <EmbeddedResource Include="TestResources1\ValueFour.txt" />
+    <EmbeddedResource Include="TestResources1\Value3.txt" />
   </ItemGroup>
 
   <ItemGroup>

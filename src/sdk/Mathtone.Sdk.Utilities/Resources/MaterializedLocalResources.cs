@@ -62,6 +62,7 @@ namespace Mathtone.Sdk.Utilities.Resources {
 
 	[AttributeUsage(AttributeTargets.Property| AttributeTargets.Field)]
 	public class ResourceAttribute : Attribute {
+		
 		public string? ResourceName { get; }
 
 		public ResourceAttribute(string? name = default) {
