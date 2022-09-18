@@ -23,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SDK\Mathtone.Sdk.Data.Sql\Mathtone.Sdk.Data.Sql.csproj" />
-    <ProjectReference Include="..\Mathtone.Sdk.Data.Npgsql.Tests\Mathtone.Sdk.Data.Npgsql.Tests.csproj" />
     <ProjectReference Include="..\Mathtone.Sdk.Data.Tests\Mathtone.Sdk.Data.Tests.csproj" />
   </ItemGroup>
 
