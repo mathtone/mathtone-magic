@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data", "sdk\Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Tests", "tests\Mathtone.Sdk.Data.Tests\Mathtone.Sdk.Data.Tests.csproj", "{1BE6FB36-3BD4-47EB-94E5-E85FBC510410}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data.Sql.Tests", "sdk\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{18174B28-4A8E-4972-8289-731BCF790C43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{1BE6FB36-3BD4-47EB-94E5-E85FBC510410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BE6FB36-3BD4-47EB-94E5-E85FBC510410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BE6FB36-3BD4-47EB-94E5-E85FBC510410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18174B28-4A8E-4972-8289-731BCF790C43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18174B28-4A8E-4972-8289-731BCF790C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18174B28-4A8E-4972-8289-731BCF790C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18174B28-4A8E-4972-8289-731BCF790C43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{F4C9DED3-7049-4A7D-A9FC-4ECA745046F9} = {B70C3509-426C-415E-AB37-345F91111861}
 		{0F749E62-915B-4B96-9266-3E1B107D685E} = {B61610E1-BB47-42D5-808E-3DA370C7FA8B}
 		{1BE6FB36-3BD4-47EB-94E5-E85FBC510410} = {B70C3509-426C-415E-AB37-345F91111861}
+		{18174B28-4A8E-4972-8289-731BCF790C43} = {B70C3509-426C-415E-AB37-345F91111861}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}

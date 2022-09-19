@@ -1,10 +1,25 @@
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Security.AccessControl;
 using Mathtone.Sdk.Data;
 using Xunit.Sdk;
 
 namespace Mathtone.Sdk.Data.Tests {
+
+	public abstract class DbConnectionTestBase<CN> where CN : DbConnection, new() {
+
+		protected abstract string ConnectionString { get; }
+		protected CN Connect() => new() { ConnectionString = ConnectionString };
+
+		[Fact]
+		public async Task MakeConnection() {
+			using var cn = Connect();
+			await cn.OpenAsync();
+			Assert.Equal(ConnectionState.Open, cn.State);
+			await cn.CloseAsync();
+		}
+	}
 
 	//public abstract class IDbConnectionExtensionsTests<CN, CMD>
 	//	where CN : IDbConnection
@@ -92,7 +107,7 @@ namespace Mathtone.Sdk.Data.Tests {
 	//			cmd.Connection.Open();
 	//			var rslt = cmd
 	//				.ExecuteRead(r => r);
-				
+
 	//			Assert.True(rslt.GetType().IsAssignableTo(typeof(IDataReader)));
 	//		}
 	//	}
