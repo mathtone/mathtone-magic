@@ -74,7 +74,7 @@ jobs:
           POSTGRES_PASSWORD: ${PGSQL_TEST_PWD}
       - image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
-          MSSQL_SA_PASSWORD: ${SQL_TEST_PWD}
+          MSSQL_SA_PASSWORD: ${SQL_TEST_PWD}!!!
           ACCEPT_EULA: Y
     working_directory: /mnt/ramdisk
     steps:
