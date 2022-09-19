@@ -1,5 +1,7 @@
 using Mathtone.Sdk.Utilities.Resources;
+using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Linq;
 
 namespace Mathtone.Sdk.Utilities.Tests {
 
@@ -24,28 +26,26 @@ namespace Mathtone.Sdk.Utilities.Tests {
 		}
 	}
 
-	
-
-
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-public class TestResources1 : MaterializedLocalResources {
-	public readonly string Value1;
-	[Resource("Value2")]
-	public readonly string Value2;
-	public string Value3 { get; init; }
-	[Resource("ValueFour")]
-	public string Value4 { get; init; }
-}
+	public class TestResources1 : MaterializedLocalResources {
+		public readonly string Value1;
+		[Resource("Value2")]
+		public readonly string Value2;
+		public string Value3 { get; init; }
+		[Resource("ValueFour")]
+		public string Value4 { get; init; }
+	}
 
-[ResourcePath("TestResources2")]
-public class ResourceSchmeesource : MaterializedLocalResources {
-	public readonly string Value1;
-	[Resource("Value2")]
-	public readonly string Value2;
-	public string Value3 { get; init; }
-	[Resource("ValueFour")]
-	public string Value4 { get; init; }
-}
+	[ResourcePath("TestResources2")]
+	public class ResourceSchmeesource : MaterializedLocalResources {
+		public readonly string Value1;
+		[Resource("Value2")]
+		public readonly string Value2;
+		public string Value3 { get; init; }
+		[Resource("ValueFour")]
+		public string Value4 { get; init; }
+	}
+
 #pragma warning restore CS8618
 }
