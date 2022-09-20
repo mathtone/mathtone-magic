@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Data\Mathtone.Sdk.Data.csproj" />
+  </ItemGroup>
+
 </Project>

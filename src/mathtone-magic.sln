@@ -29,11 +29,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Testing.Xunit"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Testing.Xunit.Tests", "tests\Mathtone.Sdk.Testing.Xunit.Tests\Mathtone.Sdk.Testing.Xunit.Tests.csproj", "{F4C9DED3-7049-4A7D-A9FC-4ECA745046F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data", "sdk\Mathtone.Sdk.Data\Mathtone.Sdk.Data.csproj", "{0F749E62-915B-4B96-9266-3E1B107D685E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data", "sdk\Mathtone.Sdk.Data\Mathtone.Sdk.Data.csproj", "{0F749E62-915B-4B96-9266-3E1B107D685E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Tests", "tests\Mathtone.Sdk.Data.Tests\Mathtone.Sdk.Data.Tests.csproj", "{1BE6FB36-3BD4-47EB-94E5-E85FBC510410}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Data.Sql.Tests", "sdk\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{18174B28-4A8E-4972-8289-731BCF790C43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests", "sdk\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{18174B28-4A8E-4972-8289-731BCF790C43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Logging", "sdk\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj", "{DB73D5F1-730F-4663-9764-F0F320272CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Logging.Tests", "tests\Mathtone.Sdk.Logging.Tests\Mathtone.Sdk.Logging.Tests.csproj", "{C687460A-9E12-48DB-980F-814D9683DEC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_Sandbox", "tests\Sandbox\_Sandbox.csproj", "{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +83,18 @@ Global
 		{18174B28-4A8E-4972-8289-731BCF790C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18174B28-4A8E-4972-8289-731BCF790C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18174B28-4A8E-4972-8289-731BCF790C43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB73D5F1-730F-4663-9764-F0F320272CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB73D5F1-730F-4663-9764-F0F320272CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB73D5F1-730F-4663-9764-F0F320272CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB73D5F1-730F-4663-9764-F0F320272CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C687460A-9E12-48DB-980F-814D9683DEC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C687460A-9E12-48DB-980F-814D9683DEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C687460A-9E12-48DB-980F-814D9683DEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C687460A-9E12-48DB-980F-814D9683DEC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +109,9 @@ Global
 		{0F749E62-915B-4B96-9266-3E1B107D685E} = {B61610E1-BB47-42D5-808E-3DA370C7FA8B}
 		{1BE6FB36-3BD4-47EB-94E5-E85FBC510410} = {B70C3509-426C-415E-AB37-345F91111861}
 		{18174B28-4A8E-4972-8289-731BCF790C43} = {B70C3509-426C-415E-AB37-345F91111861}
+		{DB73D5F1-730F-4663-9764-F0F320272CE0} = {B61610E1-BB47-42D5-808E-3DA370C7FA8B}
+		{C687460A-9E12-48DB-980F-814D9683DEC4} = {B70C3509-426C-415E-AB37-345F91111861}
+		{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B} = {B70C3509-426C-415E-AB37-345F91111861}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}

@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Mathtone.Sdk.Data.Tests {
@@ -17,6 +18,11 @@ namespace Mathtone.Sdk.Data.Tests {
 			cn.Close();
 		}
 	}
+
+	
+
+
+
 
 	//public abstract class IDbConnectionExtensionsTests<CN, CMD>
 	//	where CN : IDbConnection

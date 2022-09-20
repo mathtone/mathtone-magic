@@ -1,3 +1,5 @@
+using Mathtone.Sdk.Common.Extensions;
+
 namespace Mathtone.Sdk.Common.Tests {
 	public class UnitTest1 {
 		[Fact]
