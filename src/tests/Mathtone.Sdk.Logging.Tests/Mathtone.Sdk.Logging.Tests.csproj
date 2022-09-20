@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Common\Mathtone.Sdk.Common.csproj" />
     <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj" />
+    <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Testing.Xunit\Mathtone.Sdk.Testing.Xunit.csproj" />
   </ItemGroup>
 
 </Project>

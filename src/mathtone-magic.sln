@@ -10,12 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{B61610E1-BB47-42D5-808E-3DA370C7FA8B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A. SDK", "A. SDK", "{B61610E1-BB47-42D5-808E-3DA370C7FA8B}"
 	ProjectSection(SolutionItems) = preProject
 		SDK\Directory.Build.props = SDK\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B70C3509-426C-415E-AB37-345F91111861}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "X. Tests", "X. Tests", "{B70C3509-426C-415E-AB37-345F91111861}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Utilities", "sdk\Mathtone.Sdk.Utilities\Mathtone.Sdk.Utilities.csproj", "{FFC2D217-D8E3-4A7E-9B3A-D405E2D29E3C}"
 EndProject
@@ -35,11 +35,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests", "sdk\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{18174B28-4A8E-4972-8289-731BCF790C43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Logging", "sdk\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj", "{DB73D5F1-730F-4663-9764-F0F320272CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Logging", "sdk\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj", "{DB73D5F1-730F-4663-9764-F0F320272CE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Logging.Tests", "tests\Mathtone.Sdk.Logging.Tests\Mathtone.Sdk.Logging.Tests.csproj", "{C687460A-9E12-48DB-980F-814D9683DEC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Logging.Tests", "tests\Mathtone.Sdk.Logging.Tests\Mathtone.Sdk.Logging.Tests.csproj", "{C687460A-9E12-48DB-980F-814D9683DEC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_Sandbox", "tests\Sandbox\_Sandbox.csproj", "{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_Sandbox", "tests\Sandbox\_Sandbox.csproj", "{038EC6A9-D6C9-426E-AB2B-EC8313D68D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
