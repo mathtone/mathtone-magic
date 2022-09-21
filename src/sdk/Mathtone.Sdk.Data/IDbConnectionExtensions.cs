@@ -1,19 +1,87 @@
-﻿using System.Data;
+﻿using Microsoft.VisualBasic;
+using System.Data;
 using System.Data.Common;
+using System.Runtime.InteropServices;
 
 namespace Mathtone.Sdk.Data {
+
 	public static class IDbConnectionExtensions {
 
 		public static CMD CreateCommand<CMD>(this IDbConnection connection)
-			where CMD : DbCommand => (CMD)connection.CreateCommand();
+			where CMD : IDbCommand => (CMD)connection.CreateCommand();
 
-		public static CMD CreateCommand<CMD>(this IDbConnection connection, string commandText, CommandType type = CommandType.Text, int timeout = 30 )
-			where CMD : DbCommand {
+		
+
+		public static CMD CreateCommand<CMD>(this IDbConnection connection, string commandText, CommandType type = CommandType.Text, int timeout = 30)
+			where CMD : IDbCommand {
 			var rtn = connection.CreateCommand<CMD>();
 			rtn.CommandText = commandText;
 			rtn.CommandType = type;
 			rtn.CommandTimeout = timeout;
 			return rtn;
+		}
+
+		public static IDbCommand CreateCommand(this IDbConnection connection) =>
+			 connection.CreateCommand<IDbCommand>();
+
+		public static IDbCommand CreateCommand(this IDbConnection connection, string commandText, CommandType type = CommandType.Text, int timeout = 30) =>
+			connection.CreateCommand<IDbCommand>(commandText, type, timeout);
+
+		public static void Used<CN>(this CN connection, Action<CN> action) where CN : IDbConnection {
+			connection.Open();
+			try {
+				action(connection);
+			}
+			finally {
+				connection.Close();
+				connection.Dispose();
+			}
+		}
+	}
+
+	public static class DbConnectionExtensions {
+		public static async Task UsedAsync<CN>(this CN connection, Action<CN> action, CancellationToken token = default) where CN : DbConnection {
+			await connection.OpenAsync(token);
+			try {
+				action(connection);
+			}
+			finally {
+				await connection.CloseAsync();
+				await connection.DisposeAsync();
+			}
+		}
+
+		public static async Task<RSLT> UsedAsync<CN, RSLT>(this CN connection, Func<CN, RSLT> selector, CancellationToken token = default) where CN : DbConnection {
+			await connection.OpenAsync(token);
+			try {
+				return selector(connection);
+			}
+			finally {
+				await connection.CloseAsync();
+				await connection.DisposeAsync();
+			}
+		}
+
+		public static async Task UsedAsync<CN>(this CN connection, Func<CN, Task> asyncAction, CancellationToken token = default) where CN : DbConnection {
+			await connection.OpenAsync(token);
+			try {
+				await asyncAction(connection);
+			}
+			finally {
+				await connection.CloseAsync();
+				await connection.DisposeAsync();
+			}
+		}
+
+		public static async Task<RSLT> UsedAsync<CN, RSLT>(this CN connection, Func<CN, Task<RSLT>> asyncSelector, CancellationToken token = default) where CN : DbConnection {
+			await connection.OpenAsync(token);
+			try {
+				return await asyncSelector(connection);
+			}
+			finally {
+				await connection.CloseAsync();
+				await connection.DisposeAsync();
+			}
 		}
 	}
 }

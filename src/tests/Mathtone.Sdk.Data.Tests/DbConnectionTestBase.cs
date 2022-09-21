@@ -7,19 +7,7 @@ using Xunit.Sdk;
 
 namespace Mathtone.Sdk.Data.Tests {
 
-	public abstract class DbConnectionTestBase<CN> where CN : DbConnection, new() {
-
-		protected abstract string ConnectionString { get; }
-		protected CN Connect() => new() { ConnectionString = ConnectionString };
-
-		[Fact]
-		public async Task MakeConnection() {
-			using var cn = Connect();
-			await cn.OpenAsync();
-			Assert.Equal(ConnectionState.Open, cn.State);
-			await cn.CloseAsync();
-		}
-	}
+	
 
 	//public abstract class IDbConnectionExtensionsTests<CN, CMD>
 	//	where CN : IDbConnection

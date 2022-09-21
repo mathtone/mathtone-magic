@@ -9,29 +9,28 @@ using Xunit.Sdk;
 
 namespace Mathtone.Sdk.Testing.Xunit.Tests {
 
-	public class XunitLoggerTests : IAsyncTextOutput {
+	public class XunitLoggerTests : XunitTest {
 
-		readonly XunitOutputAdapter _output;
 		readonly StringBuilder sb = new();
 
-		public XunitLoggerTests(ITestOutputHelper output) {
-			_output = new(output);
+		public XunitLoggerTests(ITestOutputHelper output) :
+			base(output) {
 		}
 
 		[Fact]
 		public void LogInformation() {
-			XunitLogger.Create<XunitLoggerTests>(this).LogInformation("TEST");
+			CreateLog().LogInformation("TEST");
 			Assert.Equal($"TEST{Environment.NewLine}", sb.ToString());
 		}
 
-		Task IAsyncTextOutput.WriteAsync(string text) {
+		public override void Write(string text) {
 			sb.Append(text);
-			return _output.WriteAsync(text);
+			base.Write(text);
 		}
 
-		void ITextOutput.Write(string text) {
+		public override Task WriteAsync(string text) {
 			sb.Append(text);
-			_output.Write(text);
+			return base.WriteAsync(text);
 		}
 	}
 }

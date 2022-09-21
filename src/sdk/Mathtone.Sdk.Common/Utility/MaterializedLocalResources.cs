@@ -32,23 +32,22 @@ namespace Mathtone.Sdk.Common.Utility {
 		}
 
 		void HandleProperty(PropertyInfo property, IDictionary<string, string> resources) {
-			var attr = property.GetCustomAttribute<ResourceAttribute>();
-			var name = attr?.ResourceName ?? property.Name;
+			var name = GetResourceName(property);
 			if (resources.ContainsKey(name)) {
-				var n = resources[name];
-				var v = property.DeclaringType!.Assembly.GetResource(n)!;
-				property.SetValue(this, v);
+				property.SetValue(this, property.DeclaringType!.Assembly.GetResource(resources[name])!);
 			}
 		}
 
 		void HandleField(FieldInfo field, IDictionary<string, string> resources) {
-			var attr = field.GetCustomAttribute<ResourceAttribute>();
-			var name = attr?.ResourceName ?? field.Name;
+			var name = GetResourceName(field);
 			if (resources.ContainsKey(name)) {
-				var n = resources[name];
-				var v = field.DeclaringType!.Assembly.GetResource(n)!;
-				field.SetValue(this, v);
+				field.SetValue(this, field.DeclaringType!.Assembly.GetResource(resources[name])!);
 			}
+		}
+
+		static string GetResourceName(MemberInfo member) {
+			var attr = member.GetCustomAttribute<ResourceAttribute>();
+			return attr?.ResourceName ?? member.Name;
 		}
 	}
 
