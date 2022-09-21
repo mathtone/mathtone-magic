@@ -5,27 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
-
-	public abstract class XunitTest : IAsyncTextOutput {
-
-		protected XunitOutputAdapter Output { get; }
-
-		protected XunitTest(ITestOutputHelper output) {
-			Output = new(output);
-		}
-
-		public virtual Task WriteAsync(string text) =>
-			Output.WriteAsync(text);
-
-		public virtual void Write(string text) =>
-			Output.Write(text);
-
-		protected ILogger CreateLog() => XunitLogger.Create(this);
-		protected ILogger<T> CreateLog<T>() => XunitLogger.Create<T>(this);
-	}
 
 	public class XunitLogger : ILogger {
 
