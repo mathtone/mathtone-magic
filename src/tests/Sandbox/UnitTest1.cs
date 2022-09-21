@@ -4,9 +4,15 @@ using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using System.Xml.Linq;
 using _Sandbox.Logging.Console;
+using System.Data.SqlClient;
+using Mathtone.Sdk.Data;
 
 namespace Sandbox {
+
+	
+
 	public class UnitTest1 {
+
 		[Fact]
 		public void Test1() {
 
@@ -44,5 +50,9 @@ namespace Sandbox {
 
 			//await host.RunAsync();
 		}
+	}
+
+	public static class IDbCommandExtensions {
+
 	}
 }

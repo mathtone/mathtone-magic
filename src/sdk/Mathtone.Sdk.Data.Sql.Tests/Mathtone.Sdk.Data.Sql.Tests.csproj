@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\tests\Mathtone.Sdk.Data.Tests\Mathtone.Sdk.Data.Tests.csproj" />
+    <ProjectReference Include="..\Mathtone.Sdk.Data.Sql\Mathtone.Sdk.Data.Sql.csproj" />
     <ProjectReference Include="..\Mathtone.Sdk.Testing.Xunit\Mathtone.Sdk.Testing.Xunit.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Runtime.InteropServices;
@@ -7,11 +8,7 @@ namespace Mathtone.Sdk.Data {
 
 	public static class IDbConnectionExtensions {
 
-		public static CMD CreateCommand<CMD>(this IDbConnection connection)
-			where CMD : IDbCommand => (CMD)connection.CreateCommand();
-
-		
-
+		public static CMD CreateCommand<CMD>(this IDbConnection connection) where CMD : IDbCommand => (CMD)connection.CreateCommand();
 		public static CMD CreateCommand<CMD>(this IDbConnection connection, string commandText, CommandType type = CommandType.Text, int timeout = 30)
 			where CMD : IDbCommand {
 			var rtn = connection.CreateCommand<CMD>();
@@ -21,9 +18,7 @@ namespace Mathtone.Sdk.Data {
 			return rtn;
 		}
 
-		public static IDbCommand CreateCommand(this IDbConnection connection) =>
-			 connection.CreateCommand<IDbCommand>();
-
+		public static IDbCommand CreateCommand(this IDbConnection connection) => connection.CreateCommand<IDbCommand>();
 		public static IDbCommand CreateCommand(this IDbConnection connection, string commandText, CommandType type = CommandType.Text, int timeout = 30) =>
 			connection.CreateCommand<IDbCommand>(commandText, type, timeout);
 
@@ -51,10 +46,10 @@ namespace Mathtone.Sdk.Data {
 			}
 		}
 
-		public static async Task<RSLT> UsedAsync<CN, RSLT>(this CN connection, Func<CN, RSLT> selector, CancellationToken token = default) where CN : DbConnection {
+		public static async Task UsedAsync<CN>(this CN connection, Func<CN, Task> asyncAction, CancellationToken token = default) where CN : DbConnection {
 			await connection.OpenAsync(token);
 			try {
-				return selector(connection);
+				await asyncAction(connection);
 			}
 			finally {
 				await connection.CloseAsync();
@@ -62,10 +57,10 @@ namespace Mathtone.Sdk.Data {
 			}
 		}
 
-		public static async Task UsedAsync<CN>(this CN connection, Func<CN, Task> asyncAction, CancellationToken token = default) where CN : DbConnection {
+		public static async Task<RSLT> UsedAsync<CN, RSLT>(this CN connection, Func<CN, RSLT> selector, CancellationToken token = default) where CN : DbConnection {
 			await connection.OpenAsync(token);
 			try {
-				await asyncAction(connection);
+				return selector(connection);
 			}
 			finally {
 				await connection.CloseAsync();
