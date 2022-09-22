@@ -9,7 +9,7 @@ using Xunit.Sdk;
 
 namespace Mathtone.Sdk.Testing.Xunit.Tests {
 
-	public class XunitLoggerTests : XunitTest {
+	public class XunitLoggerTests : XunitTestBase {
 
 		readonly StringBuilder sb = new();
 

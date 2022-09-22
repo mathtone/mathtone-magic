@@ -3,11 +3,17 @@ using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
-	public abstract class XunitTest : IAsyncTextOutput {
+	
+	public abstract class XunitTest<T> : XunitTestBase {
+		protected XunitTest(ITestOutputHelper output) : base(output) {
+		}
+	}
+
+	public abstract class XunitTestBase : IAsyncTextOutput {
 
 		protected XunitOutputAdapter Output { get; }
 
-		protected XunitTest(ITestOutputHelper output) {
+		protected XunitTestBase(ITestOutputHelper output) {
 			Output = new(output);
 		}
 

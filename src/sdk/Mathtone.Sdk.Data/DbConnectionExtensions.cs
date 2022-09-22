@@ -8,7 +8,6 @@ namespace Mathtone.Sdk.Data {
 				action(connection);
 			}
 			finally {
-				await connection.CloseAsync();
 				await connection.DisposeAsync();
 			}
 		}
@@ -19,7 +18,6 @@ namespace Mathtone.Sdk.Data {
 				await asyncAction(connection);
 			}
 			finally {
-				await connection.CloseAsync();
 				await connection.DisposeAsync();
 			}
 		}
@@ -30,7 +28,6 @@ namespace Mathtone.Sdk.Data {
 				return selector(connection);
 			}
 			finally {
-				await connection.CloseAsync();
 				await connection.DisposeAsync();
 			}
 		}
@@ -41,7 +38,6 @@ namespace Mathtone.Sdk.Data {
 				return await asyncSelector(connection);
 			}
 			finally {
-				await connection.CloseAsync();
 				await connection.DisposeAsync();
 			}
 		}

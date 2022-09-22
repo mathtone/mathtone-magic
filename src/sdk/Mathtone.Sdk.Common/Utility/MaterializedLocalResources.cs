@@ -23,25 +23,25 @@ namespace Mathtone.Sdk.Common.Utility {
 			foreach (var mem in type.GetMembers(flags)) {
 
 				if (mem is PropertyInfo prop) {
-					HandleProperty(prop, resources);
+					HandleProperty(prop,type, resources);
 				}
 				else if (mem is FieldInfo field) {
-					HandleField(field, resources);
+					HandleField(field, type,resources);
 				}
 			}
 		}
 
-		void HandleProperty(PropertyInfo property, IDictionary<string, string> resources) {
+		void HandleProperty(PropertyInfo property, Type type, IDictionary<string, string> resources) {
 			var name = GetResourceName(property);
 			if (resources.ContainsKey(name)) {
-				property.SetValue(this, property.DeclaringType!.Assembly.GetResource(resources[name])!);
+				property.SetValue(this, type.Assembly.GetResource(resources[name])!);
 			}
 		}
 
-		void HandleField(FieldInfo field, IDictionary<string, string> resources) {
+		void HandleField(FieldInfo field,Type type, IDictionary<string, string> resources) {
 			var name = GetResourceName(field);
 			if (resources.ContainsKey(name)) {
-				field.SetValue(this, field.DeclaringType!.Assembly.GetResource(resources[name])!);
+				field.SetValue(this, type.Assembly.GetResource(resources[name])!);
 			}
 		}
 

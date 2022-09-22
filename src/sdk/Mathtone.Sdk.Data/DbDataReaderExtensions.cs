@@ -8,11 +8,11 @@ namespace Mathtone.Sdk.Data {
 				yield return selector(reader);
 		}
 
-		public static async IAsyncEnumerable<T> ConsumeAsync<RDR, T>(this RDR reader, Func<RDR, Task<T>> selector)
-			where RDR : DbDataReader {
-			while (await reader.ReadAsync())
-				yield return await selector(reader);
-		}
+		//public static async IAsyncEnumerable<T> ConsumeAsync<RDR, T>(this RDR reader, Func<RDR, Task<T>> selector)
+		//	where RDR : DbDataReader {
+		//	while (await reader.ReadAsync())
+		//		yield return await selector(reader);
+		//}
 
 
 		public static async IAsyncEnumerable<T> ConsumeAsync<RDR, T>(this Task<RDR> reader, Func<RDR, T> selector)
@@ -22,11 +22,11 @@ namespace Mathtone.Sdk.Data {
 			}
 		}
 
-		public static async IAsyncEnumerable<T> ConsumeAsync<RDR, T>(this Task<RDR> reader, Func<RDR, Task<T>> selector)
-			where RDR : DbDataReader {
-			await foreach (var r in (await reader).ConsumeAsync(async r => await selector(r))) {
-				yield return r;
-			}
-		}
+		//public static async IAsyncEnumerable<T> ConsumeAsync<RDR, T>(this Task<RDR> reader, Func<RDR, Task<T>> selector)
+		//	where RDR : DbDataReader {
+		//	await foreach (var r in (await reader).ConsumeAsync(async r => await selector(r))) {
+		//		yield return r;
+		//	}
+		//}
 	}
 }
