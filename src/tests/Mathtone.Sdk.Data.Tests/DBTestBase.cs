@@ -1,5 +1,5 @@
-﻿using Mathtone.Sdk.Common.Utility;
-using Mathtone.Sdk.Testing.Xunit;
+﻿using Mathtone.Sdk.Testing.Xunit;
+using Mathtone.Sdk.Utilities.Resources;
 using System.Data;
 using Xunit.Abstractions;
 using Xunit.Sdk;

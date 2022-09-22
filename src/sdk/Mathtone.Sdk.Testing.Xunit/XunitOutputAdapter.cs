@@ -1,4 +1,4 @@
-﻿using Mathtone.Sdk.Common.Utility;
+﻿using Mathtone.Sdk.Utilities;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {

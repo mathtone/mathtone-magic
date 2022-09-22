@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mathtone.Sdk.Common\Mathtone.Sdk.Common.csproj" />
+    <ProjectReference Include="..\Mathtone.Sdk.Utilities\Mathtone.Sdk.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

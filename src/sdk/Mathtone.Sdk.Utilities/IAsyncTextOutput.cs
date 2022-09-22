@@ -1,4 +1,10 @@
-﻿namespace Mathtone.Sdk.Common.Utility {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Mathtone.Sdk.Utilities {
 	public interface IAsyncTextOutput : ITextOutput {
 		public Task WriteLineAsync(string text) => WriteAsync(text + Environment.NewLine);
 		public Task WriteAsync(string text);

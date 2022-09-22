@@ -23,30 +23,30 @@ namespace Mathtone.Sdk.Utilities.Resources {
 			foreach (var mem in type.GetMembers(flags)) {
 
 				if (mem is PropertyInfo prop) {
-					HandleProperty(prop, resources);
+					HandleProperty(prop, type, resources);
 				}
 				else if (mem is FieldInfo field) {
-					HandleField(field, resources);
+					HandleField(field, type, resources);
 				}
 			}
 		}
 
-		void HandleProperty(PropertyInfo property, IDictionary<string, string> resources) {
+		void HandleProperty(PropertyInfo property, Type type, IDictionary<string, string> resources) {
 			var attr = property.GetCustomAttribute<ResourceAttribute>();
 			var name = attr?.ResourceName ?? property.Name;
 			if (resources.ContainsKey(name)) {
 				var n = resources[name];
-				var v = property.DeclaringType!.Assembly.GetResource(n)!;
+				var v = type.Assembly.GetResource(n)!;
 				property.SetValue(this, v);
 			}
 		}
 
-		void HandleField(FieldInfo field, IDictionary<string, string> resources) {
+		void HandleField(FieldInfo field, Type type, IDictionary<string, string> resources) {
 			var attr = field.GetCustomAttribute<ResourceAttribute>();
 			var name = attr?.ResourceName ?? field.Name;
 			if (resources.ContainsKey(name)) {
 				var n = resources[name];
-				var v = field.DeclaringType!.Assembly.GetResource(n)!;
+				var v = type.Assembly.GetResource(n)!;
 				field.SetValue(this, v);
 			}
 		}
@@ -60,9 +60,9 @@ namespace Mathtone.Sdk.Utilities.Resources {
 		}
 	}
 
-	[AttributeUsage(AttributeTargets.Property| AttributeTargets.Field)]
+	[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 	public class ResourceAttribute : Attribute {
-		
+
 		public string? ResourceName { get; }
 
 		public ResourceAttribute(string? name = default) {

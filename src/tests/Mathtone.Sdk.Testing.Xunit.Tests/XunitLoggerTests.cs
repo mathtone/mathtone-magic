@@ -1,4 +1,3 @@
-using Mathtone.Sdk.Common.Utility;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Microsoft.VisualStudio.TestPlatform.Utilities;

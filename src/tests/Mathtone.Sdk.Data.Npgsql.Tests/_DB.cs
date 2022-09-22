@@ -1,5 +1,5 @@
-﻿using Mathtone.Sdk.Common.Utility;
-using Mathtone.Sdk.Data.Tests;
+﻿using Mathtone.Sdk.Data.Tests;
+using Mathtone.Sdk.Utilities.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
