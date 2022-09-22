@@ -1,0 +1,5 @@
+﻿SELECT * FROM(
+	SELECT 1 id,'A' value
+	UNION ALL SELECT 2,'B'
+	UNION ALL SELECT 3,'C'
+) vals ORDER BY $ORDERBY$

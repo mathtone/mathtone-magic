@@ -22,8 +22,20 @@ namespace Mathtone.Sdk.Data.Tests {
 			Assert.Equal(ConnectionState.Open, cn.State);
 			await cn.CloseAsync();
 		}
+
+		[Fact]
+		public void CreateCommand_1() {
+			Assert.NotNull(Connect().CreateCommand());
+		}
+
+		[Fact]
+		public void CreateCommand_2() {
+			var cmd = Connect().CreateCommand("TEST");
+			Assert.Equal("TEST", cmd.CommandText);
+		}
 	}
 
+	
 	//public abstract class IDbConnectionExtensionsTests<CN, CMD>
 	//	where CN : IDbConnection
 	//	where CMD : IDbCommand {

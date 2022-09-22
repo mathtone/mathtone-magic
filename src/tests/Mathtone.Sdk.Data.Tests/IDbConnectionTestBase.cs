@@ -4,25 +4,27 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Mathtone.Sdk.Data.Tests {
 
-	[SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Operates on the interface so...")]
-	public abstract class IDbConnectionTestBase<CN> where CN : IDbConnection, new() {
+	//[SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Operates on the interface so...")]
+	//public abstract class IDbConnectionTestBase<CN> where CN : IDbConnection, new() {
 
-		protected abstract string ConnectionString { get; }
-		protected CN Connect() => new() { ConnectionString = ConnectionString };
-
-		[Fact]
-		public void MakeConnection() {
-			using var cn = Connect();
-			cn.Open();
-			Assert.Equal(ConnectionState.Open, cn.State);
-			cn.Close();
-		}
-	}
-
-	
+	//	protected abstract string ConnectionString { get; }
+	//	protected CN Connect() => new() { ConnectionString = ConnectionString };
 
 
+	//	[Fact]
+	//	public void MakeConnection() {
+	//		using var cn = Connect();
+	//		cn.Open();
+	//		Assert.Equal(ConnectionState.Open, cn.State);
+	//		cn.Close();
+	//	}
 
+	//	[Fact]
+	//	public void CreateCommand() {
+	//		var cmd = (Connect() as IDbConnection).CreateCommand("TEST");
+	//		Assert.Equal("TEST", cmd.CommandText);
+	//	}
+	//}
 
 	//public abstract class IDbConnectionExtensionsTests<CN, CMD>
 	//	where CN : IDbConnection

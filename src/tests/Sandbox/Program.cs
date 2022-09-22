@@ -9,9 +9,7 @@ using Mathtone.Sdk.Data;
 
 namespace Sandbox {
 
-	
-
-	public class UnitTest1 {
+	public class Program {
 
 		[Fact]
 		public void Test1() {
@@ -40,7 +38,7 @@ namespace Sandbox {
 				})
 				.Build();
 
-			var logger = host.Services.GetRequiredService<ILogger<Program>>();
+			var logger = host.Services.GetRequiredService<ILogger<Microsoft.VisualStudio.TestPlatform.TestHost.Program>>();
 
 			logger.LogDebug(1, "Does this line get hit?");    // Not logged
 			logger.LogInformation(3, "Nothing to see here."); // Logs in ConsoleColor.DarkGreen
