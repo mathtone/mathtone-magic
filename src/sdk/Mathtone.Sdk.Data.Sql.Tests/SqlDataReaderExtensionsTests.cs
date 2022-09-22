@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Data.Sql.Tests {
 
-	public class SqlDataReaderExtensionsTests : DbDataReaderExtensionsTest<SqlConnection, SqlDataReader> {
+	public class SqlDataReaderExtensionsTests : IDbDataReaderExtensionsTest<SqlConnection, SqlDataReader> {
 
 		public SqlDataReaderExtensionsTests(ITestOutputHelper output) : base(output) { }
 

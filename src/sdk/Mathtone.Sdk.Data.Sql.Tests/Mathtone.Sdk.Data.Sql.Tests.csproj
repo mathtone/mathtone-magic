@@ -9,14 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Queries\InputParam.sql" />
-    <None Remove="Queries\TemplateQuery.sql" />
     <None Remove="Queries\TestQuery.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Queries\TemplateQuery.sql" />
-    <EmbeddedResource Include="Queries\InputParam.sql" />
     <EmbeddedResource Include="Queries\TestQuery.sql" />
   </ItemGroup>
 

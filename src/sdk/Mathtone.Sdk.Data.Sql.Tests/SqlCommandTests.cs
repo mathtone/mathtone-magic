@@ -4,10 +4,6 @@ using System.Data.SqlClient;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Data.Sql.Tests {
-	
-	internal static class DB {
-		public static readonly string ConnectionString = $"Server=localhost;User Id=sa;Password={Environment.GetEnvironmentVariable("SQL_TEST_PWD")}";
-	}
 
 	public class SqlCommandTests : DbCommandTestBase<SqlConnection, SqlCommand> {
 
@@ -16,21 +12,20 @@ namespace Mathtone.Sdk.Data.Sql.Tests {
 		protected override SqlConnection Connect() => new(DB.ConnectionString);
 
 		[Fact]
-		public void WithInput_SqlDbType() => Assert.Equal(
-			1,
-			new SqlCommand().WithInput("@id", 1, SqlDbType.Int).Parameters["@id"].Value
-		);
+		public void WithInput_SqlDbType() {
+			var p = new SqlCommand().WithInput("@id", 1, SqlDbType.Int).Parameters["@id"];
+			Assert.Equal(1, p.Value);
+			Assert.Equal(ParameterDirection.Input, p.Direction);
+		}
 
 		[Fact]
-		public void WithOutput_SqlDbType() => Assert.Equal(
-			ParameterDirection.Output,
+		public void WithOutput_SqlDbType() => Assert.Equal(ParameterDirection.Output,
 			new SqlCommand().WithOutput("@id", SqlDbType.Int).Parameters["@id"].Direction
 		);
 
 		[Fact]
-		public void WithInputOutput_SqlDbType() => Assert.Equal(
-			ParameterDirection.InputOutput,
-			new SqlCommand().WithInputOutput("@id", 1,SqlDbType.Int).Parameters["@id"].Direction
+		public void WithInputOutput_SqlDbType() => Assert.Equal(ParameterDirection.InputOutput,
+			new SqlCommand().WithInputOutput("@id", 1, SqlDbType.Int).Parameters["@id"].Direction
 		);
 	}
 }

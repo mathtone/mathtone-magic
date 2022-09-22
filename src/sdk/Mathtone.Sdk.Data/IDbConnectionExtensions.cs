@@ -17,7 +17,6 @@ namespace Mathtone.Sdk.Data {
 			return rtn;
 		}
 
-		//public static IDbCommand CreateCommand(this IDbConnection connection) => connection.CreateCommand<IDbCommand>();
 		public static IDbCommand CreateCommand(this IDbConnection connection, string commandText, CommandType type = CommandType.StoredProcedure, int timeout = 30) =>
 			connection.CreateCommand<IDbCommand>(commandText, type, timeout);
 

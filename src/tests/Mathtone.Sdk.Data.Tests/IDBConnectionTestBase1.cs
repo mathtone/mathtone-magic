@@ -4,9 +4,9 @@ using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Data.Tests {
 	[SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Because interface")]
-	public abstract class IDBConnectionTestBase<CN> : DBTestBase<CN> where CN : IDbConnection {
+	public abstract class IDbConnectionTestBase<CN> : DBTestBase<CN> where CN : IDbConnection {
 
-		protected IDBConnectionTestBase(ITestOutputHelper output) :
+		protected IDbConnectionTestBase(ITestOutputHelper output) :
 			base(output) { }
 
 		[Fact]

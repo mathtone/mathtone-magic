@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Data.Tests {
 
-	public abstract class DbConnectionTestBase<CN> : IDBConnectionTestBase<CN> where CN : DbConnection {
+	public abstract class DbConnectionTestBase<CN> : IDbConnectionTestBase<CN> where CN : DbConnection {
 		protected DbConnectionTestBase(ITestOutputHelper output) : base(output) {
 		}
 
