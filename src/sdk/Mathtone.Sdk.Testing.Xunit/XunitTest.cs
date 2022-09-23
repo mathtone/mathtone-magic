@@ -9,21 +9,12 @@ namespace Mathtone.Sdk.Testing.Xunit {
 		}
 	}
 
-	public abstract class XunitTestBase : IAsyncTextOutput {
+	public abstract class XunitTestBase  {
 
-		protected XunitOutputAdapter Output { get; }
+		protected ITestOutputHelper Output { get; }
 
 		protected XunitTestBase(ITestOutputHelper output) {
-			Output = new(output);
+			Output = output;
 		}
-
-		public virtual Task WriteAsync(string text) =>
-			Output.WriteAsync(text);
-
-		public virtual void Write(string text) =>
-			Output.Write(text);
-
-		protected ILogger CreateLog() => XunitLogger.Create(this);
-		protected ILogger<T> CreateLog<T>() => XunitLogger.Create<T>(this);
 	}
 }

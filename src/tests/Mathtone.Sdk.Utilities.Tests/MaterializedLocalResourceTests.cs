@@ -9,45 +9,43 @@ using Xunit.Sdk;
 namespace Mathtone.Sdk.Utilities.Tests {
 
 
-	public class TextOutputAdapterTests : XunitTestBase {
+	//public class TextOutputAdapterTests : XunitTestBase {
+	//	readonly List<string> _messages = new();
+	//	public TextOutputAdapterTests(ITestOutputHelper output) :
+	//		base(output) {
+	//	}
 
-		readonly List<string> _messages = new();
+	//	[Fact]
+	//	public async Task WriteOutput_1() {
+	//		var adapter = new TextOutputAdapter(WriteAsyncHandler) as IAsyncTextOutput;
+	//		await adapter.WriteLineAsync("TEST1");
+	//		adapter.WriteLine("TEST2");
+	//		Assert.Equal(new[] { $"TEST1{Environment.NewLine}", $"TEST2{Environment.NewLine}" }, _messages);
+	//	}
+	//	[Fact]
+	//	public async Task WriteOutput_2() {
+	//		var adapter = new TextOutputAdapter(WriteHandler) as IAsyncTextOutput;
+	//		await adapter.WriteLineAsync("TEST1");
+	//		adapter.WriteLine("TEST2");
+	//		Assert.Equal(new[] { $"TEST1{Environment.NewLine}", $"TEST2{Environment.NewLine}" }, _messages);
+	//	}
+	//	[Fact]
+	//	public async Task WriteOutput_3() {
+	//		var adapter = new TextOutputAdapter(WriteAsyncHandler, WriteHandler) as IAsyncTextOutput;
+	//		await adapter.WriteLineAsync("TEST1");
+	//		adapter.WriteLine("TEST2");
+	//		Assert.Equal(new[] { $"TEST1{Environment.NewLine}", $"TEST2{Environment.NewLine}" }, _messages);
+	//	}
 
-		public TextOutputAdapterTests(ITestOutputHelper output) :
-			base(output) {
-		}
+	//	void WriteHandler(string message) {
+	//		_messages.Add(message);
+	//	}
 
-		[Fact]
-		public async Task WriteOutput_1() {
-			var adapter = new TextOutputAdapter(WriteAsyncHandler) as IAsyncTextOutput;
-			await adapter.WriteLineAsync("TEST1");
-			adapter.WriteLine("TEST2");
-			Assert.Equal(new[] { $"TEST1{Environment.NewLine}", $"TEST2{Environment.NewLine}" }, _messages);
-		}
-		[Fact]
-		public async Task WriteOutput_2() {
-			var adapter = new TextOutputAdapter(WriteHandler) as IAsyncTextOutput;
-			await adapter.WriteLineAsync("TEST1");
-			adapter.WriteLine("TEST2");
-			Assert.Equal(new[] { $"TEST1{Environment.NewLine}", $"TEST2{Environment.NewLine}" }, _messages);
-		}
-		[Fact]
-		public async Task WriteOutput_3() {
-			var adapter = new TextOutputAdapter(WriteAsyncHandler, WriteHandler) as IAsyncTextOutput;
-			await adapter.WriteLineAsync("TEST1");
-			adapter.WriteLine("TEST2");
-			Assert.Equal(new[] { $"TEST1{Environment.NewLine}", $"TEST2{Environment.NewLine}" }, _messages);
-		}
-
-		void WriteHandler(string message) {
-			_messages.Add(message);
-		}
-
-		Task WriteAsyncHandler(string message) {
-			WriteHandler(message);
-			return Task.CompletedTask;
-		}
-	}
+	//	Task WriteAsyncHandler(string message) {
+	//		WriteHandler(message);
+	//		return Task.CompletedTask;
+	//	}
+	//}
 
 	public class MaterializedLocalResourceTests : XunitTestBase {
 
