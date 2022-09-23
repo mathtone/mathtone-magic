@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{3EED3E78-37B6-4404-9022-73E41EA0F366}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
 		..\README.md = ..\README.md
 	EndProjectSection

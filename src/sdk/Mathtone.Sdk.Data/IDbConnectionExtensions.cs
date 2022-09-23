@@ -31,7 +31,7 @@ namespace Mathtone.Sdk.Data {
 			}
 		}
 
-		public static RSLT Used<CN,RSLT>(this CN connection, Func<CN,RSLT> selector) where CN : IDbConnection {
+		public static RSLT Used<CN, RSLT>(this CN connection, Func<CN, RSLT> selector) where CN : IDbConnection {
 			connection.Open();
 			try {
 				return selector(connection);

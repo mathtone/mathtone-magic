@@ -4,8 +4,8 @@ using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
 	
-	public abstract class XunitTest<T> : XunitTestBase {
-		protected XunitTest(ITestOutputHelper output) : base(output) {
+	public abstract class XunitTestBase<T> : XunitTestBase {
+		protected XunitTestBase(ITestOutputHelper output) : base(output) {
 		}
 	}
 

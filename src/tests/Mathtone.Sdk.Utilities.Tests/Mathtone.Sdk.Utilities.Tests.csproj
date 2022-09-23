@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Testing.Xunit\Mathtone.Sdk.Testing.Xunit.csproj" />
     <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Utilities\Mathtone.Sdk.Utilities.csproj" />
   </ItemGroup>
 

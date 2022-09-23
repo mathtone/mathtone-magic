@@ -22,6 +22,12 @@ namespace Mathtone.Sdk.Testing.Xunit.Tests {
 			Assert.Equal($"TEST{Environment.NewLine}", sb.ToString());
 		}
 
+		//[Fact]
+		//public void LogInformation() {
+		//	CreateLog().LogInformation("TEST");
+		//	Assert.Equal($"TEST{Environment.NewLine}", sb.ToString());
+		//}
+
 		public override void Write(string text) {
 			sb.Append(text);
 			base.Write(text);
