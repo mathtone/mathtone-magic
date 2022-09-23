@@ -1,6 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 
 namespace Mathtone.Sdk.Logging {
+
+	public class RelayLogger<T> : RelayLogger {
+		public RelayLogger(LoggerExternalScopeProvider scopeProvider, LogHandler handler) : base(scopeProvider, nameof(T), handler) {
+		}
+	}
+
 	public class RelayLogger : Logger {
 
 		readonly LogHandler _handler;
@@ -9,9 +15,7 @@ namespace Mathtone.Sdk.Logging {
 			_handler = handler;
 		}
 
-		public override bool IsEnabled(LogLevel logLevel) {
-			throw new NotImplementedException();
-		}
+		public override bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
 
 		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) =>
 			_handler(level, eventId, exception, message);

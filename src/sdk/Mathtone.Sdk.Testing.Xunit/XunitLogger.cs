@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
-	
+
 	public class XunitLogger : Logger {
 
 		readonly ITestOutputHelper _output;
@@ -23,10 +23,10 @@ namespace Mathtone.Sdk.Testing.Xunit {
 			throw new NotImplementedException();
 		}
 
-		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) =>
+		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) {
 			_output.WriteLine(message);
+		}
 	}
-
 
 	public class XunitLogger<T> : XunitLogger, ILogger<T> {
 		public XunitLogger(ITestOutputHelper output, LoggerExternalScopeProvider scopeProvider)

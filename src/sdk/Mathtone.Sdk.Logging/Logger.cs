@@ -19,8 +19,23 @@ namespace Mathtone.Sdk.Logging {
 			_category = categoryName;
 		}
 
-		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) =>
-			OnWrite(logLevel, eventId, exception, formatter(state, exception));
+		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) {
+
+			var sb = new StringBuilder();
+			int level = 0;
+			_scope.ForEachScope((scope, state) => {
+
+				if (level++ > 0) {
+					sb.Append(Environment.NewLine);
+				}
+				state.Append("=> ");
+				state.Append(scope);
+			}, sb);
+			sb.Append(": ");
+			sb.Append(formatter(state, exception));
+
+			OnWrite(logLevel, eventId, exception, sb.ToString());
+		}
 
 		public abstract bool IsEnabled(LogLevel logLevel);
 

@@ -169,6 +169,7 @@ Included items must then not match any entries in the exclude list to remain inc
 					 <Include>
 						<ModulePath>.*\\Mathtone.Sdk.Common.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Utilities.dll</ModulePath>
+						<ModulePath>.*\\Mathtone.Sdk.Logging.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Data.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Data.Sql.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Testing.Xunit.dll</ModulePath>
