@@ -58,7 +58,7 @@ jobs:
   pack-testing-xunit:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
+    #working_directory: /mnt/ramdisk
     steps:
       - attach_workspace:
           at: .
@@ -66,7 +66,7 @@ jobs:
   pack-sdk-data:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
+    #working_directory: /mnt/ramdisk
     steps:
       - attach_workspace:
           at: .
