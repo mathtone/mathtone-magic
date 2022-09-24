@@ -10,7 +10,7 @@ commands:
          type: string
     steps:
       - run:
-          name: swap << parameters.ref >> with reference << parameters.pkg >> 
+          name: swap << parameters.ref >> with reference << parameters.pkg >>
           command: |
             dotnet remove << parameters.proj >> reference << parameters.ref >>
             dotnet add << parameters.proj >> package << parameters.pkg >> --source ./packages --prerelease
@@ -35,7 +35,7 @@ commands:
               echo "prerelease" ${suffix}
               dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build} --version-suffix ${suffix}
             fi
-            
+
 jobs:
   get-code:
     docker:
@@ -70,7 +70,7 @@ jobs:
           paths:
             - src
             - packages
-            
+
   # pack-testing-xunit:
   #   docker:
   #     - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -78,7 +78,23 @@ jobs:
   #   steps:
   #     - attach_workspace:
   #         at: .
-  #     # - checkout  
+  #     # - checkout
+  pack-sdk-testing:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      #- run:
+      #    name: Add Nuget
+      #    command: |
+      #      dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
+          pkg: Mathtone.Sdk.Logging
+
   pack-sdk-data:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -86,37 +102,18 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: 
-          name: Add Nuget
-          command: |
-            dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #- run:
+      #    name: Add Nuget
+      #    command: |
+      #      dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
           pkg: Mathtone.Sdk.Utilities
-
-      # - run: ls -l 
-      # - run: 
-      #     name: Restore
-      #     command: |
-      #       dotnet new nugetconfig
-      #       dotnet restore src/mathtone-magic.sln --verbosity normal
-      # - swapref:
-      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      #     ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
-      #     pkg: Mathtone.Sdk.Common
-
-      # - swapref:
-      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      #     ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
-      #     pkg: Mathtone.Sdk.Logging
-      
-      # - swapref:
-      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      #     ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-      #     pkg: Mathtone.Sdk.Utilities
-      # - checkout
-
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+          pkg: Mathtone.Sdk.Utilities
   pack-sdk-data-sql:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -165,6 +162,9 @@ workflows:
       - pack-sdk-data:
           requires:
             - pack-core
+      - pack-sdk-testing:
+          requires:
+            - pack-core
       # - pack-testing-xunit:
       #     requires:
       #       - pack-core
@@ -174,6 +174,6 @@ workflows:
       # - pack-sdk-data-npgsql:
       #     requires:
       #       - pack-sdk-data
-          
-      
-      
+
+
+
