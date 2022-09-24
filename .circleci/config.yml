@@ -43,10 +43,12 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+      - run: |
+          branch=$CIRCLE_BRANCH
+          ver=${branch/"release/"/""}
+          suffix=${ver#*-}
+          build=${ver%-*}
+          echo build- ${build} version- ${suffix}
   pack-core:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -66,14 +68,14 @@ jobs:
           root: .
           paths:
             - packages
-  pack-testing-xunit:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    #working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      # - checkout  
+  # pack-testing-xunit:
+  #   docker:
+  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
+  #   working_directory: /mnt/ramdisk
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     # - checkout  
   pack-sdk-data:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
