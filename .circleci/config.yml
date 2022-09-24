@@ -168,17 +168,17 @@ jobs:
           ref: ../../sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           pkg: Mathtone.Sdk.Data.Sql
 
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../../sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          pkg: Mathtone.Sdk.Data.Npgsql
+      # - swapref:
+      #     proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
+      #     ref: ../../sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      #     pkg: Mathtone.Sdk.Data.Npgsql
       - run: dotnet restore src/mathtone-magic.sln
       # - 
-      - run: dotnet test src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj --configuration Release
-      - run: dotnet test src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj --configuration Release
-      - run: dotnet test src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj --configuration Release
-      - run: dotnet test src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj --configuration Release
-      - run: dotnet test src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj --configuration Release
+      # - run: dotnet test src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj --configuration Release
+      # - run: dotnet test src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj --configuration Release
+      # - run: dotnet test src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj --configuration Release
+      # - run: dotnet test src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj --configuration Release
+      # - run: dotnet test src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj --configuration Release
       - run: dotnet test src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj --configuration Release
       # - run:
       #     name: Build & Test Solution (Release)
