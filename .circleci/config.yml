@@ -80,7 +80,7 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
-      - run: dotnet tool install --global dotnet-search
+      - run: dotnet tool install --global dotnet-searc
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
@@ -106,6 +106,8 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
           pkg: Mathtone.Sdk.Utilities
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       ################## UNIT TESTS ##################
       - swapref:
           proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
