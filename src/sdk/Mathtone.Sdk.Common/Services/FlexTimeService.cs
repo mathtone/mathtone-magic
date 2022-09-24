@@ -49,6 +49,5 @@ namespace Mathtone.Sdk.Common.Services {
 		public void Start() => _stopwatch.Start();
 
 		public void Stop() => _stopwatch.Stop();
-
 	}
 }
