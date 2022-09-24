@@ -1,33 +1,32 @@
-﻿using System.Data.SqlClient;
+//using Mathtone.Sdk.Data.Tests;
+using Mathtone.Sdk.Data.Tests;
+using Microsoft.Extensions.Logging;
+using System.ComponentModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Net;
+using System.Reflection.PortableExecutable;
+using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Data.Sql.Tests {
-	public class SqlDataReaderExtensionsTests {
-		[Fact]
-		public async Task ConsumeAsync_1() {
-			using var cn = CreateConnection();
-			cn.Open();
-			var rslt = await (await cn.CreateCommand("SELECT value FROM STRING_SPLIT('1 2 3', ' ');")
-				.ExecuteReaderAsync())
-				.ConsumeAsync(r => Task.Run(()=>r.Field<int>(0)))
-				.ToArrayAsync();
 
+	public class SqlDataReaderExtensionsTests : IDbDataReaderExtensionsTest<SqlConnection, SqlDataReader> {
 
-			Assert.Equal(3, rslt.Length);
-		}
+		public SqlDataReaderExtensionsTests(ITestOutputHelper output) : base(output) { }
+
+		protected override SqlConnection Connect() => new(DB.ConnectionString);
+
+		protected override TestQueries Queries { get; } = new SqlTestQueries();
 
 		[Fact]
-		public async Task ConsumeAsync_2() {
-			using var cn = CreateConnection();
-			cn.Open();
-			var rslt = await (await cn.CreateCommand("SELECT value FROM STRING_SPLIT('1 2 3', ' ');")
-				.ExecuteReaderAsync())
-				.ConsumeAsync(r => r.Field<int>(0))
+		public async Task ConsumeAsync_Task_Result() {
+			var cmd = Connect().CreateCommand(Queries.TestQuery);
+			await cmd.Connection.OpenAsync();
+			var rslt = await cmd.ExecuteReaderAsync()
+				.ConsumeAsync(r => r["value"].ToString())
 				.ToArrayAsync();
-			Assert.Equal(3, rslt.Length);
+			Assert.Equal(new[] { "A", "B", "C" }, rslt);
 		}
-
-		protected static SqlConnection CreateConnection() => CreateConnection($"Server=localhost;User Id=sa;Password=test!1234");
-
-		protected static SqlConnection CreateConnection(string connectionString) => new(connectionString);
 	}
 }
