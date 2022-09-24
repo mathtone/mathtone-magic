@@ -121,6 +121,7 @@ jobs:
           proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
           ref: ../Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           pkg: Mathtone.Sdk.Testing.Xunit
+          
       - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
           ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
