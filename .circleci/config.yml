@@ -80,6 +80,9 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
+      - run: 
+          name: Add Nuget
+          command: dotnet nuget add source ~/packages --name Local
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
       - pack-proj:
@@ -88,58 +91,56 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-      - run: 
-          name: Add Nuget
-          command: dotnet nuget add source ~/packages --name Local
+      
       # swap Mathtone.Sdk.Data.Sql
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      # swap Testing
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
-          pkg: Mathtone.Sdk.Common
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
-          pkg: Mathtone.Sdk.Logging
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-          pkg: Mathtone.Sdk.Utilities
-      - run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      - pack-proj:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #- swapref:
+      #    proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      #    ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+      #    pkg: Mathtone.Sdk.Data
+      #- swapref:
+      #    proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      #    ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+      #    pkg: Mathtone.Sdk.Data
+      ## swap Testing
+      #- swapref:
+      #    proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #    ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
+      #    pkg: Mathtone.Sdk.Common
+      #- swapref:
+      #    proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #    ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
+      #    pkg: Mathtone.Sdk.Logging
+      #- swapref:
+      #    proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #    ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+      #    pkg: Mathtone.Sdk.Utilities
+      #- run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #- pack-proj:
+      #    proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       #swap test projects
      
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
-          ref: ../sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          pkg: Mathtone.Sdk.Testing.Xunit
+      #- swapref:
+      #    proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
+      #    ref: ../sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #    pkg: Mathtone.Sdk.Testing.Xunit
           
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          pkg: Mathtone.Sdk.Data.Sql
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          pkg: Mathtone.Sdk.Testing.Xunit
+      #- swapref:
+      #    proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
+      #    ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      #    pkg: Mathtone.Sdk.Data.Sql
+      #- swapref:
+      #    proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
+      #    ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      #    pkg: Mathtone.Sdk.Testing.Xunit
 
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          pkg: Mathtone.Sdk.Data.Npgsql
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          pkg: Mathtone.Sdk.Testing.Xunit
+      #- swapref:
+      #    proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
+      #    ref: ../Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      #    pkg: Mathtone.Sdk.Data.Npgsql
+      #- swapref:
+      #    proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
+      #    ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      #    pkg: Mathtone.Sdk.Testing.Xunit
 
       #- swapref:
       #    proj: src/tests/Mathtone.Sdk.Tests/Mathtone.Sdk.Tests.csproj
@@ -164,9 +165,9 @@ jobs:
       - run:
           name: "Add Artifactory"
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run:
-         name: Publish to Atifactory
-         command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+      #- run:
+      #   name: Publish to Atifactory
+      #   command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
         
   publish-nuget:
     docker:
