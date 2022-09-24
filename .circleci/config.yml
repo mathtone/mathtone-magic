@@ -88,13 +88,15 @@ jobs:
           at: .
       - run: 
           name: Add Nuget
-          command: dotnet nuget add source ~/packages --name Local
-      - run: ls -l 
-      - run: 
-          name: Restore
           command: |
             dotnet new nugetconfig
-            dotnet restore src/mathtone-magic.sln --verbosity normal
+            dotnet nuget add source ~/packages --name Local
+      # - run: ls -l 
+      # - run: 
+      #     name: Restore
+      #     command: |
+      #       dotnet new nugetconfig
+      #       dotnet restore src/mathtone-magic.sln --verbosity normal
       # - swapref:
       #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       #     ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
