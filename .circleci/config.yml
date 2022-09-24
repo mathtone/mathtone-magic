@@ -121,7 +121,18 @@ jobs:
           root: .
           paths:
             - packages
-
+  run-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - run: dotnet restore src/mathtons-magic.sln
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -166,6 +177,13 @@ workflows:
       - pack-sdk-data-npgsql:
           requires:
             - pack-core
+      - run-tests:
+          requires:
+            - pack-core
+            - pack-sdk-testing
+            - pack-sdk-data-sql
+            - pack-sdk-data-npgsql
+
 
 
 
