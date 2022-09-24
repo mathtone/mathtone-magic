@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Environment;
+
 
 namespace Mathtone.Sdk.Logging.Tests {
 	public class RelayLoggerTests {
@@ -18,7 +20,7 @@ namespace Mathtone.Sdk.Logging.Tests {
 			using var s2 = log.BeginScope("TEST B");
 			log.LogInformation("TEST 1");
 			Assert.True(log.IsEnabled(LogLevel.Information));
-			Assert.Equal(new[] { "=> TEST A\r\n=> TEST B: TEST 1" }, output);
+			Assert.Equal(new[] { $"=> TEST A{NewLine}=> TEST B: TEST 1" }, output);
 		}
 	}
 }
