@@ -93,7 +93,6 @@ jobs:
       - run: 
           name: Restore
           command: |
-            dotnet nuget add source ~/packages --name Local
             dotnet restore src/mathtone-magic.sln --verbosity normal
       # - swapref:
       #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
