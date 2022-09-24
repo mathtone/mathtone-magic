@@ -88,7 +88,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - packages
+            - packages/Mathtone.Sdk.Testing.Xunit*.nupkg
 
   pack-sdk-data-sql:
     docker:
@@ -107,7 +107,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - packages
+            - packages/Mathtone.Sdk.Data.Sql*.nupkg
 
   pack-sdk-data-npgsql:
     docker:
@@ -120,7 +120,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - packages
+            - packages/Mathtone.Sdk.Data.Npgsql*.nupkg
   run-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
