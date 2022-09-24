@@ -116,12 +116,12 @@ jobs:
 
       - swapref:
           proj: src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj
-          ref: ../../sdk/Mathtone.Sdk.Logging/Mathtone.Logging.csproj
+          ref: ../../sdk/Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
           pkg: Mathtone.Sdk.Logging
       
       - swapref:
           proj: src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj
-          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Logging.csproj
+          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Logging.csproj
           pkg: Mathtone.Sdk.Utilities
       
       - swapref:
