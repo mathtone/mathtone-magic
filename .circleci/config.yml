@@ -92,14 +92,14 @@ jobs:
           ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
           pkg: Mathtone.Sdk.Logging
 
-  pack-sdk-data:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet restore src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj  
+  # pack-sdk-data:
+  #   docker:
+  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
+  #   working_directory: /mnt/ramdisk
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     - run: dotnet restore src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj  
       #- run:
       #    name: Add Nuget
       #    command: |
@@ -157,9 +157,9 @@ workflows:
       - pack-core:
           requires:
             - get-code
-      - pack-sdk-data:
-          requires:
-            - pack-core
+      # - pack-sdk-data:
+      #     requires:
+      #       - pack-core
       - pack-sdk-testing:
           requires:
             - pack-core
