@@ -154,6 +154,11 @@ jobs:
           pkg: Mathtone.Sdk.Utilities
 
       - swapref:
+          proj: src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+          pkg: Mathtone.Sdk.Utilities
+          
+      - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           pkg: Mathtone.Sdk.Data.Sql
