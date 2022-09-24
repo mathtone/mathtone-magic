@@ -191,6 +191,9 @@ workflows:
           context: MATHTONE_DEV
           requires:
             - pack-core
+            - pack-sdk-testing
+            - pack-sdk-data-sql
+            - pack-sdk-data-npgsql
 
 
 
