@@ -68,7 +68,9 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            - src
             - packages
+            
   # pack-testing-xunit:
   #   docker:
   #     - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -84,13 +86,12 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - checkout
-      # - run: 
-      #     name: Add Nuget
-      #     command: dotnet nuget add source ~/packages --name Local
-      # - run: 
-      #     name: Restore
-      #     command: dotnet restore src/mathtone-magic.sln
+      - run: 
+          name: Add Nuget
+          command: dotnet nuget add source ~/packages --name Local
+      - run: 
+          name: Restore
+          command: dotnet restore src/mathtone-magic.sln
       # - swapref:
       #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       #     ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
