@@ -92,7 +92,7 @@ jobs:
           ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
           pkg: Mathtone.Sdk.Logging
       - pack-proj:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Testing.Xunit.csproj
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - persist_to_workspace:
           root: .
           paths:
