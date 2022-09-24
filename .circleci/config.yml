@@ -183,6 +183,17 @@ jobs:
           proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           pkg: Mathtone.Sdk.Data.Npgsql
+
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+          pkg: Mathtone.Sdk.Utilities.Sql
+
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+          pkg: Mathtone.Sdk.Utilities.Sql
+
       # - swapref:
       #     proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
       #     ref: ../../sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
