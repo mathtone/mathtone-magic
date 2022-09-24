@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using Xunit.Abstractions;
 using Xunit.Sdk;
-
+using static System.Environment;
 namespace Mathtone.Sdk.Testing.Xunit.Tests {
 
 	public class XUnitTestTestsContext {
@@ -35,7 +35,7 @@ namespace Mathtone.Sdk.Testing.Xunit.Tests {
 			var log = new XunitLogger<XunitLoggerTests>(this, new());
 			Assert.True(log.IsEnabled(LogLevel.Information));
 			log.LogInformation("TEST");
-			Assert.Equal(": TEST\r\n", _sb.ToString());
+			Assert.Equal($": TEST{NewLine}", _sb.ToString());
 		}
 
 #pragma warning disable xUnit1013 // Public method should be marked as test
