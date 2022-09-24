@@ -89,8 +89,7 @@ jobs:
       - run: 
           name: Add Nuget
           command: |
-            dotnet new nugetconfig
-            dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+           
             dotnet nuget add source ~/packages --name Local
       
       - swapref:
