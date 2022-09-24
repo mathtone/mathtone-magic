@@ -42,7 +42,6 @@ jobs:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     working_directory: /mnt/ramdisk
     steps:
-      
       - checkout
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
@@ -56,6 +55,22 @@ jobs:
           root: .
           paths:
             - packages
+  pack-sdk-data:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - checkout
+  pack-sdk-data-sql:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - checkout  
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -82,4 +97,12 @@ workflows:
   build-release:
     jobs:
       - pack-core
+      - pack-sdk-data:
+          requires:
+            - pack-core
+      - pack-sdk-data-sql:
+          requires:
+            - pack-sdk-data
+          
+      
       
