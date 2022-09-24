@@ -113,7 +113,7 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
           pkg: Mathtone.Sdk.Utilities
-      - run: dotnet restore
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       #swap test projects
