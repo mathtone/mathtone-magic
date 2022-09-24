@@ -134,7 +134,7 @@ jobs:
       #- run:
       #   name: Publish to Atifactory
       #   command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
-        
+
   publish-nuget:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -154,15 +154,15 @@ workflows:
       - pack-sdk-data:
           requires:
             - pack-core
-      - pack-testing-xunit:
-          requires:
-            - pack-core
-      - pack-sdk-data-sql:
-          requires:
-            - pack-sdk-data
-      - pack-sdk-data-npgsql:
-          requires:
-            - pack-sdk-data
+      # - pack-testing-xunit:
+      #     requires:
+      #       - pack-core
+      # - pack-sdk-data-sql:
+      #     requires:
+      #       - pack-sdk-data
+      # - pack-sdk-data-npgsql:
+      #     requires:
+      #       - pack-sdk-data
           
       
       
