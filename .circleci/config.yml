@@ -174,13 +174,15 @@ jobs:
           pkg: Mathtone.Sdk.Data.Npgsql
       - run: dotnet restore src/mathtone-magic.sln
       # - 
-      # - run: dotnet test src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj --configuration Release
-      # - run: dotnet test src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj --configuration Release
-      # - run: dotnet test src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj --configuration Release
-      # - run: dotnet test src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj --configuration Release
-      - run:
-          name: Build & Test Solution (Release)
-          command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
+      - run: dotnet test src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj --configuration Release
+      - run: dotnet test src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj --configuration Release
+      - run: dotnet test src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj --configuration Release
+      - run: dotnet test src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj --configuration Release
+      - run: dotnet test src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Sql.Data.Tests.csproj --configuration Release
+      - run: dotnet test src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Npgsql.Data.Tests.csproj --configuration Release
+      # - run:
+      #     name: Build & Test Solution (Release)
+      #     command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
       # swap Mathtone.Sdk.Data.Npgsql
       #- swapref:
       #    proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
