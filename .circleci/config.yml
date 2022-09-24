@@ -121,7 +121,7 @@ jobs:
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
       - pack-proj:
-          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Npgsql.csproj
+          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
       - persist_to_workspace:
           root: .
           paths:
