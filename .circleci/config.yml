@@ -62,7 +62,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - checkout
+      # - checkout
   pack-sdk-data-sql:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
