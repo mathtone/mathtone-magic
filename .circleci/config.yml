@@ -110,6 +110,21 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       ################## UNIT TESTS ##################
       - swapref:
+          proj: src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Common/Mathtone.Common.csproj
+          pkg: Mathtone.Common
+
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Logging/Mathtone.Logging.csproj
+          pkg: Mathtone.Logging
+      
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Logging.csproj
+          pkg: Mathtone.Utilities
+
+      - swapref:
           proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           pkg: Mathtone.Sdk.Testing.Xunit
