@@ -55,6 +55,14 @@ jobs:
           root: .
           paths:
             - packages
+  pack-testing-xunit:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      # - checkout  
   pack-sdk-data:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -63,6 +71,7 @@ jobs:
       - attach_workspace:
           at: .
       # - checkout
+
   pack-sdk-data-sql:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -70,6 +79,15 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+
+  pack-sdk-data-npgsql:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -99,7 +117,13 @@ workflows:
       - pack-sdk-data:
           requires:
             - pack-core
+      - pack-testing-xunit:
+          requires:
+            - pack-core
       - pack-sdk-data-sql:
+          requires:
+            - pack-sdk-data
+      - pack-sdk-data-npgsql:
           requires:
             - pack-sdk-data
           
