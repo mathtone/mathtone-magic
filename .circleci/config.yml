@@ -91,7 +91,7 @@ jobs:
           command: dotnet nuget add source ~/packages --name Local
       - run: 
           name: Add Nuget
-          command: dotnet nuget list
+          command: dotnet nuget list source
       - run: ls -l 
       - run: 
           name: Restore
