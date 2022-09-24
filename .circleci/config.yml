@@ -93,7 +93,7 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-      ################## TESTING ##################
+      ################## TESTING.XUNIT ##################
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
@@ -108,17 +108,18 @@ jobs:
           pkg: Mathtone.Sdk.Utilities
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      ################## DATA ACCESS ##################
+      ################## DATA ACCESS (SQL) ##################
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      ################## DATA ACCESS (NPGSQL) ##################
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
       ################## UNIT TESTS ##################
