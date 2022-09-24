@@ -84,7 +84,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: ls 
+      - checkout
       # - run: 
       #     name: Add Nuget
       #     command: dotnet nuget add source ~/packages --name Local
