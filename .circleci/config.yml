@@ -43,6 +43,18 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
