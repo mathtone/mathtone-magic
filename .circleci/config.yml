@@ -82,26 +82,26 @@ jobs:
       - attach_workspace:
           at: .
       - run: ls 
-      - run: 
-          name: Add Nuget
-          command: dotnet nuget add source ~/packages --name Local
-      - run: 
-          name: Restore
-          command: dotnet restore src/mathtone-magic.sln
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
-          pkg: Mathtone.Sdk.Common
+      # - run: 
+      #     name: Add Nuget
+      #     command: dotnet nuget add source ~/packages --name Local
+      # - run: 
+      #     name: Restore
+      #     command: dotnet restore src/mathtone-magic.sln
+      # - swapref:
+      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #     ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
+      #     pkg: Mathtone.Sdk.Common
 
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
-          pkg: Mathtone.Sdk.Logging
+      # - swapref:
+      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #     ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
+      #     pkg: Mathtone.Sdk.Logging
       
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-          pkg: Mathtone.Sdk.Utilities
+      # - swapref:
+      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #     ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+      #     pkg: Mathtone.Sdk.Utilities
       # - checkout
 
   pack-sdk-data-sql:
