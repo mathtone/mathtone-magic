@@ -70,7 +70,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - checkout  
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
