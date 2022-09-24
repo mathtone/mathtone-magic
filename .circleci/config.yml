@@ -66,20 +66,14 @@ jobs:
   pack-sdk-data:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
-    #working_directory: /mnt/ramdisk
+    working_directory: /mnt/ramdisk
     steps:
       - attach_workspace:
-          at: .
+          at: ./packages
       - checkout
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
-      - run: 
-          name: List packages
-          command: ls ./packages
-      - run: 
-          name: List packages
-          command: ls 
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
