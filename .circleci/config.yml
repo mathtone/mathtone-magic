@@ -35,7 +35,6 @@ commands:
               echo "prerelease" ${suffix}
               dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build} --version-suffix ${suffix}
             fi
-
 jobs:
   get-code:
     docker:
@@ -88,7 +87,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - packages/Mathtone.Sdk.Testing.Xunit*.nupkg
+            - packages
 
   pack-sdk-data-sql:
     docker:
@@ -107,7 +106,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - packages/Mathtone.Sdk.Data.Sql*.nupkg
+            - packages/Mathtone.Sdk.Data.Sql.*.nupkg
 
   pack-sdk-data-npgsql:
     docker:
@@ -117,22 +116,17 @@ jobs:
       - attach_workspace:
           at: .
       - run: dotnet restore src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Npgsql.csproj
       - persist_to_workspace:
           root: .
           paths:
-            - packages/Mathtone.Sdk.Data.Npgsql*.nupkg
-  run-tests:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet restore src/mathtons-magic.sln
-      - persist_to_workspace:
-          root: .
-          paths:
-            - packages
+            - packages/Mathtone.Sdk.Data.Npgsql.*.nupkg
+
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -177,13 +171,6 @@ workflows:
       - pack-sdk-data-npgsql:
           requires:
             - pack-core
-      - run-tests:
-          requires:
-            - pack-core
-            - pack-sdk-testing
-            - pack-sdk-data-sql
-            - pack-sdk-data-npgsql
-
 
 
 
