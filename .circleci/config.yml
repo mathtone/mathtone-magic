@@ -46,7 +46,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - packages
+            - .
   pack-core:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
