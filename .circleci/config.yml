@@ -141,6 +141,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
       - swapref:
           proj: src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
