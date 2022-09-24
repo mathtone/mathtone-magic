@@ -89,12 +89,11 @@ jobs:
       - run: 
           name: Add Nuget
           command: |
-            dotnet new nugetconfig
-            ls -l
-            dotnet nuget list source
-            dotnet nuget remove source nuget --configfile nuget.config
-            dotnet nuget add source ~/packages --name Local --configfile nuget.config
-            dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget --configfile nuget.config
+            dotnet nuget remove source local
+            dotnet nuget remove source nuget
+            dotnet nuget add source ~/packages --name local --configfile nuget.config
+            dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget
+
             dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
