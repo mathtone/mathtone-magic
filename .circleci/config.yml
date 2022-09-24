@@ -89,6 +89,7 @@ jobs:
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
+      - run: ls -l 
       - run: 
           name: Restore
           command: dotnet restore src/mathtone-magic.sln
