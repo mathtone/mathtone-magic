@@ -86,7 +86,7 @@ jobs:
           command: dotnet nuget add source ~/packages --name Local
       - run: 
           name: Restore
-          command: dotnet restore
+          command: dotnet restore src/Mathtone.Magic.sln
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
