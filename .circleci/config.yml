@@ -78,7 +78,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj  
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
@@ -97,6 +97,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
@@ -115,6 +116,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
       - persist_to_workspace:
           root: .
           paths:
