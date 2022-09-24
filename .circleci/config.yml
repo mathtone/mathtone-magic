@@ -129,6 +129,14 @@ jobs:
   test-core:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: Test!1234
+          ACCEPT_EULA: Y
     working_directory: /mnt/ramdisk
     steps:
       - attach_workspace:
