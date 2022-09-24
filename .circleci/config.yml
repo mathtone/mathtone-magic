@@ -70,7 +70,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-
+      - run: 
+          name: Add Nuget
+          command: dotnet nuget add source ~/packages --name Local
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
