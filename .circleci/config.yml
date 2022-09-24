@@ -86,10 +86,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      #- run:
-      #    name: Add Nuget
-      #    command: |
-      #      dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj  
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
@@ -102,18 +99,19 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet restore src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj  
       #- run:
       #    name: Add Nuget
       #    command: |
       #      dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-          pkg: Mathtone.Sdk.Utilities
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-          pkg: Mathtone.Sdk.Utilities
+      # - swapref:
+      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #     ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+      #     pkg: Mathtone.Sdk.Utilities
+      # - swapref:
+      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      #     ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+      #     pkg: Mathtone.Sdk.Utilities
   pack-sdk-data-sql:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
