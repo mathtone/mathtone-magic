@@ -141,6 +141,15 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Utilities
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          pkg: Mathtone.Sdk.Testing.Xunit
+
       - run: dotnet test src/mathtone-magic.sln
 
   publish-artifactory:
@@ -172,15 +181,9 @@ workflows:
       - pack-core:
           requires:
             - get-code
-      # - pack-sdk-data:
-      #     requires:
-      #       - pack-core
       - pack-sdk-testing:
           requires:
             - pack-core
-      # - pack-testing-xunit:
-      #     requires:
-      #       - pack-core
       - pack-sdk-data-sql:
           requires:
             - pack-core
