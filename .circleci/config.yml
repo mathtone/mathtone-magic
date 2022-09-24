@@ -83,6 +83,7 @@ jobs:
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
+      ################## CORE PROJECTS ##################
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
       - pack-proj:
@@ -91,7 +92,11 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-      
+      ################## TESTING ##################
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
+          pkg: Mathtone.Sdk.Common
       # swap Mathtone.Sdk.Data.Sql
       #- swapref:
       #    proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
