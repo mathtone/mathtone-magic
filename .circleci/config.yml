@@ -112,7 +112,7 @@ jobs:
       - swapref:
           proj: src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
-          pkg: Mathtone.Common
+          pkg: Mathtone.Sdk.Common
 
       - swapref:
           proj: src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj
