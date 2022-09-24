@@ -133,6 +133,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: dotnet test src/mathtone-magic.sln
 
   publish-artifactory:
     docker:
