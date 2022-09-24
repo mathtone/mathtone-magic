@@ -1,5 +1,4 @@
 ﻿using Mathtone.Sdk.Logging;
-using Mathtone.Sdk.Utilities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

@@ -11,4 +11,8 @@
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj" />
+  </ItemGroup>
+
 </Project>

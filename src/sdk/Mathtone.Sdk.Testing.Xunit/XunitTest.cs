@@ -1,5 +1,4 @@
-﻿using Mathtone.Sdk.Utilities;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
