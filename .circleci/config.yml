@@ -89,6 +89,7 @@ jobs:
       - run: 
           name: Add Nuget
           command: |
+            dotnet new nugetconfig
             dotnet nuget add source ~/packages --name Local
             dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - swapref:
