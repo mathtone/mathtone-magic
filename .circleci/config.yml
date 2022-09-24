@@ -81,36 +81,36 @@ jobs:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
       - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
+          proj: src/sdk/Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
       - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
+          proj: src/sdk/Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
       - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          proj: src/sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
+      - pack-proj
+          proj: src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
       # swap Mathtone.Sdk.Data.Sql
       - swapref:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
       - swapref:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
           ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
           pkg: Mathtone.Sdk.Data
       # swap Testing
       - swapref:
-          proj: src/SDK/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
           pkg: Mathtone.Sdk.Common
       - swapref:
-          proj: src/SDK/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
           pkg: Mathtone.Sdk.Logging
       - swapref:
-          proj: src/SDK/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
           pkg: Mathtone.Sdk.Utilities
       #swap test projects
