@@ -71,14 +71,6 @@ jobs:
             - src
             - packages
 
-  # pack-testing-xunit:
-  #   docker:
-  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
-  #   working_directory: /mnt/ramdisk
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-  #     # - checkout
   pack-sdk-testing:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -97,26 +89,7 @@ jobs:
           root: .
           paths:
             - packages
-  # pack-sdk-data:
-  #   docker:
-  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
-  #   working_directory: /mnt/ramdisk
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-  #     - run: dotnet restore src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj  
-      #- run:
-      #    name: Add Nuget
-      #    command: |
-      #      dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      # - swapref:
-      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      #     ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-      #     pkg: Mathtone.Sdk.Utilities
-      # - swapref:
-      #     proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      #     ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-      #     pkg: Mathtone.Sdk.Utilities
+
   pack-sdk-data-sql:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -124,6 +97,16 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - pack-proj:
+          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
 
   pack-sdk-data-npgsql:
     docker:
@@ -132,6 +115,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
 
   publish-artifactory:
     docker:
