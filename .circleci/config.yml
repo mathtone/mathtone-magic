@@ -108,6 +108,15 @@ jobs:
           pkg: Mathtone.Sdk.Utilities
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+      ################## DATA ACCESS ##################
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
+      - swapref:
+          proj: src/sdk/Mathtone.Sdk.Data.Npgql/Mathtone.Sdk.Data.Npgql.csproj
+          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
+          pkg: Mathtone.Sdk.Data
       ################## UNIT TESTS ##################
       - swapref:
           proj: src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj
@@ -137,6 +146,8 @@ jobs:
           proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
           pkg: Mathtone.Sdk.Utilities
+
+     
       # swap Mathtone.Sdk.Data.Sql
       #- swapref:
       #    proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
