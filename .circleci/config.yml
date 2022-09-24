@@ -80,7 +80,7 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - attach_workspace:
-          at: ./packages
+          at: .
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
