@@ -167,6 +167,7 @@ jobs:
       - run: dotnet test src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj --configuration Release
       - run: dotnet test src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj --configuration Release
       - run: dotnet test src/tests/Mathtone.Sdk.Logging.Tests/Mathtone.Sdk.Logging.Tests.csproj --configuration Release
+      - run: dotnet test src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj --configuration Release
       # - run:
       #     name: Build & Test Solution (Release)
       #     command: dotnet test src/tests/Mathtone.Sdk.Common.Tests/Mathtone.Sdk.Common.Tests.csproj --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
