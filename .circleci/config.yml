@@ -86,7 +86,7 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
       - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-      - pack-proj
+      - pack-proj:
           proj: src/sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
       - run: 
           name: Add Nuget
