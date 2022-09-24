@@ -188,6 +188,7 @@ workflows:
           requires:
             - pack-core
       - test-core:
+          context: MATHTONE_DEV
           requires:
             - pack-core
 
