@@ -92,7 +92,6 @@ jobs:
             dotnet new nugetconfig
             ls -l
             dotnet nuget add source ~/packages --name Local
-            dotnet nuget add source https://api.nuget.org/v3/index.json
             dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
