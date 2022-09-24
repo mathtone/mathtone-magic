@@ -105,7 +105,7 @@ jobs:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
           pkg: Mathtone.Sdk.Utilities
-      - run: dotnet build
+      - run: dotnet build src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
       # swap Mathtone.Sdk.Data.Sql
       #- swapref:
       #    proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
