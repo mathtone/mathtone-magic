@@ -19,9 +19,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 			_output = output;
 		}
 
-		public override bool IsEnabled(LogLevel logLevel) {
-			throw new NotImplementedException();
-		}
+		public override bool IsEnabled(LogLevel logLevel) =>logLevel!=LogLevel.None;
 
 		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) {
 			_output.WriteLine(message);

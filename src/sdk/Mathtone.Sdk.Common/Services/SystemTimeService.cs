@@ -8,8 +8,8 @@
 		DateTime ICurrentTime<DateTime, TimeZoneInfo>.UtcNow => UtcNow.DateTime;
 		DateTime ICurrentTime<DateTime, TimeZoneInfo>.In(TimeZoneInfo zone) => In(zone).DateTime;
 
-		public DateTime MyTime(DateTime yourTimeUtc) => TimeZoneInfo.ConvertTime(yourTimeUtc, CurrentTimeZone);
-		public DateTimeOffset MyTime(DateTimeOffset yourTime) => TimeZoneInfo.ConvertTime(yourTime, CurrentTimeZone);
+		//public DateTime MyTime(DateTime yourTimeUtc) => TimeZoneInfo.ConvertTime(yourTimeUtc, CurrentTimeZone);
+		//public DateTimeOffset MyTime(DateTimeOffset yourTime) => TimeZoneInfo.ConvertTime(yourTime, CurrentTimeZone);
 		public virtual TimeZoneInfo CurrentTimeZone => TimeZoneInfo.Local;
 	}
 

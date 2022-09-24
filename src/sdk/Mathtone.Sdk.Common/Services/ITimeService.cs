@@ -8,7 +8,7 @@
 		T Now { get; }
 		T UtcNow { get; }
 		T In(Z zone);
-		T MyTime(T yourTime);
+		//T MyTime(T yourTime);
 	}
 	public struct TimeInZone {
 		public DateTimeOffset Time { get; set; }

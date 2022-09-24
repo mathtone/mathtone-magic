@@ -5,12 +5,15 @@ namespace Mathtone.Sdk.Common.Services {
 
 		protected TimeInZone _startTime;
 		readonly Stopwatch _stopwatch = new();
-		public TimeZoneInfo TimeZone => _startTime.Zone;
+		public override TimeZoneInfo CurrentTimeZone => _startTime.Zone;
 		public TimeSpan Elapsed => _stopwatch.Elapsed;
 		public override DateTimeOffset Now => _startTime.Time + _stopwatch.Elapsed;
 		public override DateTimeOffset UtcNow => Now.ToUniversalTime();
 
-		public FlexTimeService(bool timeFlows = true) :
+		public FlexTimeService() :
+			this(true) { }
+
+		public FlexTimeService(bool timeFlows) :
 			this(TimeZoneInfo.Local, timeFlows) { }
 
 		public FlexTimeService(TimeZoneInfo timeZone, bool timeFlows = true) :
@@ -47,7 +50,7 @@ namespace Mathtone.Sdk.Common.Services {
 
 		public void Stop() => _stopwatch.Stop();
 
-		public override TimeZoneInfo CurrentTimeZone => _startTime.Zone;
+		//public override TimeZoneInfo CurrentTimeZone => _startTime.Zone;
 	}
 
 	//public interface ISystemTime : ILocalTime {
