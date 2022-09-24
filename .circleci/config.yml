@@ -73,6 +73,9 @@ jobs:
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
+      - run: 
+          name: List packages
+          command: ls ./packages
       - swapref:
           proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
           ref: ../Mathtone.Sdk.Common/Mathtone.Sdk.Common.csproj
