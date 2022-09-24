@@ -123,6 +123,11 @@ jobs:
           proj: src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj
           ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Logging.csproj
           pkg: Mathtone.Utilities
+      
+      - swapref:
+          proj: src/tests/Mathtone.Sdk.Utilities.Tests/Mathtone.Sdk.Utilities.Tests.csproj
+          ref: ../../sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
+          pkg: Mathtone.Sdk.Testing.Xunit
 
       - swapref:
           proj: src/tests/Mathtone.Sdk.Testing.Xunit.Tests/Mathtone.Sdk.Testing.Xunit.Tests.csproj
