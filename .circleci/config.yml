@@ -80,6 +80,7 @@ jobs:
     steps:
       - checkout
       - run: dotnet restore src/mathtone-magic.sln
+      - run: dotnet tool install --global dotnet-search
       - run: 
           name: Add Nuget
           command: dotnet nuget add source ~/packages --name Local
