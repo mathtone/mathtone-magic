@@ -96,14 +96,14 @@ namespace Build_Util {
 				genCommands.Add(genCmd);
 			}
 			_removeCommand.AppendLine();
-			_removeCommand.AppendLine(string.Join($" &{Environment.NewLine}", removeCommands));
+			_removeCommand.AppendLine(string.Join($" {Environment.NewLine}", removeCommands));
 
 			_addCommand.AppendLine();
-			_addCommand.AppendLine(string.Join($" &{Environment.NewLine}", addCommands));
+			_addCommand.AppendLine(string.Join($" {Environment.NewLine}", addCommands));
 
 			for (var i = 0; i < genCommands.Count; i++) {
 				_genCommand.AppendLine($"echo Generation {i}");
-				_genCommand.AppendLine(string.Join($" &{Environment.NewLine}", genCommands[i]));
+				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
 			}
 
 			using var f = File.OpenWrite($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/process-sln.sh");
