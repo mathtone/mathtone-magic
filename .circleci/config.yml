@@ -75,7 +75,11 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: bash temp/process-sln.sh
+      - run: |
+          dotnet restore src/mathtone-magic.sln
+          dotnet nuget remove source nuget.org
+          dotnet nuget add source /mnt/ramdisk/packages -n local
+          bash temp/process-sln.sh
 
   pack-core:
     docker:
