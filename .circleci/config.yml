@@ -44,25 +44,37 @@ jobs:
       - checkout
       - run: |
          pwd
-         
       - run: |
           mkdir temp
           mkdir packages
           ls -l
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
-      - run: dotnet restore src/mathtone-magic.sln
-      - run: dotnet nuget remove source nuget.org
-      - run: dotnet nuget add source /mnt/ramdisk/packages -n local
-      - run: dotnet nuget list source
-      - run: bash temp/process-sln.sh
-      - run: dotnet test src/mathtone-magic.sln
+      # - run: dotnet restore src/mathtone-magic.sln
+      #- run: dotnet nuget remove source nuget.org
+      #- run: dotnet nuget add source /mnt/ramdisk/packages -n local
+      #- run: dotnet nuget list source
+      #- run: bash temp/process-sln.sh
+      #- run: dotnet test src/mathtone-magic.sln
       - run: |
           branch=$CIRCLE_BRANCH
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
           echo build- ${build} version- ${suffix}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src
+            - packages
+            - temp/process-sln.sh
+  shatter-projects:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - run: bash temp/process-sln.sh
+
   pack-core:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -209,25 +221,28 @@ workflows:
   build-release:
     jobs:
       - get-code
-      - pack-core:
+      - shatter-projects:
           requires:
-            - get-code
-      - pack-sdk-testing:
-          requires:
-            - pack-core
-      - pack-sdk-data-sql:
-          requires:
-            - pack-core
-      - pack-sdk-data-npgsql:
-          requires:
-            - pack-core
-      - test-core:
-          context: MATHTONE_DEV
-          requires:
-            - pack-core
-            - pack-sdk-testing
-            - pack-sdk-data-sql
-            - pack-sdk-data-npgsql
+            - get-code 
+      #- pack-core:
+      #    requires:
+      #      - get-code
+      #- pack-sdk-testing:
+      #    requires:
+      #      - pack-core
+      #- pack-sdk-data-sql:
+      #    requires:
+      #      - pack-core
+      #- pack-sdk-data-npgsql:
+      #    requires:
+      #      - pack-core
+      #- test-core:
+      #    context: MATHTONE_DEV
+      #    requires:
+      #      - pack-core
+      #      - pack-sdk-testing
+      #      - pack-sdk-data-sql
+      #      - pack-sdk-data-npgsql
             
 
 
