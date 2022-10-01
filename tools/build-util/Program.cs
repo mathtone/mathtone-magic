@@ -88,6 +88,9 @@ namespace Build_Util {
 							addCommands.Add($"dotnet add {pj.Project.RelativePath} package {d.ProjectName}");
 						}
 					}
+					if (pack) {
+						genCmd.Add($"dotnet pack {pj.Project.RelativePath}");
+					}
 				}
 				genCommands.Add(genCmd);
 			}
@@ -102,6 +105,12 @@ namespace Build_Util {
 				_genCommand.AppendLine(string.Join($" &{Environment.NewLine}", genCommands[i]));
 			}
 
+			using var f = File.OpenWrite($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/process-sln.sh");
+			using var sw = new StreamWriter(f);
+			await sw.WriteAsync(_removeCommand.ToString());
+			await sw.WriteAsync(_addCommand.ToString());
+			await sw.WriteAsync(_genCommand.ToString());
+			await sw.FlushAsync();
 			_log.LogInformation("{remove}{add}{gen}", _removeCommand.ToString(), _addCommand.ToString(),_genCommand.ToString());
 		}
 
