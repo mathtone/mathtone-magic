@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.Design;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 
 namespace Build_Util {
@@ -44,6 +45,8 @@ namespace Build_Util {
 		readonly string _solutionFile;
 		readonly SolutionAnalysisConfig _config;
 		readonly Dictionary<string, ProjectDependencies> _projects;
+		StringBuilder _removeCommand = new();
+		StringBuilder _addCommand = new();
 
 		public SolutionAnalyzer(ILogger log, string solutionFile, SolutionAnalysisConfig config) {
 			_log = log;
@@ -53,27 +56,51 @@ namespace Build_Util {
 		}
 
 		public async Task Analyze() {
+			
 			await Task.WhenAll(_projects.Values.Select(AddProjectDependencies));
+			var packages = _config.PackageProjects!.ToHashSet();
 			var generations = new List<Dictionary<string, ProjectDependencies>>() {
 				{_projects.Values.ToDictionary(p=>p.Project.ProjectName)}
 			};
+			List<string> removeCommands = new();
+			List<string> addCommands = new();
 			var g = generations[0];
 			while (g.Any()) {
 				g = PromoteToGeneration(g);
 				if (g.Any())
 					generations.Add(g);
 			}
-			var i = 0;
-			foreach(var gn in generations) {
-				_log.LogInformation("Generation: {gen}", i++);
-				foreach(var pj in gn.Values)
-					_log.LogInformation(" - {proj}",pj.Project.ProjectName);
+
+			for (var i = 0; i < generations.Count; i++) {
+				var gn = generations[i];
+				_log.LogInformation("Generation: {gen}", i);
+				foreach (var pj in gn.Values) {
+					var pack = packages.Contains(pj.Project.ProjectName);
+					_log.LogInformation(" - {proj} Pack: {pack}", pj.Project.ProjectName, pack);
+					foreach(var d in pj.Dependencies) {
+						if (packages.Contains(d.ProjectName)) {
+							var proj = _projects[d.ProjectName];
+							_log.LogInformation("  - {dep}", d.ProjectName);
+							removeCommands.Add($"dotnet remove {pj.Project.RelativePath} reference {Path.GetRelativePath(pj.Project.AbsolutePath, d.AbsolutePath)}");
+							addCommands.Add($"dotnet add {pj.Project.RelativePath} package {d.ProjectName}");
+						}
+					}
+				}
 			}
+			_removeCommand.AppendLine();
+			_removeCommand.AppendLine(string.Join($" &{Environment.NewLine}", removeCommands));
+
+			_addCommand.AppendLine();
+			_addCommand.AppendLine(string.Join($" &{Environment.NewLine}", addCommands));
+
+			_log.LogInformation(_removeCommand.ToString());
+			_log.LogInformation(_addCommand.ToString());
+
 		}
 
-		protected Dictionary<string,ProjectDependencies> PromoteToGeneration(Dictionary<string,ProjectDependencies> currentGen) {
+		protected Dictionary<string, ProjectDependencies> PromoteToGeneration(Dictionary<string, ProjectDependencies> currentGen) {
 			var rtn = currentGen.Values.Where(p => p.Dependencies.Any(p => currentGen.ContainsKey(p.ProjectName))).ToDictionary(p => p.Project.ProjectName);
-			foreach(var k in rtn.Keys) {
+			foreach (var k in rtn.Keys) {
 				currentGen.Remove(k);
 			}
 			return rtn;
@@ -102,7 +129,7 @@ namespace Build_Util {
 		}
 
 		protected ProjectDependencies LocateProject(string projectPath) => _projects[GetProjectName(projectPath)];
-		
+
 
 		static IEnumerable<ProjectInSolution> GetProjects(string solutionFile) => SolutionFile.Parse(Path.GetFullPath(solutionFile))
 			.ProjectsInOrder
