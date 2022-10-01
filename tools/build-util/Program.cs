@@ -2,6 +2,7 @@
 using Microsoft.Build.Construction;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 using System.Xml;
 
 namespace Build_Util {
@@ -9,7 +10,7 @@ namespace Build_Util {
 		static async Task Main(string[] args) {
 			var config = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
-				.AddJsonFile("AppSettings.json")
+				.AddJsonFile($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/AppSettings.json")
 				.Build()
 				.GetSection("Settings").Get<SolutionAnalysisConfig>()!;
 
