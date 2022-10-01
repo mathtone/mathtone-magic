@@ -118,7 +118,7 @@ namespace Build_Util {
 				_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
 
 				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
-				_genCommand.AppendLine($"ls -l /root/packages");
+				_genCommand.AppendLine($"ls -l /mnt/ramdisk/packages");
 			}
 
 			using var f = File.OpenWrite($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/process-sln.sh");
