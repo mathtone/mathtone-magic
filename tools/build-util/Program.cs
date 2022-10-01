@@ -89,6 +89,10 @@ namespace Build_Util {
 			xml.LoadXml(await File.ReadAllTextAsync(project.Project.AbsolutePath));
 			var elems = xml.GetElementsByTagName("ProjectReference").Cast<XmlElement>();
 			_log.LogInformation("FOUND REFS: {refs}", elems.Count());
+			var attrs = elems.Select(e => e.GetAttribute("Include"));
+			foreach(var attr in attrs) {
+				_log.LogInformation(" -{attr}", attr);
+			}
 			//var dependencies = xml.GetElementsByTagName("ProjectReference")
 			//	.Cast<XmlElement>()
 			//	.Select(e => e.GetAttribute("Include"))
