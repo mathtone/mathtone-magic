@@ -92,22 +92,27 @@ namespace Build_Util {
 			xml.LoadXml(await File.ReadAllTextAsync(project.Project.AbsolutePath));
 			var elems = xml.GetElementsByTagName("ProjectReference").Cast<XmlElement>();
 			_log.LogInformation("FOUND REFS: {refs}", elems.Count());
-			var attrs = elems.Select(e => e.GetAttribute("Include"));
-			foreach(var attr in attrs) {
-				_log.LogInformation(" -{attr} - {found}", Path.GetFileNameWithoutExtension(attr), _projects.ContainsKey(Path.GetFileNameWithoutExtension(attr)));
-			}
-			//var dependencies = xml.GetElementsByTagName("ProjectReference")
-			//	.Cast<XmlElement>()
-			//	.Select(e => e.GetAttribute("Include"))
-			//	.Select(p => LocateProject(p).Project)
-			//	.ToArray();
+			var dependencies = xml.GetElementsByTagName("ProjectReference")
+				.Cast<XmlElement>()
+				.Select(e => e.GetAttribute("Include"))
+				.Select(p => LocateProject(p).Project)
+				.ToArray();
 
-			//project.Dependencies.AddRange(dependencies);
+			project.Dependencies.AddRange(dependencies);
+
+		}
+
+		static string GetProjectName(string projectPath) {
+			var splitChar = '\\';
+			if (projectPath.Contains("/")) {
+				splitChar = '/';
+			}
+			return Path.GetFileNameWithoutExtension(projectPath.Split(splitChar).Last());
 		}
 
 		protected ProjectDependencies LocateProject(string projectPath) {
 
-			return _projects[Path.GetFileNameWithoutExtension(Path.GetFileName(projectPath))];
+			return _projects[GetProjectName(projectPath)];
 		}
 
 		static IEnumerable<ProjectInSolution> GetProjects(string solutionFile) => SolutionFile.Parse(Path.GetFullPath(solutionFile))
