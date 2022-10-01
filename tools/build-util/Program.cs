@@ -86,6 +86,7 @@ namespace Build_Util {
 							var proj = _projects[d.ProjectName];
 							_log.LogInformation("  - {dep}", d.ProjectName);
 							removeCommands.Add($"dotnet remove {pj.Project.AbsolutePath} reference {d.AbsolutePath}");
+							addCommands.Add($"echo adding: {d.ProjectName} --no-restore");
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore");
 						}
 					}
