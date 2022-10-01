@@ -1,11 +1,13 @@
 ﻿using Mathtone.Sdk.Logging.Console;
 using Microsoft.Build.Construction;
+using Microsoft.Build.Framework;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.Design;
 using System.Reflection;
 using System.Text;
 using System.Xml;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Build_Util {
 	public static class Program {
@@ -34,6 +36,7 @@ namespace Build_Util {
 	public class SolutionAnalysisConfig {
 		public string[]? PackageProjects { get; set; }
 		public string? PackageDirectory { get; set; }
+		public LoggerVerbosity Verbosity { get; set; }
 	}
 
 	//public class SolutionAnalysis {
@@ -89,18 +92,18 @@ namespace Build_Util {
 							_log.LogInformation("  - {dep}", d.ProjectName);
 							removeCommands.Add($"dotnet remove {pj.Project.AbsolutePath} reference {d.AbsolutePath}");
 							addCommands.Add($"echo adding: {d.ProjectName} --no-restore");
-							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore");
+							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore --verbosity {_config.Verbosity}");
 						}
 					}
 					genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
 					genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
-					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s local --verbosity 1");
+					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s local --verbosity {_config.Verbosity}");
 
 					if (pack) {
 						genCmd.Add($"echo");
 						genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
 						genCmd.Add($"echo");
-						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity 1");
+						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {_config.Verbosity}");
 					}
 				}
 				genCommands.Add(genCmd);
