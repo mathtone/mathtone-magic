@@ -42,7 +42,7 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - run: dotnet build src/tools/analyze-solution/analyze-solution.csproj -o tools
+      - run: dotnet build tools/analyze-solution/analyze-solution.csproj -o tools
       - run: ls -l tools
       - run: |
           branch=$CIRCLE_BRANCH
