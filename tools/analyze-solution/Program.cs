@@ -4,6 +4,8 @@ using CommandLine;
 using Mathtone.Sdk.Common.Extensions;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Xml;
@@ -14,7 +16,7 @@ namespace AnalyzeSolution {
 			var p = Path.GetFullPath(args[0]);
 			if (File.Exists(p)) {
 				Console.WriteLine("FOUND SOLUTION");
-				await SolutionProcessor.Parse(p);
+				await new SolutionProcessor(new ConsoleLogger()).Parse(p);
 				return 0;
 			}
 			else {
@@ -24,19 +26,56 @@ namespace AnalyzeSolution {
 		}
 	}
 
-	public static class SolutionProcessor {
-		public static async Task Parse(string fileName) {
-			Console.WriteLine($"Processing solution: {fileName}");
+	public class SolutionProcessor {
+		
+		ILogger _log;
+		
+		public SolutionProcessor(ILogger log) {
+			_log = log;
+		}
+
+		public async Task Parse(string fileName) {
+			_log.LogInformation($"Processing solution: {fileName}");
 			var sln = SolutionFile.Parse(fileName);
 			foreach(var p in sln.ProjectsInOrder) {
-				Console.WriteLine(p.ProjectName);
+				_log.LogInformation(p.ProjectName);
 			}
-			//var xml = new XmlDocument();
-			//xml.Load(await File.ReadAllTextAsync(fileName));
-			//;
 		}
 	}
 
+	public class ConsoleLoggerConfig {
+		public int EventId { get; set; }
+	}
+
+	public class ConsoleLogger : ILogger {
+
+		private readonly string _name;
+		private readonly Func<ConsoleLoggerConfig> _getCurrentConfig;
+		public IDisposable BeginScope<TState>(TState state) => default!;
+
+		public ConsoleLogger() : this("", () => new()) { }
+
+		public ConsoleLogger(string name, Func<ConsoleLoggerConfig> getCurrentConfig) =>
+			(_name, _getCurrentConfig) = (name, getCurrentConfig);
+
+		public bool IsEnabled(LogLevel logLevel) => true;
+
+		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) {
+
+			if (!IsEnabled(logLevel)) {
+				return;
+			}
+
+			ConsoleLoggerConfig config = _getCurrentConfig();
+
+			if (config.EventId == 0 || config.EventId == eventId.Id) {
+				//Console.WriteLine($"[{eventId.Id,2}: {logLevel,-12}]");
+				Console.Write($"     {_name} - ");
+				Console.Write($"{formatter(state, exception)}");
+				Console.WriteLine();
+			}
+		}
+	}
 	//public class CommandLineOptions {
 	//	[Value(index: 0, Required = true, HelpText = "Solution file Path to analyze.")]
 	//	public string? SolutionFile { get; set; }

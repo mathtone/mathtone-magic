@@ -50,7 +50,5 @@ namespace Sandbox {
 		}
 	}
 
-	public static class IDbCommandExtensions {
-
-	}
+	
 }
