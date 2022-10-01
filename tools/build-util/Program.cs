@@ -111,8 +111,8 @@ namespace Build_Util {
 
 			for (var i = 0; i < genCommands.Count; i++) {
 				_genCommand.AppendLine($"echo Generation {i}");
-				_genCommand.AppendLine($"ls -l {_config.PackageDirectory}");
 				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
+				_genCommand.AppendLine($"ls -l {_config.PackageDirectory}");
 			}
 
 			using var f = File.OpenWrite($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/process-sln.sh");
