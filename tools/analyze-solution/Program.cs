@@ -11,7 +11,15 @@ using System.Xml;
 namespace AnalyzeSolution {
 	public static class Program {
 		public static void Main(string[] args) {
-
+			var p = Path.GetFullPath(args[0]);
+			if (File.Exists(p)) {
+				Console.WriteLine("FOUND SOLUTION");
+			}
+			else {
+				Console.WriteLine("NO SOLUTION");
+			}
+			;
+			
 		}
 	}
 
