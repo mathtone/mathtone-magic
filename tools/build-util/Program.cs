@@ -90,8 +90,6 @@ namespace Build_Util {
 		public async Task AddProjectDependencies(ProjectDependencies project) {
 			var xml = new XmlDocument();
 			xml.LoadXml(await File.ReadAllTextAsync(project.Project.AbsolutePath));
-			var elems = xml.GetElementsByTagName("ProjectReference").Cast<XmlElement>();
-			_log.LogInformation("FOUND REFS: {refs}", elems.Count());
 			var dependencies = xml.GetElementsByTagName("ProjectReference")
 				.Cast<XmlElement>()
 				.Select(e => e.GetAttribute("Include"))
@@ -110,10 +108,8 @@ namespace Build_Util {
 			return Path.GetFileNameWithoutExtension(projectPath.Split(splitChar).Last());
 		}
 
-		protected ProjectDependencies LocateProject(string projectPath) {
-
-			return _projects[GetProjectName(projectPath)];
-		}
+		protected ProjectDependencies LocateProject(string projectPath) => _projects[GetProjectName(projectPath)];
+		
 
 		static IEnumerable<ProjectInSolution> GetProjects(string solutionFile) => SolutionFile.Parse(Path.GetFullPath(solutionFile))
 			.ProjectsInOrder
