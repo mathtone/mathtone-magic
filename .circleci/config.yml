@@ -48,6 +48,7 @@ jobs:
       - run: ls -l temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - run: dotnet restore src/mathtone-magic.sln
+      - run: dotnet nuget add source ~/packages -n local
       - run: bash temp/process-sln.sh
       - run: |
           branch=$CIRCLE_BRANCH
