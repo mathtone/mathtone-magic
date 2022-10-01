@@ -28,6 +28,9 @@ namespace AnalyzeSolution {
 		public static async Task Parse(string fileName) {
 			Console.WriteLine($"Processing solution: {fileName}");
 			var sln = SolutionFile.Parse(fileName);
+			foreach(var p in sln.ProjectsInOrder) {
+				Console.WriteLine(p.ProjectName);
+			}
 			//var xml = new XmlDocument();
 			//xml.Load(await File.ReadAllTextAsync(fileName));
 			//;
