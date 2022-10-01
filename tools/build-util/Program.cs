@@ -86,8 +86,11 @@ namespace Build_Util {
 		public async Task AddProjectDependencies(ProjectDependencies project) {
 			var xml = new XmlDocument();
 			xml.LoadXml(await File.ReadAllTextAsync(project.Project.AbsolutePath));
-			var dependencies = xml.GetElementsByTagName("ProjectReference").Cast<XmlElement>().Select(e => e.GetAttribute("Include")).Select(p => _projects[Path.GetFileNameWithoutExtension(p)].Project);
-			project.Dependencies.AddRange(dependencies);			;
+			var dependencies = xml.GetElementsByTagName("ProjectReference")
+				.Cast<XmlElement>()
+				.Select(e => e.GetAttribute("Include"))
+				.Select(p => _projects[Path.GetFileNameWithoutExtension(Path.GetFileName(p))].Project);
+			project.Dependencies.AddRange(dependencies);
 		}
 
 		static IEnumerable<ProjectInSolution> GetProjects(string solutionFile) => SolutionFile.Parse(Path.GetFullPath(solutionFile))
