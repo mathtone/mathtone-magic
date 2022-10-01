@@ -13,7 +13,7 @@ commands:
           name: swap << parameters.ref >> with reference << parameters.pkg >>
           command: |
             dotnet remove << parameters.proj >> reference << parameters.ref >>
-            dotnet add << parameters.proj >> package << parameters.pkg >> --source ./packages --prerelease
+            dotnet add << parameters.proj >> package << parameters.pkg >> --source /root/project/packages --prerelease
   pack-proj:
     parameters:
       proj:
