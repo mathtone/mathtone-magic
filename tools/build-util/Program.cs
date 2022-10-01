@@ -73,7 +73,7 @@ namespace Build_Util {
 			foreach(var gn in generations) {
 				_log.LogInformation("Generation: {gen}", i++);
 				foreach(var pj in gn.Values)
-				_log.LogInformation(" - {proj}",Path.GetFileNameWithoutExtension(pj.Project.ProjectName));
+				_log.LogInformation(" - {proj}",pj.Project.ProjectName);
 			}
 			await Task.CompletedTask;
 		}
