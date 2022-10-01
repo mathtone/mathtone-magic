@@ -69,7 +69,7 @@ namespace Build_Util {
 			//	if(g.Any())
 			//		generations.Add(g);
 			//}
-			//var i = 0;
+			var i = 0;
 			foreach(var gn in generations) {
 				_log.LogInformation("Generation: {gen}", i++);
 				foreach(var pj in gn.Values)
