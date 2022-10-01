@@ -33,6 +33,7 @@ namespace Build_Util {
 
 	public class SolutionAnalysisConfig {
 		public string[]? PackageProjects { get; set; }
+		public string? PackageDirectory { get; set; }
 	}
 
 	//public class SolutionAnalysis {
@@ -89,7 +90,7 @@ namespace Build_Util {
 						}
 					}
 					if (pack) {
-						genCmd.Add($"dotnet pack {pj.Project.RelativePath}");
+						genCmd.Add($"dotnet pack {pj.Project.RelativePath} -o {_config.PackageDirectory}");
 					}
 				}
 				genCommands.Add(genCmd);
