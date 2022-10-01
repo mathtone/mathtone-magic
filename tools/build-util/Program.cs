@@ -109,7 +109,7 @@ namespace Build_Util {
 				genCommands.Add(genCmd);
 			}
 			_removeCommand.AppendLine();
-			_removeCommand.AppendLine(string.Join($" {Environment.NewLine}", removeCommands));
+			_removeCommand.AppendLine(string.Join($" &{Environment.NewLine}", removeCommands));
 
 			_addCommand.AppendLine();
 			_addCommand.AppendLine(string.Join($" {Environment.NewLine}", addCommands));
