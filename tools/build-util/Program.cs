@@ -50,6 +50,9 @@ namespace Build_Util {
 			_solutionFile = solutionFile;
 			_config = config;
 			_projects = GetProjects(_solutionFile).ToDictionary(p => p.ProjectName, p => new ProjectDependencies(p));
+			foreach(var p in _projects.Keys) {
+				_log.LogInformation("{key}", p);
+			}
 		}
 
 		public async Task Analyze() {
