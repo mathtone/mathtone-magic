@@ -78,6 +78,7 @@ namespace Build_Util {
 				var genCmd = new List<string>();
 				var gn = generations[i];
 				_log.LogInformation("Generation: {gen}", i);
+
 				foreach (var pj in gn.Values) {
 					var pack = packages.Contains(pj.Project.ProjectName);
 					_log.LogInformation(" - {proj} Pack: {pack}", pj.Project.ProjectName, pack);
@@ -107,6 +108,7 @@ namespace Build_Util {
 
 			for (var i = 0; i < genCommands.Count; i++) {
 				_genCommand.AppendLine($"echo Generation {i}");
+				_genCommand.AppendLine($"ls -l {_config.PackageDirectory}");
 				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
 			}
 
