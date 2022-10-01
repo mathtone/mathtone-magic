@@ -14,6 +14,10 @@ namespace Mathtone.Sdk.Logging {
 		private readonly string _category;
 		private readonly LoggerExternalScopeProvider _scope;
 
+		protected Logger(string categoryName=""):this(new(), categoryName) {
+			
+		}
+
 		protected Logger(LoggerExternalScopeProvider scopeProvider, string categoryName) {
 			_scope = scopeProvider;
 			_category = categoryName;

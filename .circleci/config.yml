@@ -44,8 +44,8 @@ jobs:
       - checkout
       - run: ls -l
       - run: mkdir temp
-      - run: dotnet build tools/analyze-solution/analyze-solution.csproj --output temp
-      - run: dotnet temp/analyze-solution.dll src/mathtone-magic.sln
+      - run: dotnet build tools/analyze-solution/build-util.csproj --output temp
+      - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - run: |
           branch=$CIRCLE_BRANCH
           ver=${branch/"release/"/""}

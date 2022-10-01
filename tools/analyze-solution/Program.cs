@@ -2,10 +2,10 @@
 
 using CommandLine;
 using Mathtone.Sdk.Common.Extensions;
+using Mathtone.Sdk.Logging.Console;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Xml;
@@ -34,6 +34,7 @@ namespace AnalyzeSolution {
 		Dictionary<string, ProjectInSolution>? _sdkProjects;
 		TextWriter? _removals;
 		TextWriter? _additions;
+
 		public SolutionProcessor(ILogger log, string solution) {
 			_log = log;
 			_solution = solution;
@@ -42,7 +43,7 @@ namespace AnalyzeSolution {
 		public async Task Process() {
 			_log.LogInformation($"PROCESSING SOLUTION: {_solution}");
 			var sln = SolutionFile.Parse(_solution);
-			
+
 			_sdkProjects = sln.ProjectsInOrder
 				.Where(p =>
 					p.ProjectType != SolutionProjectType.SolutionFolder &&
@@ -87,39 +88,6 @@ namespace AnalyzeSolution {
 				&& !Path.IsPathRooted(rel);
 		}
 	}
-
-	public class ConsoleLoggerConfig {
-		public int EventId { get; set; }
-	}
-
-	public class ConsoleLogger : ILogger {
-
-		private readonly string _name;
-		private readonly Func<ConsoleLoggerConfig> _getCurrentConfig;
-		public IDisposable BeginScope<TState>(TState state) => default!;
-
-		public ConsoleLogger() : this("", () => new()) { }
-
-		public ConsoleLogger(string name, Func<ConsoleLoggerConfig> getCurrentConfig) =>
-			(_name, _getCurrentConfig) = (name, getCurrentConfig);
-
-		public bool IsEnabled(LogLevel logLevel) => true;
-
-		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) {
-
-			if (!IsEnabled(logLevel)) {
-				return;
-			}
-
-			ConsoleLoggerConfig config = _getCurrentConfig();
-
-			if (config.EventId == 0 || config.EventId == eventId.Id) {
-				//Console.WriteLine($"[{eventId.Id,2}: {logLevel,-12}]");
-				Console.WriteLine($"     {_name} - {formatter(state, exception)}");
-			}
-		}
-	}
-
 
 	//public class CommandLineOptions {
 	//	[Value(index: 0, Required = true, HelpText = "Solution file Path to analyze.")]
