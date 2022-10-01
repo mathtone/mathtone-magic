@@ -47,7 +47,7 @@ jobs:
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: ls -l temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
-      - run: bash process-sln.sh
+      - run: bash temp/process-sln.sh
       - run: |
           branch=$CIRCLE_BRANCH
           ver=${branch/"release/"/""}
