@@ -10,16 +10,23 @@ using System.Xml;
 
 namespace AnalyzeSolution {
 	public static class Program {
-		public static void Main(string[] args) {
+		public static async Task<int> Main(string[] args) {
 			var p = Path.GetFullPath(args[0]);
 			if (File.Exists(p)) {
 				Console.WriteLine("FOUND SOLUTION");
+				await SolutionProcessor.Parse(p);
+				return 0;
 			}
 			else {
 				Console.WriteLine("NO SOLUTION");
+				return -1;
 			}
-			;
-			
+		}
+	}
+
+	public static class SolutionProcessor {
+		public static async Task Parse(string fileName) {
+			Console.WriteLine("Processing solution");
 		}
 	}
 
