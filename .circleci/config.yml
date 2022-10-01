@@ -66,6 +66,7 @@ jobs:
           root: .
           paths:
             - src
+            - tools
             - packages
             - temp/process-sln.sh
   shatter-projects:
