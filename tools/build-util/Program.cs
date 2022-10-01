@@ -91,7 +91,7 @@ namespace Build_Util {
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore");
 						}
 					}
-					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} --source ./{_config.PackageDirectory}");
+					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} --source /root/project/{_config.PackageDirectory}");
 
 					if (pack) {
 						;
