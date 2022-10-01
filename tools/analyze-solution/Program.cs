@@ -9,7 +9,6 @@ using System.Security;
 using System.Xml;
 
 namespace AnalyzeSolution {
-
 	public static class Program {
 		public static void Main(string[] args) {
 
