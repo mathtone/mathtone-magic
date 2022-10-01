@@ -14,6 +14,6 @@ namespace Mathtone.Sdk.Logging.Console {
 
 		public override bool IsEnabled(LogLevel logLevel) => true;
 		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) =>
-			System.Console.Write(message);
+			System.Console.WriteLine(message);
 	}
 }
