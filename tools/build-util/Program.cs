@@ -47,6 +47,7 @@ namespace Build_Util {
 		readonly Dictionary<string, ProjectDependencies> _projects;
 		StringBuilder _removeCommand = new();
 		StringBuilder _addCommand = new();
+		StringBuilder _genCommand = new();
 
 		public SolutionAnalyzer(ILogger log, string solutionFile, SolutionAnalysisConfig config) {
 			_log = log;
@@ -56,7 +57,7 @@ namespace Build_Util {
 		}
 
 		public async Task Analyze() {
-			
+
 			await Task.WhenAll(_projects.Values.Select(AddProjectDependencies));
 			var packages = _config.PackageProjects!.ToHashSet();
 			var generations = new List<Dictionary<string, ProjectDependencies>>() {
@@ -64,6 +65,7 @@ namespace Build_Util {
 			};
 			List<string> removeCommands = new();
 			List<string> addCommands = new();
+			List<List<string>> genCommands = new();
 			var g = generations[0];
 			while (g.Any()) {
 				g = PromoteToGeneration(g);
@@ -72,12 +74,13 @@ namespace Build_Util {
 			}
 
 			for (var i = 0; i < generations.Count; i++) {
+				var genCmd = new List<string>();
 				var gn = generations[i];
 				_log.LogInformation("Generation: {gen}", i);
 				foreach (var pj in gn.Values) {
 					var pack = packages.Contains(pj.Project.ProjectName);
 					_log.LogInformation(" - {proj} Pack: {pack}", pj.Project.ProjectName, pack);
-					foreach(var d in pj.Dependencies) {
+					foreach (var d in pj.Dependencies) {
 						if (packages.Contains(d.ProjectName)) {
 							var proj = _projects[d.ProjectName];
 							_log.LogInformation("  - {dep}", d.ProjectName);
@@ -86,6 +89,7 @@ namespace Build_Util {
 						}
 					}
 				}
+				genCommands.Add(genCmd);
 			}
 			_removeCommand.AppendLine();
 			_removeCommand.AppendLine(string.Join($" &{Environment.NewLine}", removeCommands));
@@ -93,9 +97,12 @@ namespace Build_Util {
 			_addCommand.AppendLine();
 			_addCommand.AppendLine(string.Join($" &{Environment.NewLine}", addCommands));
 
-			_log.LogInformation(_removeCommand.ToString());
-			_log.LogInformation(_addCommand.ToString());
+			for (var i = 0; i < genCommands.Count; i++) {
+				_genCommand.AppendLine($"echo Generation {i}");
+				_genCommand.AppendLine(string.Join($" &{Environment.NewLine}", genCommands[i]));
+			}
 
+			_log.LogInformation("{remove}{add}{gen}", _removeCommand.ToString(), _addCommand.ToString(),_genCommand.ToString());
 		}
 
 		protected Dictionary<string, ProjectDependencies> PromoteToGeneration(Dictionary<string, ProjectDependencies> currentGen) {
