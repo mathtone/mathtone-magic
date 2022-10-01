@@ -94,7 +94,7 @@ namespace Build_Util {
 		}
 
 		protected ProjectDependencies LocateProject(string projectPath) {
-			return _projects[Path.GetFileNameWithoutExtension(Path.GetFileName(p))].Project;
+			return _projects[Path.GetFileNameWithoutExtension(Path.GetFileName(projectPath))];
 		}
 
 		static IEnumerable<ProjectInSolution> GetProjects(string solutionFile) => SolutionFile.Parse(Path.GetFullPath(solutionFile))
