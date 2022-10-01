@@ -89,11 +89,14 @@ namespace Build_Util {
 			var dependencies = xml.GetElementsByTagName("ProjectReference")
 				.Cast<XmlElement>()
 				.Select(e => e.GetAttribute("Include"))
-				.Select(p=>LocateProject(p).Project);
+				.Select(p => LocateProject(p).Project)
+				.ToArray();
+
 			project.Dependencies.AddRange(dependencies);
 		}
 
 		protected ProjectDependencies LocateProject(string projectPath) {
+
 			return _projects[Path.GetFileNameWithoutExtension(Path.GetFileName(projectPath))];
 		}
 
