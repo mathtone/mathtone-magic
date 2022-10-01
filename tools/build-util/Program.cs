@@ -97,7 +97,7 @@ namespace Build_Util {
 					}
 					genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
 					genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
-					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s local --verbosity {(int)_config.Verbosity}");
+					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s ./packages --verbosity {(int)_config.Verbosity}");
 
 					if (pack) {
 						genCmd.Add($"echo");
@@ -121,7 +121,9 @@ namespace Build_Util {
 			}
 
 			using var f = File.OpenWrite($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/process-sln.sh");
+			
 			using var sw = new StreamWriter(f);
+			await sw.WriteAsync("dotnet nuget locals all --clear");
 			await sw.WriteAsync(_removeCommand.ToString());
 			await sw.WriteAsync(_addCommand.ToString());
 			await sw.WriteAsync(_genCommand.ToString());
