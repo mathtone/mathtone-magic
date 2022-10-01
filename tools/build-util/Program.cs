@@ -94,7 +94,7 @@ namespace Build_Util {
 			_log.LogInformation("FOUND REFS: {refs}", elems.Count());
 			var attrs = elems.Select(e => e.GetAttribute("Include"));
 			foreach(var attr in attrs) {
-				_log.LogInformation(" -{attr} - {found}", attr, _projects.ContainsKey(attr));
+				_log.LogInformation(" -{attr} - {found}", attr, _projects.ContainsKey(Path.GetFileNameWithoutExtension(attr)));
 			}
 			//var dependencies = xml.GetElementsByTagName("ProjectReference")
 			//	.Cast<XmlElement>()
