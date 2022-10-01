@@ -10,7 +10,7 @@ namespace Build_Util {
 		static async Task Main(string[] args) {
 			var config = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
-				.AddJsonFile($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/AppSettings.json")
+				.AddJsonFile($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/appsettings.json")
 				.Build()
 				.GetSection("Settings").Get<SolutionAnalysisConfig>()!;
 
