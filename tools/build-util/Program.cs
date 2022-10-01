@@ -94,7 +94,7 @@ namespace Build_Util {
 					}
 					genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
 					genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
-					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} --source /mnt/ramdisk/{_config.PackageDirectory} --verbosity 1");
+					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s local --verbosity 1");
 
 					if (pack) {
 						genCmd.Add($"echo");
