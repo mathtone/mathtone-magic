@@ -6,6 +6,7 @@
     <RootNamespace>analyze_solution</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>AnalyzeSolution.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
