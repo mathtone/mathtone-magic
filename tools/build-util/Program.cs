@@ -84,7 +84,7 @@ namespace Build_Util {
 						if (packages.Contains(d.ProjectName)) {
 							var proj = _projects[d.ProjectName];
 							_log.LogInformation("  - {dep}", d.ProjectName);
-							removeCommands.Add($"dotnet remove {pj.Project.AbsolutePath} reference {Path.GetRelativePath(pj.Project.AbsolutePath, d.AbsolutePath)}");
+							removeCommands.Add($"dotnet remove {pj.Project.AbsolutePath} reference {d.AbsolutePath}");
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName}");
 						}
 					}
