@@ -63,12 +63,12 @@ namespace Build_Util {
 				{gen0}
 				//{_projects.Values.Where(p => p.Dependencies.Any(p=>gen0.ContainsKey(p.ProjectName))).ToDictionary(p => p.Project.ProjectName) }
 			};
-			//var g = generations[0];
-			//while (g.Any()) {
-			//	g = PromoteToGeneration(g);
-			//	if(g.Any())
-			//		generations.Add(g);
-			//}
+			var g = generations[0];
+			while (g.Any()) {
+				g = PromoteToGeneration(g);
+				if (g.Any())
+					generations.Add(g);
+			}
 			var i = 0;
 			foreach(var gn in generations) {
 				_log.LogInformation("Generation: {gen}", i++);
