@@ -86,13 +86,13 @@ namespace Build_Util {
 		public async Task AddProjectDependencies(ProjectDependencies project) {
 			var xml = new XmlDocument();
 			xml.LoadXml(await File.ReadAllTextAsync(project.Project.AbsolutePath));
-			var dependencies = xml.GetElementsByTagName("ProjectReference")
-				.Cast<XmlElement>()
-				.Select(e => e.GetAttribute("Include"))
-				.Select(p => LocateProject(p).Project)
-				.ToArray();
+			//var dependencies = xml.GetElementsByTagName("ProjectReference")
+			//	.Cast<XmlElement>()
+			//	.Select(e => e.GetAttribute("Include"))
+			//	.Select(p => LocateProject(p).Project)
+			//	.ToArray();
 
-			project.Dependencies.AddRange(dependencies);
+			//project.Dependencies.AddRange(dependencies);
 		}
 
 		protected ProjectDependencies LocateProject(string projectPath) {
