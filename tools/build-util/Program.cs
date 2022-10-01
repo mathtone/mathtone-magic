@@ -50,18 +50,12 @@ namespace Build_Util {
 			_solutionFile = solutionFile;
 			_config = config;
 			_projects = GetProjects(_solutionFile).ToDictionary(p => p.ProjectName, p => new ProjectDependencies(p));
-			foreach(var p in _projects.Keys) {
-				_log.LogInformation("{key}", p);
-			}
 		}
 
 		public async Task Analyze() {
 			await Task.WhenAll(_projects.Values.Select(AddProjectDependencies));
-			var gen0 = _projects.Values.ToDictionary(p=>p.Project.ProjectName);
-			//var gen0 = _projects.ToDictionary(p => p.Value.Project.ProjectName);
 			var generations = new List<Dictionary<string, ProjectDependencies>>() {
-				{gen0}
-				//{_projects.Values.Where(p => p.Dependencies.Any(p=>gen0.ContainsKey(p.ProjectName))).ToDictionary(p => p.Project.ProjectName) }
+				{_projects.Values.ToDictionary(p=>p.Project.ProjectName)}
 			};
 			var g = generations[0];
 			while (g.Any()) {
@@ -73,9 +67,8 @@ namespace Build_Util {
 			foreach(var gn in generations) {
 				_log.LogInformation("Generation: {gen}", i++);
 				foreach(var pj in gn.Values)
-				_log.LogInformation(" - {proj}",pj.Project.ProjectName);
+					_log.LogInformation(" - {proj}",pj.Project.ProjectName);
 			}
-			await Task.CompletedTask;
 		}
 
 		protected Dictionary<string,ProjectDependencies> PromoteToGeneration(Dictionary<string,ProjectDependencies> currentGen) {
