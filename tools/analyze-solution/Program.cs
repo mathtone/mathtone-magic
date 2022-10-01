@@ -26,7 +26,11 @@ namespace AnalyzeSolution {
 
 	public static class SolutionProcessor {
 		public static async Task Parse(string fileName) {
-			Console.WriteLine("Processing solution");
+			Console.WriteLine($"Processing solution: {fileName}");
+			var sln = SolutionFile.Parse(fileName);
+			//var xml = new XmlDocument();
+			//xml.Load(await File.ReadAllTextAsync(fileName));
+			//;
 		}
 	}
 
