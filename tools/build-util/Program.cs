@@ -90,8 +90,11 @@ namespace Build_Util {
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore");
 						}
 					}
+					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s {_config.PackageDirectory}");
+
 					if (pack) {
-						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} -s {_config.PackageDirectory}");
+						
+						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory}");
 					}
 				}
 				genCommands.Add(genCmd);
