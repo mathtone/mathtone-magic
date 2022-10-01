@@ -42,13 +42,16 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - run: ls -l
-      - run: mkdir temp
+      - run: |
+         pwd
+         ls -l
+      - run: |
+          mkdir temp
+          mkdir packages
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: ls -l temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - run: dotnet restore src/mathtone-magic.sln
-      - run: dotnet nuget add source ~/packages -n local
       - run: bash temp/process-sln.sh
       - run: |
           branch=$CIRCLE_BRANCH
