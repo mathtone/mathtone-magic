@@ -42,6 +42,7 @@ namespace Build_Util {
 
 	public class SolutionAnalyzer {
 
+
 		readonly ILogger _log;
 		readonly string _solutionFile;
 		readonly SolutionAnalysisConfig _config;
