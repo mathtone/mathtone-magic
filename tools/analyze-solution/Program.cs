@@ -11,12 +11,13 @@ using System.Security;
 using System.Xml;
 
 namespace AnalyzeSolution {
+
 	public static class Program {
 		public static async Task<int> Main(string[] args) {
 			var p = Path.GetFullPath(args[0]);
 			if (File.Exists(p)) {
 				Console.WriteLine("FOUND SOLUTION");
-				await new SolutionProcessor(new ConsoleLogger()).Parse(p);
+				await new SolutionProcessor(new ConsoleLogger(), p).Process();
 				return 0;
 			}
 			else {
@@ -27,19 +28,63 @@ namespace AnalyzeSolution {
 	}
 
 	public class SolutionProcessor {
-		
+
 		ILogger _log;
-		
-		public SolutionProcessor(ILogger log) {
+		string _solution;
+		Dictionary<string, ProjectInSolution>? _sdkProjects;
+		TextWriter? _removals;
+		TextWriter? _additions;
+		public SolutionProcessor(ILogger log, string solution) {
 			_log = log;
+			_solution = solution;
 		}
 
-		public async Task Parse(string fileName) {
-			_log.LogInformation($"Processing solution: {fileName}");
-			var sln = SolutionFile.Parse(fileName);
-			foreach(var p in sln.ProjectsInOrder) {
-				_log.LogInformation(p.ProjectName);
+		public async Task Process() {
+			_log.LogInformation($"PROCESSING SOLUTION: {_solution}");
+			var sln = SolutionFile.Parse(_solution);
+			
+			_sdkProjects = sln.ProjectsInOrder
+				.Where(p =>
+					p.ProjectType != SolutionProjectType.SolutionFolder &&
+					Path.GetRelativePath(Path.GetDirectoryName(_solution)!, p.AbsolutePath).IsSubPathOf("sdk")
+				).ToDictionary(p => p.ProjectName);
+
+			await Task.WhenAll(
+				sln.ProjectsInOrder
+					.Where(p => p.ProjectType != SolutionProjectType.SolutionFolder)
+					.Select(p => ProcessProject(p.AbsolutePath))
+			);
+			_log.LogInformation($"PROCESSING COMPLETE: {_solution}");
+		}
+
+		protected async Task ProcessProject(string projectFile) {
+
+			var p = Path.GetRelativePath(Path.GetDirectoryName(_solution)!, projectFile).IsSubPathOf("sdk");
+			var doc = new XmlDocument();
+			var xml = await File.ReadAllTextAsync(projectFile);
+			doc.LoadXml(xml);
+			var refs = doc.GetElementsByTagName("ProjectReference");
+			foreach (XmlElement r in refs) {
+				var referencedProject = Path.GetFileNameWithoutExtension(r.GetAttribute("Include"));
+				if (_sdkProjects!.ContainsKey(referencedProject)) {
+					_log.LogInformation($" -References: {referencedProject}");
+					var px = Project.FromFile(projectFile, new());
+
+					;
+				}
 			}
+			_log.LogInformation($"{projectFile} LOADED");
+		}
+	}
+
+	static class PathExtensions {
+		public static bool IsSubPathOf(this string subPath, string basePath) {
+			var rel = Path.GetRelativePath(basePath, subPath);
+			return rel != "."
+				&& rel != ".."
+				&& !rel.StartsWith("../")
+				&& !rel.StartsWith(@"..\")
+				&& !Path.IsPathRooted(rel);
 		}
 	}
 
@@ -70,12 +115,12 @@ namespace AnalyzeSolution {
 
 			if (config.EventId == 0 || config.EventId == eventId.Id) {
 				//Console.WriteLine($"[{eventId.Id,2}: {logLevel,-12}]");
-				Console.Write($"     {_name} - ");
-				Console.Write($"{formatter(state, exception)}");
-				Console.WriteLine();
+				Console.WriteLine($"     {_name} - {formatter(state, exception)}");
 			}
 		}
 	}
+
+
 	//public class CommandLineOptions {
 	//	[Value(index: 0, Required = true, HelpText = "Solution file Path to analyze.")]
 	//	public string? SolutionFile { get; set; }
