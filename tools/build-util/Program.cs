@@ -118,13 +118,14 @@ namespace Build_Util {
 				_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
 
 				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
-				_genCommand.AppendLine($"ls -l {_config.PackageDirectory}");
+				_genCommand.AppendLine($"ls -l /root/packages");
 			}
 
 			using var f = File.OpenWrite($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/process-sln.sh");
 			
 			using var sw = new StreamWriter(f);
-			await sw.WriteAsync("dotnet nuget locals all --clear");
+			//await sw.WriteAsync("dotnet nuget locals all --clear");
+			await sw.WriteAsync(_removeCommand.ToString());
 			await sw.WriteAsync(_removeCommand.ToString());
 			await sw.WriteAsync(_addCommand.ToString());
 			await sw.WriteAsync(_genCommand.ToString());
