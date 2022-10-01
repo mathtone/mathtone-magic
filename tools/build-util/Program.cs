@@ -92,11 +92,13 @@ namespace Build_Util {
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore");
 						}
 					}
+					genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
+					genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
 					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} --source /mnt/ramdisk/{_config.PackageDirectory} --verbosity 1");
 
 					if (pack) {
 						genCmd.Add($"echo");
-						genCmd.Add($"echo packing {pj.Project.ProjectName}");
+						genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
 						genCmd.Add($"echo");
 						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity 1");
 					}
