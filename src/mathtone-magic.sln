@@ -60,6 +60,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Npgsql.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests", "tests\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{DBAEA763-BFE9-431B-A680-36D780B4025E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "analyze-solution", "..\tools\analyze-solution\analyze-solution.csproj", "{8C9B618E-039D-484F-A379-F0493B6505CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +130,10 @@ Global
 		{DBAEA763-BFE9-431B-A680-36D780B4025E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBAEA763-BFE9-431B-A680-36D780B4025E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBAEA763-BFE9-431B-A680-36D780B4025E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C9B618E-039D-484F-A379-F0493B6505CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C9B618E-039D-484F-A379-F0493B6505CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C9B618E-039D-484F-A379-F0493B6505CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C9B618E-039D-484F-A379-F0493B6505CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +160,7 @@ Global
 		{B070D71D-EB8D-469A-9383-39BB793FADE3} = {624FDC72-C7D1-4A91-BE0D-5D3162A79643}
 		{861D7AA6-3DC2-4AB8-A359-E7E69F1A71AD} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
 		{DBAEA763-BFE9-431B-A680-36D780B4025E} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
+		{8C9B618E-039D-484F-A379-F0493B6505CA} = {AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}

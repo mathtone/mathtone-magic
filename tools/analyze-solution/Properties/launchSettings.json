@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "analyze-solution": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\mike\\mathtone-magic\\src\\mathtone-magic.sln"
+    }
+  }
+}
