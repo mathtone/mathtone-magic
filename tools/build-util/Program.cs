@@ -91,7 +91,7 @@ namespace Build_Util {
 						}
 					}
 					if (pack) {
-						genCmd.Add($"dotnet pack {pj.Project.RelativePath} -o {_config.PackageDirectory}");
+						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory}");
 					}
 				}
 				genCommands.Add(genCmd);
