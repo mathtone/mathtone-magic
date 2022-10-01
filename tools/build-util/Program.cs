@@ -95,7 +95,8 @@ namespace Build_Util {
 					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} --source /mnt/ramdisk/{_config.PackageDirectory}");
 
 					if (pack) {
-						;
+						genCmd.Add($"echo packing {pj.Project.ProjectName}");
+						genCmd.Add($"echo");
 						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory}");
 					}
 				}
