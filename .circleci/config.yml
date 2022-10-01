@@ -49,9 +49,9 @@ jobs:
           mkdir temp
           mkdir packages
       - run: dotnet build tools/build-util/build-util.csproj --output temp
-      - run: ls -l temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - run: dotnet restore src/mathtone-magic.sln
+      - run: dotnet nuget remove source nuget.org
       - run: bash temp/process-sln.sh
       - run: |
           branch=$CIRCLE_BRANCH
