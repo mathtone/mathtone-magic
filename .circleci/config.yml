@@ -43,9 +43,9 @@ jobs:
     steps:
       - checkout
       - run: ls -l
-      - run: mkdir tools
-      - run: dotnet build tools/analyze-solution/analyze-solution.csproj --output tools
-      - run: ls -l tools
+      - run: mkdir temp
+      - run: dotnet build tools/analyze-solution/analyze-solution.csproj --output temp
+      - run: ls -l temp
       - run: |
           branch=$CIRCLE_BRANCH
           ver=${branch/"release/"/""}
