@@ -150,66 +150,6 @@ jobs:
           paths:
             - packages/Mathtone.Sdk.Data.Sql.*.nupkg
 
-  pack-sdk-data-npgsql:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet restore src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - pack-proj:
-          proj: src/sdk/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-      - persist_to_workspace:
-          root: .
-          paths:
-            - packages/Mathtone.Sdk.Data.Npgsql.*.nupkg
-  test-core:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-      - image: postgres
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test1234
-      - image: mcr.microsoft.com/mssql/server:2022-latest
-        environment:
-          MSSQL_SA_PASSWORD: Test!1234
-          ACCEPT_EULA: Y
-    working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet restore src/mathtone-magic.sln
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj
-          ref: ../../sdk/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj
-          ref: ../../sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Testing.Xunit.csproj
-          pkg: Mathtone.Sdk.Testing.Xunit
-      - run: dotnet restore src/tests/Mathtone.Sdk.Data.Tests/Mathtone.Sdk.Data.Tests.csproj
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../../sdk/Mathtone.Sdk.Utilities/Mathtone.Sdk.Utilities.csproj
-          pkg: Mathtone.Sdk.Utilities
-      
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          pkg: Mathtone.Sdk.Data.Sql
-      
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          pkg: Mathtone.Sdk.Testing.Xunit
-
-      - run: dotnet test src/mathtone-magic.sln
-
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -219,9 +159,9 @@ jobs:
       - run:
           name: "Add Artifactory"
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      #- run:
-      #   name: Publish to Atifactory
-      #   command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+      - run:
+         name: Publish to Atifactory
+         command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
 
   publish-nuget:
     docker:
@@ -240,6 +180,10 @@ workflows:
           context: MATHTONE_DEV
           requires:
             - get-code 
+      - publish-artifactory:
+          context: MATHTONE_DEV
+          requires:
+            - shatter-test-projects
       #- pack-core:
       #    requires:
       #      - get-code
