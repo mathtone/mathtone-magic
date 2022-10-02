@@ -7,14 +7,15 @@ commands:
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
+          vertag=""
           if  [[ $suffix == "" ]]; then
             echo NO SUFFIX
             echo "export PKG_SFX_TAG=""" >> $BASH_ENV
-            
+            vertag=NOPE
           else
             echo SUFFIX FOUND
-            echo "export PKG_SFX_TAG=TEST" >> $BASH_ENV
-           
+            vertag=TEST
+            echo "export PKG_SFX_TAG=$vertag" >> $BASH_ENV
           fi
           
           echo "export PKG_VER=$build" >> $BASH_ENV
