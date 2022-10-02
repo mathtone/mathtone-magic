@@ -102,7 +102,7 @@ namespace Build_Util {
 						//genCmd.Add($"echo");
 						//ver=${branch/"release/"/""}
 						genCmd.Add("sfx = heroooo");
-						genCmd.Add("echo SUFFIX: {$sfx}");
+						genCmd.Add("echo SUFFIX: $PKG_SFX_TAG");
 						genCmd.Add(@$"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER --version-suffix $PKG_SFX");
 					}
 				}
