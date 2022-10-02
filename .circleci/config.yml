@@ -9,13 +9,15 @@ commands:
           build=${ver%-*}
           if  [[ $suffix == "" ]]; then
             echo NO SUFFIX
+            echo "export PKG_SFX_TAG=${--version-suffix $suffix}" >> $BASH_ENV
           else
-            echo NO SUFFIX FOUND
+            echo SUFFIX FOUND
+            echo "export PKG_SFX_TAG=""" >> $BASH_ENV
           fi
           
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
-          echo "export PKG_SFX_TAG=$sfxtag" >> $BASH_ENV
+          
 jobs:
   get-code:
     docker:
@@ -62,6 +64,7 @@ jobs:
           at: .
       - get-version
       - run: |
+          echo "SUFFIX TAG: $PKG_SFX_TAG"
           dotnet restore src/mathtone-magic.sln
           dotnet nuget remove source nuget.org
           dotnet nuget add source /mnt/ramdisk/packages -n local
