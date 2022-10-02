@@ -100,14 +100,7 @@ namespace Build_Util {
 						//genCmd.Add($"echo");
 						//genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
 						//genCmd.Add($"echo");
-						genCmd.Add(@$"
-						if [[\'' -eq $PKG_SFX ]]
-						then
-							dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER
-						else
-							dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER --version-suffix $PKG_SFX
-						fi"
-						);
+						genCmd.Add(@$"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER --version-suffix $PKG_SFX);
 					}
 				}
 				genCommands.Add(genCmd);
