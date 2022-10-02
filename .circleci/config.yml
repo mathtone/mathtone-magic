@@ -9,10 +9,11 @@ commands:
           build=${ver%-*}
           if  [[ $suffix == "" ]]; then
             echo NO SUFFIX
-            echo "export PKG_SFX_TAG=${--version-suffix $suffix}" >> $BASH_ENV
+            echo "export PKG_SFX_TAG=""" >> $BASH_ENV
+            
           else
             echo SUFFIX FOUND
-            echo "export PKG_SFX_TAG=""" >> $BASH_ENV
+            echo "export PKG_SFX_TAG=${--version-suffix $suffix}" >> $BASH_ENV
           fi
           
           echo "export PKG_VER=$build" >> $BASH_ENV
