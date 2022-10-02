@@ -8,6 +8,7 @@ commands:
           suffix=${ver#*-}
           build=${ver%-*}
           [[ $suffix == "" ]] & sfxtag=/"/" || sfxtag=/"--version-suffix $suffix/"
+          echo SUFFIX: $suffix
           echo GOT SUFFIX: $sfxtag
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
