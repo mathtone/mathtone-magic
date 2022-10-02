@@ -1,4 +1,14 @@
 version: 2.1
+commands:
+  get-version:
+    steps:
+      - run: |
+          branch=$CIRCLE_BRANCH
+          ver=${branch/"release/"/""}
+          suffix=${ver#*-}
+          build=${ver%-*}
+          echo "export PKG_VER=$build" >> $BASH_ENV
+          echo "export PKG_SFX=$suffix" >> $BASH_ENV
 jobs:
   get-code:
     docker:
@@ -6,6 +16,7 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
+      - get-version
       - run: |
          pwd
       - run: |

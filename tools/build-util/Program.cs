@@ -125,10 +125,13 @@ namespace Build_Util {
 			
 			using var sw = new StreamWriter(f);
 			//await sw.WriteAsync("dotnet nuget locals all --clear");
-			await sw.WriteAsync(_removeCommand.ToString());
-			await sw.WriteAsync(_removeCommand.ToString());
-			await sw.WriteAsync(_addCommand.ToString());
-			await sw.WriteAsync(_genCommand.ToString());
+			await sw.WriteLineAsync("********************************************");
+			await sw.WriteLineAsync("echo build- ${PKG_VER} version- ${PKG_SFX}");
+			await sw.WriteLineAsync("********************************************");
+			await sw.WriteLineAsync(_removeCommand.ToString());
+			await sw.WriteLineAsync(_removeCommand.ToString());
+			await sw.WriteLineAsync(_addCommand.ToString());
+			await sw.WriteLineAsync(_genCommand.ToString());
 			await sw.FlushAsync();
 			_log.LogInformation("{remove}{add}{gen}", _removeCommand.ToString(), _addCommand.ToString(),_genCommand.ToString());
 		}
