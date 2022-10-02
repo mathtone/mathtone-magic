@@ -69,9 +69,17 @@ jobs:
             - tools
             - packages
             - temp/process-sln.sh
-  shatter-projects:
+  shatter-test-projects:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test!1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: Test!1234
+          ACCEPT_EULA: Y
     working_directory: /mnt/ramdisk
     steps:
       - attach_workspace:
@@ -81,7 +89,7 @@ jobs:
           dotnet nuget remove source nuget.org
           dotnet nuget add source /mnt/ramdisk/packages -n local
           bash temp/process-sln.sh
-
+      - run: dotnet test src/mathtone-magic.sln --configuration Release
   pack-core:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -228,7 +236,7 @@ workflows:
   build-release:
     jobs:
       - get-code
-      - shatter-projects:
+      - shatter-test-projects:
           requires:
             - get-code 
       #- pack-core:
