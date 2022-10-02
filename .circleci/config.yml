@@ -237,6 +237,7 @@ workflows:
     jobs:
       - get-code
       - shatter-test-projects:
+          context: MATHTONE_DEV
           requires:
             - get-code 
       #- pack-core:
