@@ -7,7 +7,12 @@ commands:
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
-          sfxtag=/"bbbeeekkk/"
+          sfxtag="bbbeeekkk"
+          if [ "$suffix" == "" ]; then
+            sfxtag = ""
+          else
+            sfxtag = "--version-suffix $PKG_SFX"
+          fi
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
           echo "export PKG_SFX_TAG=$sfxtag" >> $BASH_ENV
