@@ -1,40 +1,4 @@
 version: 2.1
-commands:
-  swapref:
-    parameters:
-      proj:
-         type: string
-      ref:
-         type: string
-      pkg:
-         type: string
-    steps:
-      - run:
-          name: swap << parameters.ref >> with reference << parameters.pkg >>
-          command: |
-            dotnet remove << parameters.proj >> reference << parameters.ref >>
-            dotnet add << parameters.proj >> package << parameters.pkg >> --source /root/project/packages --prerelease
-  pack-proj:
-    parameters:
-      proj:
-         type: string
-    steps:
-      - run:
-          name: Determine version and build package
-          command: |
-            branch=$CIRCLE_BRANCH
-            ver=${branch/"release/"/""}
-            suffix=${ver#*-}
-            build=${ver%-*}
-            echo build- ${build} version- ${suffix}
-            if [ $suffix == $build ]
-            then
-              echo "release"
-              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build}
-            else
-              echo "prerelease" ${suffix}
-              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build} --version-suffix ${suffix}
-            fi
 jobs:
   get-code:
     docker:
@@ -50,12 +14,6 @@ jobs:
           ls -l
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
-      # - run: dotnet restore src/mathtone-magic.sln
-      #- run: dotnet nuget remove source nuget.org
-      #- run: dotnet nuget add source /mnt/ramdisk/packages -n local
-      #- run: dotnet nuget list source
-      #- run: bash temp/process-sln.sh
-      #- run: dotnet test src/mathtone-magic.sln
       - run: |
           branch=$CIRCLE_BRANCH
           ver=${branch/"release/"/""}
@@ -138,26 +96,3 @@ workflows:
           context: MATHTONE_DEV
           requires:
             - approve-ship
-      #- pack-core:
-      #    requires:
-      #      - get-code
-      #- pack-sdk-testing:
-      #    requires:
-      #      - pack-core
-      #- pack-sdk-data-sql:
-      #    requires:
-      #      - pack-core
-      #- pack-sdk-data-npgsql:
-      #    requires:
-      #      - pack-core
-      #- test-core:
-      #    context: MATHTONE_DEV
-      #    requires:
-      #      - pack-core
-      #      - pack-sdk-testing
-      #      - pack-sdk-data-sql
-      #      - pack-sdk-data-npgsql
-            
-
-
-
