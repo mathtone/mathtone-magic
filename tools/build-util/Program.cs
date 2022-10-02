@@ -65,7 +65,7 @@ namespace Build_Util {
 			var generations = new List<Dictionary<string, ProjectDependencies>>() {
 				{_projects.Values.ToDictionary(p=>p.Project.ProjectName)}
 			};
-			List<string> removeCommands = new();
+			List<string> removeCommands = new();\
 			List<string> addCommands = new();
 			List<List<string>> genCommands = new();
 			var g = generations[0];
