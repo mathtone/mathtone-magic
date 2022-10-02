@@ -10,7 +10,7 @@ commands:
           sfxtag=/"bbbeeekkk/"
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
-          echo "export PKG_SFX_TAG=sfxtag" >> $BASH_ENV
+          echo "export PKG_SFX_TAG=$sfxtag" >> $BASH_ENV
 jobs:
   get-code:
     docker:
