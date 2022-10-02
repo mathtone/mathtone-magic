@@ -8,10 +8,10 @@ commands:
           suffix=${ver#*-}
           build=${ver%-*}
           sfxtag="bbbeeekkk"
-          if [ "$suffix" == "" ]; then
-            sfxtag = ""
+          if [ "$suffix" == "" ] then
+            sfxtag = "TEST"
           else
-            sfxtag = "--version-suffix $PKG_SFX"
+            sfxtag = "BEEA"
           fi
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
