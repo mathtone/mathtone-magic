@@ -16,7 +16,6 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - get-version
       - run: |
          pwd
       - run: |
@@ -53,6 +52,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - get-version
       - run: |
           dotnet restore src/mathtone-magic.sln
           dotnet nuget remove source nuget.org
