@@ -14,7 +14,7 @@ commands:
           else
             echo SUFFIX FOUND
             echo "export PKG_SFX_TAG=TEST" >> $BASH_ENV
-            echo "export PKG_SFX_TAG=${--version-suffix $suffix}" >> $BASH_ENV
+           
           fi
           
           echo "export PKG_VER=$build" >> $BASH_ENV
