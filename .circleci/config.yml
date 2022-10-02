@@ -39,7 +39,6 @@ jobs:
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
-
           echo build- ${build} version- ${suffix}
       - persist_to_workspace:
           root: .
