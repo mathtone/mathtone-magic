@@ -129,6 +129,15 @@ workflows:
           context: MATHTONE_DEV
           requires:
             - shatter-test-projects
+      - approve-ship:
+          context: MATHTONE_DEV
+          type: approval
+          requires:
+            - publish-artifactory
+      - publish-nuget:
+          context: MATHTONE_DEV
+          requires:
+            - approve-ship
       #- pack-core:
       #    requires:
       #      - get-code
