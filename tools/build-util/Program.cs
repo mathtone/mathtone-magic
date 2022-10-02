@@ -117,7 +117,7 @@ namespace Build_Util {
 			for (var i = 0; i < genCommands.Count; i++) {
 				//_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
 
-				_genCommand.AppendLine(string.Join($" &{Environment.NewLine}", genCommands[i]));
+				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
 				_genCommand.AppendLine($"ls -l /mnt/ramdisk/packages");
 			}
 
