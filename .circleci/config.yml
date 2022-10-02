@@ -14,7 +14,7 @@ commands:
             vertag=NOPE
           else
             echo $"SUFFIX FOUND- {$suffix}"
-            vertag=$"--version-suffix {suffix}"
+            vertag=$"--version-suffix $suffix"
             echo "export PKG_SFX_TAG=$vertag" >> $BASH_ENV
           fi
           
