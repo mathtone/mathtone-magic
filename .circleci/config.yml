@@ -112,44 +112,6 @@ jobs:
             - src
             - packages
 
-  pack-sdk-testing:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet restore src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-          ref: ../Mathtone.Sdk.Logging/Mathtone.Sdk.Logging.csproj
-          pkg: Mathtone.Sdk.Logging
-      - pack-proj:
-          proj: src/sdk/Mathtone.Sdk.Testing.Xunit/Mathtone.Sdk.Testing.Xunit.csproj
-      - persist_to_workspace:
-          root: .
-          paths:
-            - packages
-
-  pack-sdk-data-sql:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
-    steps:
-      - attach_workspace:
-          at: .
-      - run: dotnet restore src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-      - swapref:
-          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - pack-proj:
-          proj: src/sdk/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-      - persist_to_workspace:
-          root: .
-          paths:
-            - packages/Mathtone.Sdk.Data.Sql.*.nupkg
-
   publish-artifactory:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -161,7 +123,8 @@ jobs:
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
       - run:
          name: Publish to Atifactory
-         command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+         command: |
+            dotnet nuget push root/ramdisk/packages/*.nupkg --source Mathtone-Dev
 
   publish-nuget:
     docker:
