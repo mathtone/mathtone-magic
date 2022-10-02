@@ -13,7 +13,7 @@ commands:
             echo "export PKG_SFX_TAG=""" >> $BASH_ENV
             vertag=NOPE
           else
-            echo $"SUFFIX FOUND- {suffix}"
+            echo $"SUFFIX FOUND- {$suffix}"
             vertag=$"--version-suffix {suffix}"
             echo "export PKG_SFX_TAG=$vertag" >> $BASH_ENV
           fi
