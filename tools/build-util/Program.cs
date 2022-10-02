@@ -91,18 +91,18 @@ namespace Build_Util {
 							var proj = _projects[d.ProjectName];
 							_log.LogInformation("  - {dep}", d.ProjectName);
 							removeCommands.Add($"dotnet remove {pj.Project.AbsolutePath} reference {d.AbsolutePath}");
-							addCommands.Add($"echo adding: {d.ProjectName} --no-restore");
+							//addCommands.Add($"echo adding: {d.ProjectName} --no-restore");
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore --prerelease");
 						}
 					}
-					genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
-					genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
+					//genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
+					//genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
 					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s /mnt/ramdisk/packages --verbosity {(int)_config.Verbosity}");
 
 					if (pack) {
-						genCmd.Add($"echo");
-						genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
-						genCmd.Add($"echo");
+						//genCmd.Add($"echo");
+						//genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
+						//genCmd.Add($"echo");
 						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity}");
 					}
 				}
@@ -115,9 +115,9 @@ namespace Build_Util {
 			_addCommand.AppendLine(string.Join($" {Environment.NewLine}", addCommands));
 
 			for (var i = 0; i < genCommands.Count; i++) {
-				_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
+				//_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
 
-				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
+				_genCommand.AppendLine(string.Join($" &{Environment.NewLine}", genCommands[i]));
 				_genCommand.AppendLine($"ls -l /mnt/ramdisk/packages");
 			}
 
