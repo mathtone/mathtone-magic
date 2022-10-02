@@ -8,7 +8,7 @@ commands:
           suffix=${ver#*-}
           build=${ver%-*}
           sfxtag="bbbeeekkk"
-          if [ "$suffix" == "" ] then
+          if [ "$suffix" == "" ]; then
             sfxtag = "TEST"
           else
             sfxtag = "BEEA"
