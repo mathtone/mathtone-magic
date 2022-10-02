@@ -39,9 +39,6 @@ namespace Build_Util {
 		public LoggerVerbosity Verbosity { get; set; }
 	}
 
-	//public class SolutionAnalysis {
-
-	//}
 
 	public class SolutionAnalyzer {
 
@@ -103,7 +100,7 @@ namespace Build_Util {
 						//genCmd.Add($"echo");
 						//genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
 						//genCmd.Add($"echo");
-						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity}");
+						genCmd.Add($"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=${{PKG_VER}}");
 					}
 				}
 				genCommands.Add(genCmd);
