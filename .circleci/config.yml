@@ -7,7 +7,9 @@ commands:
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
-          sfxtag= "$suffix" == "" ? "AAAAA" : "BBBBB"
+          
+
+          [[ $suffix == "" ]]  & sfxtag="YES" || sfxtag="NO"
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
           echo "export PKG_SFX_TAG=$sfxtag" >> $BASH_ENV
@@ -31,6 +33,7 @@ jobs:
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
+
           echo build- ${build} version- ${suffix}
       - persist_to_workspace:
           root: .
