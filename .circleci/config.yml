@@ -65,7 +65,7 @@ jobs:
           at: .
       - get-version
       - run: |
-          echo "SUFFIX TAG: $PKG_SFX_TAG"
+          echo SUFFIX - $PKG_SFX_TAG $PKG_SFX
           dotnet restore src/mathtone-magic.sln
           dotnet nuget remove source nuget.org
           dotnet nuget add source /mnt/ramdisk/packages -n local
