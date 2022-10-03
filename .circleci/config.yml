@@ -114,10 +114,10 @@ workflows:
   build-release:
     jobs:
       - get-code
-      - run-tests
+      - run-tests:
           context: MATHTONE_DEV
           requires:
-            - get-code 
+            - get-code
       - shatter-test-projects:
           filters:
             branches:
