@@ -43,6 +43,23 @@ jobs:
             - tools
             - packages
             - temp/process-sln.sh
+  run-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test!1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: Test!1234
+          ACCEPT_EULA: Y
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - run: dotnet test src/mathtone-magic.sln --configuration Release
+
   shatter-test-projects:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -97,20 +114,40 @@ workflows:
   build-release:
     jobs:
       - get-code
+      - run-tests
+          context: MATHTONE_DEV
+          requires:
+            - get-code 
       - shatter-test-projects:
+          filters:
+            branches:
+               only:
+                  - /release.*/
           context: MATHTONE_DEV
           requires:
             - get-code 
       - publish-artifactory:
+          filters:
+            branches:
+               only:
+                  - /release.*/
           context: MATHTONE_DEV
           requires:
             - shatter-test-projects
       - approve-ship:
+          filters:
+            branches:
+               only:
+                  - /release.*/
           context: MATHTONE_DEV
           type: approval
           requires:
             - publish-artifactory
       - publish-nuget:
+          filters:
+            branches:
+               only:
+                  - /release.*/
           context: MATHTONE_DEV
           requires:
             - approve-ship
