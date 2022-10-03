@@ -29,20 +29,20 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - get-version
-      - run: echo $PKG_SFX_TAG
-      - run: |
-          mkdir temp
-          mkdir packages
-      - run: dotnet build tools/build-util/build-util.csproj --output temp
+      #- get-version
+      #- run: echo $PKG_SFX_TAG
+      #- run: |
+      #    mkdir temp
+      #    mkdir packages
+      #- run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - persist_to_workspace:
           root: .
           paths:
             - src
-            - tools
-            - packages
-            - temp/process-sln.sh
+            #- tools
+            #- packages
+            #- temp/process-sln.sh
   run-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -76,6 +76,11 @@ jobs:
       - attach_workspace:
           at: .
       - get-version
+      - run: |
+          mkdir temp
+          mkdir packages
+      - run: dotnet build tools/build-util/build-util.csproj --output temp
+      - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - run: |
           echo SUFFIX - $PKG_SFX_TAG
           dotnet restore src/mathtone-magic.sln
