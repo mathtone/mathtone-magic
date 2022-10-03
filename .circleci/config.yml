@@ -16,7 +16,7 @@ commands:
             echo $"SUFFIX FOUND- {$suffix}"
             vertag=$"--version-suffix $suffix"
              echo $"VERSION TAG- $vertag"
-            echo "export PKG_SFX_TAG=$vertag" >> $BASH_ENV
+            echo "export PKG_SFX_TAG='$vertag'" >> $BASH_ENV
           fi
           
           echo "export PKG_VER=$build" >> $BASH_ENV
