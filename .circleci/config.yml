@@ -29,20 +29,13 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - run: |
-         pwd
+      - run: get-version
+      - run: echo $PKG_SFX_TAG
       - run: |
           mkdir temp
           mkdir packages
-          ls -l
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
-      - run: |
-          branch=$CIRCLE_BRANCH
-          ver=${branch/"release/"/""}
-          suffix=${ver#*-}
-          build=${ver%-*}
-          echo build- ${build} version- ${suffix}
       - persist_to_workspace:
           root: .
           paths:
