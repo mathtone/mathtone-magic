@@ -35,7 +35,7 @@ jobs:
       #    mkdir temp
       #    mkdir packages
       #- run: dotnet build tools/build-util/build-util.csproj --output temp
-      - run: dotnet temp/build-util.dll src/mathtone-magic.sln
+      #- run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - persist_to_workspace:
           root: .
           paths:
