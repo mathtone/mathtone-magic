@@ -40,7 +40,7 @@ jobs:
           root: .
           paths:
             - src
-            #- tools
+            - tools
             #- packages
             #- temp/process-sln.sh
   run-tests:
