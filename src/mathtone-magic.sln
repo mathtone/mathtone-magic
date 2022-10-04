@@ -62,11 +62,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "B. Tools", "B. Tools", "{AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "analyze-solution", "..\tools\analyze-solution\analyze-solution.csproj", "{8C9B618E-039D-484F-A379-F0493B6505CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Logging.Console", "sdk\Mathtone.Sdk.Logging.Console\Mathtone.Sdk.Logging.Console.csproj", "{CBD4D807-2B67-4262-910A-4959326F6E10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Logging.Console", "sdk\Mathtone.Sdk.Logging.Console\Mathtone.Sdk.Logging.Console.csproj", "{CBD4D807-2B67-4262-910A-4959326F6E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build-util", "..\tools\build-util\build-util.csproj", "{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "build-util", "..\tools\build-util\build-util.csproj", "{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Testing", "sdk\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj", "{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,10 +134,6 @@ Global
 		{DBAEA763-BFE9-431B-A680-36D780B4025E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBAEA763-BFE9-431B-A680-36D780B4025E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBAEA763-BFE9-431B-A680-36D780B4025E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C9B618E-039D-484F-A379-F0493B6505CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C9B618E-039D-484F-A379-F0493B6505CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C9B618E-039D-484F-A379-F0493B6505CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C9B618E-039D-484F-A379-F0493B6505CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CBD4D807-2B67-4262-910A-4959326F6E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBD4D807-2B67-4262-910A-4959326F6E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBD4D807-2B67-4262-910A-4959326F6E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -146,6 +142,10 @@ Global
 		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,9 +172,9 @@ Global
 		{B070D71D-EB8D-469A-9383-39BB793FADE3} = {624FDC72-C7D1-4A91-BE0D-5D3162A79643}
 		{861D7AA6-3DC2-4AB8-A359-E7E69F1A71AD} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
 		{DBAEA763-BFE9-431B-A680-36D780B4025E} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
-		{8C9B618E-039D-484F-A379-F0493B6505CA} = {AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}
 		{CBD4D807-2B67-4262-910A-4959326F6E10} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
 		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD} = {AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}
+		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28} = {F89E0F7A-E9B3-4D45-A995-9E0C6F3D6E61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}
