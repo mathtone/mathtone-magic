@@ -3,6 +3,7 @@
 namespace Mathtone.Sdk.Logging {
 
 	public class RelayLogger<T> : RelayLogger {
+
 		public RelayLogger(LoggerExternalScopeProvider scopeProvider, LogHandler handler) : base(scopeProvider, nameof(T), handler) {
 		}
 	}

@@ -167,13 +167,22 @@ Included items must then not match any entries in the exclude list to remain inc
 				  <!-- Match assembly file paths: -->
 				  <ModulePaths>
 					 <Include>
-						<ModulePath>.*\\Mathtone.Sdk.Common.dll</ModulePath>
+						<!--<modulepath>./sdk/*</modulepath>-->
+						<!--<modulepath>Mathtone\.Sdk\..dll</modulepath>-->
+						<!--<ModulePath>.*\\Mathtone.Sdk.Common.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Utilities.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Logging.dll</ModulePath>
+						<ModulePath>.*\\Mathtone.Sdk.Services.dll</ModulePath>
+						<ModulePath>.*\\Mathtone.Sdk.Logging.Console.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Data.dll</ModulePath>
 						<ModulePath>.*\\Mathtone.Sdk.Data.Sql.dll</ModulePath>
-						<ModulePath>.*\\Mathtone.Sdk.Testing.Xunit.dll</ModulePath>
+						<ModulePath>.*\\Mathtone.Sdk.Testing.dll</ModulePath>
+						<ModulePath>.*\\Mathtone.Sdk.Testing.Xunit.dll</ModulePath>-->
 					 </Include>
+					 <Exclude>
+						<ModulePath>.*.Tests.dll</ModulePath>
+						<ModulePath>Xunit.*.dll</ModulePath>
+					 </Exclude>
 				  </ModulePaths>
 
 

@@ -22,7 +22,7 @@ namespace Mathtone.Sdk.Services {
 			services.ActivateScoped<SVC, SVC>(parameters);
 
 		public static IServiceCollection AddActivator<SVC>(this IServiceCollection services, ServiceLifetime lifetime, params object[] parameters) =>
-			services.AddActivator<SVC, SVC>(lifetime, lifetime, parameters);
+			services.AddActivator<SVC, SVC>(lifetime, parameters);
 
 		public static IServiceCollection AddActivator<SVC, IMPL>(this IServiceCollection services, ServiceLifetime lifetime, params object[] parameters) {
 			services.Add(new ServiceDescriptor(typeof(SVC), svc => ActivatorUtilities.CreateInstance<IMPL>(svc, parameters)!, lifetime));

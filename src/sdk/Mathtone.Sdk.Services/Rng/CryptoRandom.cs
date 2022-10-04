@@ -44,8 +44,8 @@ namespace Mathtone.Sdk.Services.Rng {
 			NextUint() / (double)lMax;
 
 		public override void NextBytes(byte[] bytes) {
-			if (bytes == null)
-				throw new ArgumentNullException(nameof(bytes));
+			//if (bytes == null)
+			//	throw new ArgumentNullException(nameof(bytes));
 			rng.GetBytes(bytes);
 		}
 
