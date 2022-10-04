@@ -102,6 +102,7 @@ jobs:
       - run:
          name: Publish to Artifactory
          command: |
+            ls -l packages
             dotnet nuget push packages/*.nupkg --source Mathtone-Dev
 
   publish-nuget:
