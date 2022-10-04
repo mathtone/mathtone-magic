@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
 		..\README.md = ..\README.md
+		sonar-project-properties = sonar-project-properties
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A. SDK", "A. SDK", "{B61610E1-BB47-42D5-808E-3DA370C7FA8B}"
@@ -66,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Logging.Consol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build-util", "..\tools\build-util\build-util.csproj", "{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Testing", "sdk\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj", "{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Testing", "sdk\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj", "{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
