@@ -23,7 +23,8 @@ commands:
           
           echo "export PKG_VER=$build" >> $BASH_ENV
           echo "export PKG_SFX=$suffix" >> $BASH_ENV
-          
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.3        
 jobs:
   get-code:
     docker:
