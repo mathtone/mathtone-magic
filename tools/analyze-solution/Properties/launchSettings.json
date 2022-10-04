@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "analyze-solution": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../../../src/mathtone-magic.sln"
+    }
+  }
+}

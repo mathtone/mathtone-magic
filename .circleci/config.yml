@@ -1,128 +1,93 @@
 version: 2.1
 commands:
-  swapref:
-    parameters:
-      proj:
-         type: string
-      ref:
-         type: string
-      pkg:
-         type: string
+  get-version:
     steps:
-      - run:
-          name: swap << parameters.ref >> with reference << parameters.pkg >> 
-          command: |
-            dotnet remove << parameters.proj >> reference << parameters.ref >>
-            dotnet add << parameters.proj >> package << parameters.pkg >> --source ./packages --prerelease
-      
-  pack-proj:
-    parameters:
-      proj:
-         type: string
-    steps:
-      - run:
-          name: Determine version and build package
-          command: |
-            branch=$CIRCLE_BRANCH
-            ver=${branch/"release/"/""}
-            suffix=${ver#*-}
-            build=${ver%-*}
-            echo build- ${build} version- ${suffix}
-            if [ $suffix == $build ]
-            then
-              echo "release"
-              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build}
-            else
-              echo "prerelease" ${suffix}
-              dotnet pack << parameters.proj >> --configuration Release -o packages /p:VersionPrefix=${build} --version-suffix ${suffix}
-            fi
-            
-jobs:
-
-  prep-project:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    working_directory: /mnt/ramdisk
-    steps:
-      - checkout
       - run: |
           branch=$CIRCLE_BRANCH
           ver=${branch/"release/"/""}
           suffix=${ver#*-}
           build=${ver%-*}
-          echo build- ${build} version- ${suffix}
-  run-unit-tests:
+          vertag=""
+          if  [[ $suffix == "" ]]; then
+            echo NO SUFFIX
+            echo "export PKG_SFX_TAG=""" >> $BASH_ENV
+            vertag=NOPE
+          else
+            echo $"SUFFIX FOUND- {$suffix}"
+            vertag=$"--version-suffix $suffix"
+             echo $"VERSION TAG- $vertag"
+            echo "export PKG_SFX_TAG='$vertag'" >> $BASH_ENV
+          fi
+          
+          echo "export PKG_VER=$build" >> $BASH_ENV
+          echo "export PKG_SFX=$suffix" >> $BASH_ENV
+          
+jobs:
+  get-code:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
-      - image: postgres
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test1234
-      - image: mcr.microsoft.com/mssql/server:2022-latest
-        environment:
-          MSSQL_SA_PASSWORD: test!1234
-          ACCEPT_EULA: Y
-    steps:
-      - checkout
-      - run: dotnet test src/mathtone-magic.sln
-  repack-projects:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-      - image: postgres
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test1234
-      - image: mcr.microsoft.com/mssql/server:2022-latest
-        environment:
-          MSSQL_SA_PASSWORD: test!1234
-          ACCEPT_EULA: Y
     working_directory: /mnt/ramdisk
     steps:
       - checkout
-      - run: dotnet restore src/mathtone-magic.sln
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk/Mathtone.Sdk.csproj
-      - run: 
-          name: Add Nuget
-          command: dotnet nuget add source ~/packages --name Local
-      # swap Mathtone.Sdk.Data.Sql
-      - swapref:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      - swapref:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          ref: ../Mathtone.Sdk.Data/Mathtone.Sdk.Data.csproj
-          pkg: Mathtone.Sdk.Data
-      
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-      - pack-proj:
-          proj: src/SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
+      #- get-version
+      #- run: echo $PKG_SFX_TAG
+      #- run: |
+      #    mkdir temp
+      #    mkdir packages
+      #- run: dotnet build tools/build-util/build-util.csproj --output temp
+      #- run: dotnet temp/build-util.dll src/mathtone-magic.sln
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src
+            - tools
+            #- packages
+            #- temp/process-sln.sh
+  run-tests:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test!1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: Test!1234
+          ACCEPT_EULA: Y
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - run: dotnet test src/mathtone-magic.sln --configuration Release
 
-      #swap test projects
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Sql.Tests/Mathtone.Sdk.Data.Sql.Tests.csproj
-          ref: ../../SDK/Mathtone.Sdk.Data.Sql/Mathtone.Sdk.Data.Sql.csproj
-          pkg: Mathtone.Sdk.Data.Sql
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Data.Npgsql.Tests/Mathtone.Sdk.Data.Npgsql.Tests.csproj
-          ref: ../../SDK/Mathtone.Sdk.Data.Npgsql/Mathtone.Sdk.Data.Npgsql.csproj
-          pkg: Mathtone.Sdk.Data.Npgsql
-
-      - swapref:
-          proj: src/tests/Mathtone.Sdk.Tests/Mathtone.Sdk.Tests.csproj
-          ref: ../../SDK/Mathtone.Sdk/Mathtone.Sdk.csproj
-          pkg: Mathtone.Sdk
-
-      - run: dotnet restore src/mathtone-magic.sln
-      # - 
-      - run:
-          name: Build & Test Solution (Release)
-          command: dotnet test src/mathtone-magic.sln --configuration Release #--results-directory test-results --logger "trx;logfilename=mytests.trx"
-      
+  shatter-test-projects:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test!1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: Test!1234
+          ACCEPT_EULA: Y
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - get-version
+      - run: |
+          mkdir temp
+          mkdir packages
+      - run: dotnet build tools/build-util/build-util.csproj --output temp
+      - run: dotnet temp/build-util.dll src/mathtone-magic.sln
+      - run: |
+          echo SUFFIX - $PKG_SFX_TAG
+          dotnet restore src/mathtone-magic.sln
+          dotnet nuget remove source nuget.org
+          dotnet nuget add source /mnt/ramdisk/packages -n local
+          bash temp/process-sln.sh
+      - run: dotnet test src/mathtone-magic.sln --configuration Release
       - persist_to_workspace:
           root: .
           paths:
@@ -138,8 +103,9 @@ jobs:
           command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
       - run:
          name: Publish to Atifactory
-         command: dotnet nuget push packages/*.nupkg --source Mathtone-Dev
-        
+         command: |
+            dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+
   publish-nuget:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -152,25 +118,19 @@ jobs:
 workflows:
   build-release:
     jobs:
-      - prep-project
-      - run-unit-tests:
-          filters:
-            branches:
-               ignore:
-                  - /release.*/
+      - get-code
+      - run-tests:
           context: MATHTONE_DEV
-          name: Run Unit Tests
           requires:
-            - prep-project
-      - repack-projects:
+            - get-code
+      - shatter-test-projects:
           filters:
             branches:
                only:
                   - /release.*/
           context: MATHTONE_DEV
-          name: Repack Project Refs
           requires:
-            - prep-project
+            - get-code 
       - publish-artifactory:
           filters:
             branches:
@@ -178,16 +138,16 @@ workflows:
                   - /release.*/
           context: MATHTONE_DEV
           requires:
-            - Repack Project Refs
-      - approve-release:
+            - shatter-test-projects
+      - approve-ship:
           filters:
             branches:
                only:
                   - /release.*/
+          context: MATHTONE_DEV
           type: approval
-          name: Approve Release
           requires:
-            - Repack Project Refs
+            - publish-artifactory
       - publish-nuget:
           filters:
             branches:
@@ -195,4 +155,4 @@ workflows:
                   - /release.*/
           context: MATHTONE_DEV
           requires:
-            - Approve Release
+            - approve-ship
