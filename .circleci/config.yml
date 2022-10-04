@@ -28,6 +28,7 @@ orbs:
 jobs:
   get-code:
     docker:
+      - image: cimg/base:2021.04
       - image: mcr.microsoft.com/dotnet/sdk:6.0
     working_directory: /mnt/ramdisk
     steps:
@@ -56,7 +57,7 @@ jobs:
           at: .
       - run: dotnet test src/mathtone-magic.sln --configuration Release
       #- run: setup -nqP unzip
-      #- sonarcloud/scan this doesn't work yet.'
+      - sonarcloud/scan
 
   shatter-test-projects:
     docker:
