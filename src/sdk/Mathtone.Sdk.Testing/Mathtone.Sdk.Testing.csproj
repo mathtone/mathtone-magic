@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Description>Fluent simple database access.</Description>
+    <Description>Testing utilities &amp; components.</Description>
   </PropertyGroup>
 
 </Project>

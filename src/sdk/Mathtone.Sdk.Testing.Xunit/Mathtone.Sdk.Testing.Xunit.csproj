@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Description>Testing utilities &amp; components for Xunit</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj" />
+    <ProjectReference Include="..\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj" />
   </ItemGroup>
 
 </Project>

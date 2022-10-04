@@ -19,7 +19,6 @@ namespace Build_Util {
 				.GetSection("Settings").Get<SolutionAnalysisConfig>()!;
 
 			await new SolutionAnalyzer(new ConsoleLogger(), args[0], config).Analyze();
-			;
 		}
 	}
 
@@ -42,14 +41,13 @@ namespace Build_Util {
 
 	public class SolutionAnalyzer {
 
-
 		readonly ILogger _log;
 		readonly string _solutionFile;
 		readonly SolutionAnalysisConfig _config;
 		readonly Dictionary<string, ProjectDependencies> _projects;
-		StringBuilder _removeCommand = new();
-		StringBuilder _addCommand = new();
-		StringBuilder _genCommand = new();
+		readonly StringBuilder _removeCommand = new();
+		readonly StringBuilder _addCommand = new();
+		readonly StringBuilder _genCommand = new();
 
 		public SolutionAnalyzer(ILogger log, string solutionFile, SolutionAnalysisConfig config) {
 			_log = log;
@@ -88,21 +86,12 @@ namespace Build_Util {
 							var proj = _projects[d.ProjectName];
 							_log.LogInformation("  - {dep}", d.ProjectName);
 							removeCommands.Add($"dotnet remove {pj.Project.AbsolutePath} reference {d.AbsolutePath}");
-							//addCommands.Add($"echo adding: {d.ProjectName} --no-restore");
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore --prerelease");
 						}
 					}
-					//genCmd.Add($"echo \"***** {pj.Project.ProjectName}\"");
-					//genCmd.Add($"echo \"-   restoring {pj.Project.ProjectName}\"");
 					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s /mnt/ramdisk/packages --verbosity {(int)_config.Verbosity}");
 
 					if (pack) {
-						//genCmd.Add($"echo");
-						//genCmd.Add($"echo \"-   packing {pj.Project.ProjectName}\"");
-						//genCmd.Add($"echo");
-						//ver=${branch/"release/"/""}
-						genCmd.Add("sfx = heroooo");
-						genCmd.Add("echo SUFFIX: $PKG_SFX_TAG");
 						genCmd.Add(@$"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER $PKG_SFX_TAG");
 					}
 				}
@@ -115,8 +104,7 @@ namespace Build_Util {
 			_addCommand.AppendLine(string.Join($" {Environment.NewLine}", addCommands));
 
 			for (var i = 0; i < genCommands.Count; i++) {
-				//_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
-
+				_genCommand.AppendLine($"echo \"**********GENERATION {i}\"");
 				_genCommand.AppendLine(string.Join($" {Environment.NewLine}", genCommands[i]));
 				_genCommand.AppendLine($"ls -l /mnt/ramdisk/packages");
 			}
@@ -160,7 +148,7 @@ namespace Build_Util {
 
 		static string GetProjectName(string projectPath) {
 			var splitChar = '\\';
-			if (projectPath.Contains("/")) {
+			if (projectPath.Contains('/')) {
 				splitChar = '/';
 			}
 			return Path.GetFileNameWithoutExtension(projectPath.Split(splitChar).Last());
