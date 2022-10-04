@@ -38,6 +38,7 @@ jobs:
             - LICENSE.txt
             - src
             - tools
+      
   run-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -54,6 +55,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: dotnet test src/mathtone-magic.sln --configuration Release
+      - sonarcloud/scan
 
   shatter-test-projects:
     docker:
