@@ -123,7 +123,6 @@ namespace Build_Util {
 			await sw.WriteLineAsync("echo build- ${PKG_VER} version- ${PKG_SFX}");
 			await sw.WriteLineAsync("********************************************");
 			await sw.WriteLineAsync(_removeCommand.ToString());
-			await sw.WriteLineAsync(_removeCommand.ToString());
 			await sw.WriteLineAsync(_addCommand.ToString());
 			await sw.WriteLineAsync(_genCommand.ToString());
 			await sw.FlushAsync();
