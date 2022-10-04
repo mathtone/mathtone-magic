@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\LICENSE.txt">
+    <None Include="..\..\..\..\source\repos\mathtone-magic\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

@@ -1,5 +1,5 @@
-﻿namespace Mathtone.Sdk.Common.Services {
-	public class SystemTimeService : ITimeService {
+﻿namespace Mathtone.Sdk.Common.Services.Time {
+	public class SystemTimeService : ServiceBase, ITimeService {
 		public virtual DateTimeOffset Now => DateTimeOffset.Now;
 		public virtual DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
 		public DateTimeOffset In(TimeZoneInfo zone) => TimeZoneInfo.ConvertTime(Now, zone);
