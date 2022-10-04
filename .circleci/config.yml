@@ -56,7 +56,7 @@ jobs:
           at: .
       - run: dotnet test src/mathtone-magic.sln --configuration Release
       - run: setup -nqP unzip
-      - sonarcloud/scan
+      #- sonarcloud/scan this doesn't work yet.'
 
   shatter-test-projects:
     docker:
