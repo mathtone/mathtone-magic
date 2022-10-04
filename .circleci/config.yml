@@ -34,6 +34,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            - LICENSE.txt
             - src
             - tools
   run-tests:
@@ -72,6 +73,7 @@ jobs:
       - run: |
           mkdir temp
           mkdir packages
+          ls -l
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - run: |

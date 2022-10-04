@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,11 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\source\repos\mathtone-magic\LICENSE.txt">
-      <Pack>True</Pack>
+    <None Include="..\..\..\LICENSE.txt" Link="LICENSE.txt">
       <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
     </None>
   </ItemGroup>
-
-
 </Project>
