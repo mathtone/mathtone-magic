@@ -77,7 +77,8 @@ namespace Build_Util {
 				var genCmd = new List<string>();
 				var gn = generations[i];
 				_log.LogInformation("Generation: {gen}", i);
-
+				var packs = new List<string>();
+				var restores = new List<string>();
 				foreach (var pj in gn.Values) {
 					var pack = packages.Contains(pj.Project.ProjectName);
 					_log.LogInformation(" - {proj} Pack: {pack}", pj.Project.ProjectName, pack);
@@ -89,13 +90,18 @@ namespace Build_Util {
 							addCommands.Add($"dotnet add {pj.Project.AbsolutePath} package {d.ProjectName} --no-restore --prerelease");
 						}
 					}
-					genCmd.Add($"dotnet restore {pj.Project.AbsolutePath} -s /mnt/ramdisk/packages --verbosity {(int)_config.Verbosity}");
+					restores.Add($"dotnet restore {pj.Project.AbsolutePath} -s /mnt/ramdisk/packages --verbosity {(int)_config.Verbosity}");
 
 					if (pack) {
-						genCmd.Add(@$"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER $PKG_SFX_TAG");
+						packs.Add(@$"dotnet pack {pj.Project.AbsolutePath} -o {_config.PackageDirectory} --verbosity {(int)_config.Verbosity} /p:VersionPrefix=$PKG_VER $PKG_SFX_TAG");
 					}
 				}
-				genCommands.Add(genCmd);
+				//var r = string.Join($" &{Environment.NewLine}", restores);
+				genCommands.Add(new() {
+					 string.Join($" &{Environment.NewLine}", restores),
+					 string.Join($" &{Environment.NewLine}", packs)
+				});
+				//genCommands.Add(packs);
 			}
 			_removeCommand.AppendLine();
 			_removeCommand.AppendLine(string.Join($" {Environment.NewLine}", removeCommands));
@@ -116,7 +122,6 @@ namespace Build_Util {
 			await sw.WriteLineAsync("********************************************");
 			await sw.WriteLineAsync("echo build- ${PKG_VER} version- ${PKG_SFX}");
 			await sw.WriteLineAsync("********************************************");
-			await sw.WriteLineAsync(_removeCommand.ToString());
 			await sw.WriteLineAsync(_removeCommand.ToString());
 			await sw.WriteLineAsync(_addCommand.ToString());
 			await sw.WriteLineAsync(_genCommand.ToString());

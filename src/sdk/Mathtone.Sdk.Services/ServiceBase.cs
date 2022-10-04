@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mathtone.Sdk.Common.Services {
+namespace Mathtone.Sdk.Services {
 
 	public abstract class ServiceBase {
 

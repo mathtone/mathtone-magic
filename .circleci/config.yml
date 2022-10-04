@@ -79,6 +79,7 @@ jobs:
           ls -l
       - run: dotnet build tools/build-util/build-util.csproj --output temp
       - run: dotnet temp/build-util.dll src/mathtone-magic.sln
+      - run: cat temp/process-sln.sh
       - run: |
           echo SUFFIX - $PKG_SFX_TAG
           dotnet restore src/mathtone-magic.sln

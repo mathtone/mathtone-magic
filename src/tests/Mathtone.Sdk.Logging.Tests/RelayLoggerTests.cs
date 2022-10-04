@@ -8,6 +8,25 @@ using static System.Environment;
 
 
 namespace Mathtone.Sdk.Logging.Tests {
+
+	public class TestLogger : Logger {
+		
+		public TestLogger() : base() { }
+
+		public override bool IsEnabled(LogLevel logLevel) {
+			throw new NotImplementedException();
+		}
+
+		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) {
+			throw new NotImplementedException();
+		}
+	}
+	public class LoggerTests {
+		[Fact]
+		public void TestLogger() {
+			Assert.NotNull(new TestLogger());
+		}
+	}
 	public class RelayLoggerTests {
 
 		[Fact]

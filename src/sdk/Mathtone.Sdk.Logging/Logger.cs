@@ -14,8 +14,8 @@ namespace Mathtone.Sdk.Logging {
 		private readonly string _category;
 		private readonly LoggerExternalScopeProvider _scope;
 
-		protected Logger(string categoryName=""):this(new(), categoryName) {
-			
+		protected Logger(string categoryName = "") : this(new(), categoryName) {
+
 		}
 
 		protected Logger(LoggerExternalScopeProvider scopeProvider, string categoryName) {
@@ -28,7 +28,6 @@ namespace Mathtone.Sdk.Logging {
 			var sb = new StringBuilder();
 			int level = 0;
 			_scope.ForEachScope((scope, state) => {
-
 				if (level++ > 0) {
 					sb.Append(Environment.NewLine);
 				}
