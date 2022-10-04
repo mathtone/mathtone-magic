@@ -137,6 +137,7 @@ workflows:
                   - /release.*/
           context: MATHTONE_DEV
           requires:
+            - run-tests
             - shatter-test-projects
       - approve-ship:
           filters:
