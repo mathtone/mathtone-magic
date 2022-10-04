@@ -41,8 +41,9 @@ jobs:
       
   run-tests:
     docker:
-      - image: cimg/base:2021.04
       - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: cimg/base:2021.04
+      
       - image: postgres
         environment:
           POSTGRES_USER: postgres
