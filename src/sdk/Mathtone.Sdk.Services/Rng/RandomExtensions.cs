@@ -1,4 +1,4 @@
-﻿namespace Mathtone.Sdk.Common.Services.Rng {
+﻿namespace Mathtone.Sdk.Services.Rng {
 	public static class RandomExtensions {
 		public static IEnumerable<T> Randomize<T>(this IRandom rng, IList<T> items) {
 

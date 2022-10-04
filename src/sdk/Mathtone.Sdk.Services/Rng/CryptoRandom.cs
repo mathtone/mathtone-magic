@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Mathtone.Sdk.Common.Services.Rng {
+namespace Mathtone.Sdk.Services.Rng {
 	public class CryptoRandom : SimpleRandom {
 
 		private const long lMax = 1L + uint.MaxValue;
