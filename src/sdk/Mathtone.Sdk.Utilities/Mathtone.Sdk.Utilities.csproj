@@ -5,7 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Description>Utility components.</Description>
+
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+
   </PropertyGroup>
 
   <ItemGroup>
