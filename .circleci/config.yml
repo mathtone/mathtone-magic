@@ -54,7 +54,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: dotnet test src/mathtone-magic.sln --configuration Release
+      - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       #- sonarcloud/scan
 
   shatter-test-projects:
@@ -86,7 +86,7 @@ jobs:
           dotnet nuget remove source nuget.org
           dotnet nuget add source /mnt/ramdisk/packages -n local
           bash temp/process-sln.sh
-      - run: dotnet test src/mathtone-magic.sln --configuration Release
+      - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       - persist_to_workspace:
           root: .
           paths:
