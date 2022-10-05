@@ -1,4 +1,6 @@
-﻿namespace Mathtone.Sdk.Common.Services.Time {
+﻿using Mathtone.Sdk.Services;
+
+namespace Mathtone.Sdk.Common.Services.Time {
 	public class SystemTimeService : ServiceBase, ITimeService {
 		public virtual DateTimeOffset Now => DateTimeOffset.Now;
 		public virtual DateTimeOffset UtcNow => DateTimeOffset.UtcNow;

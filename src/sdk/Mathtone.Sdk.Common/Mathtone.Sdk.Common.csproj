@@ -15,5 +15,9 @@
 	  </None>
    </ItemGroup>
 
+   <ItemGroup>
+     <ProjectReference Include="..\Mathtone.Sdk.Services\Mathtone.Sdk.Services.csproj" />
+   </ItemGroup>
+
 
 </Project>
