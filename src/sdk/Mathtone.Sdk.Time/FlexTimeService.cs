@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Mathtone.Sdk.Common.Services.Time {
+namespace Mathtone.Sdk.Time {
 	public class FlexTimeService : SystemTimeService {
 
 		protected TimeInZone _startTime;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mathtone.Sdk.Services.Rng {
+namespace Mathtone.Sdk.Rng {
 	public interface IRandom {
 		int Next();
 		int Next(int maxValue);

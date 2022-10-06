@@ -1,6 +1,4 @@
-﻿using Mathtone.Sdk.Common.Services.Time;
-
-namespace Mathtone.Sdk.Services.Tests.Time {
+﻿namespace Mathtone.Sdk.Time.Tests {
 	public class FlexTimeServiceTests : TimeServiceTests<FlexTimeService> {
 		public FlexTimeServiceTests() {
 		}

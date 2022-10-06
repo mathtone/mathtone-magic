@@ -1,4 +1,4 @@
-﻿namespace Mathtone.Sdk.Common.Services.Time {
+﻿namespace Mathtone.Sdk.Time {
 	public interface ITimeService : ICurrentTime<DateTime>, ICurrentTime<DateTimeOffset> {
 		TimeZoneInfo CurrentTimeZone { get; }
 	}

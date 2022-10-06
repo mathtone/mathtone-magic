@@ -1,4 +1,4 @@
-﻿namespace Mathtone.Sdk.Services.Rng {
+﻿namespace Mathtone.Sdk.Rng {
 	public class SimpleRandom : Random, IRandom {
 
 		public SimpleRandom() : base() { }
