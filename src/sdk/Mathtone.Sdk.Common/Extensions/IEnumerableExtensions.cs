@@ -6,4 +6,13 @@
 			}
 		}
 	}
+
+	public static class Repeat {
+		public static IEnumerable<T> For<T>(int count, Func<T> func) => While(() => count-- > 0, func);
+		public static IEnumerable<T> While<T>(Func<bool> condition, Func<T> func) {
+			while (condition()) {
+				yield return func();
+			}
+		}
+	}
 }

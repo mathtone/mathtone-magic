@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
-	
+
 	public abstract class XunitTestBase<T> : XunitTestBase {
 		protected XunitTestBase(ITestOutputHelper output) : base(output) {
 		}
