@@ -25,5 +25,4 @@ namespace Mathtone.Sdk.Testing.Xunit {
 			: base(output, scopeProvider, typeof(T).FullName!) {
 		}
 	}
-
 }
