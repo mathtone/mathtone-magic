@@ -71,12 +71,12 @@ namespace Mathtone.Sdk.Rng.Tests {
 			Assert.Equal(expected, actual);
 		}
 
-		//[Fact]
-		//public void Random_GetStringAlphaNum() {
-		//	var actual = _rng.GetString(20, AlphaNumInclude.Alpha);
-		//	Output.WriteLine(actual);
-		//	Assert.Equal("YiIUsXLFshYCtzYzUZtb", actual);
-		//	;
-		//}
+		[Fact]
+		public void Random_GetStringAlphaNum() {
+			var actual = _rng.GetString(20, AlphaNumInclude.Alpha);
+			Output.WriteLine(actual);
+			Assert.Equal("YiIUsXLFshYCtzYzUZtb", actual);
+			;
+		}
 	}
 }
