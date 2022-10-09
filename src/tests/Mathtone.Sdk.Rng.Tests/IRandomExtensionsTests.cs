@@ -16,6 +16,7 @@ namespace Mathtone.Sdk.Rng.Tests {
 			Assert.Equal(9, r);
 		}
 
+
 		[Fact]
 		public void Random_FromEnumerable() {
 			var items = Enumerable.Range(0, 10);
