@@ -61,8 +61,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Npgsql.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests", "tests\Mathtone.Sdk.Data.Sql.Tests\Mathtone.Sdk.Data.Sql.Tests.csproj", "{DBAEA763-BFE9-431B-A680-36D780B4025E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "B. Tools", "B. Tools", "{AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Logging.Console", "sdk\Mathtone.Sdk.Logging.Console\Mathtone.Sdk.Logging.Console.csproj", "{CBD4D807-2B67-4262-910A-4959326F6E10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build-util", "..\tools\build-util\build-util.csproj", "{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}"
@@ -79,13 +77,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Graphs", "sdk\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Graphs.Tests", "tests\Mathtone.Sdk.Graphs.Tests\Mathtone.Sdk.Graphs.Tests.csproj", "{77192C03-D010-46D6-B370-6A9A42FDF7E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Rng", "sdk\Mathtone.Sdk.Rng\Mathtone.Sdk.Rng.csproj", "{636EB605-2607-45D4-B806-3E4399230D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Rng", "sdk\Mathtone.Sdk.Rng\Mathtone.Sdk.Rng.csproj", "{636EB605-2607-45D4-B806-3E4399230D44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Rng.Tests", "tests\Mathtone.Sdk.Rng.Tests\Mathtone.Sdk.Rng.Tests.csproj", "{489C915D-E3B1-410F-9508-12C198281B03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Rng.Tests", "tests\Mathtone.Sdk.Rng.Tests\Mathtone.Sdk.Rng.Tests.csproj", "{489C915D-E3B1-410F-9508-12C198281B03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Time", "sdk\Mathtone.Sdk.Time\Mathtone.Sdk.Time.csproj", "{B3269FF5-B753-4CF9-AEE2-A51869A18F52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Time", "sdk\Mathtone.Sdk.Time\Mathtone.Sdk.Time.csproj", "{B3269FF5-B753-4CF9-AEE2-A51869A18F52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Time.Tests", "tests\Mathtone.Sdk.Time.Tests\Mathtone.Sdk.Time.Tests.csproj", "{86D78AAA-45AB-4085-9DC7-2FEC6055E1B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Time.Tests", "tests\Mathtone.Sdk.Time.Tests\Mathtone.Sdk.Time.Tests.csproj", "{86D78AAA-45AB-4085-9DC7-2FEC6055E1B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -228,7 +226,7 @@ Global
 		{861D7AA6-3DC2-4AB8-A359-E7E69F1A71AD} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
 		{DBAEA763-BFE9-431B-A680-36D780B4025E} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
 		{CBD4D807-2B67-4262-910A-4959326F6E10} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
-		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD} = {AA8ED1C8-7A6F-4FE4-885A-6B4BC98947F4}
+		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
 		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28} = {F89E0F7A-E9B3-4D45-A995-9E0C6F3D6E61}
 		{F3896984-DB4E-4F5F-96F1-4572FB143893} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
 		{FEA5F972-9C87-4B18-8D78-14F3FFF86849} = {F54C7977-D801-490D-91C6-D6BC81ED470D}
