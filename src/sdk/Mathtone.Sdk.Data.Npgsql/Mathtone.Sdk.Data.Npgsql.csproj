@@ -5,15 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Description>Fluent simple database access for Postgresql.</Description>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\LICENSE.txt" Link="LICENSE.txt">
-      <PackagePath>\</PackagePath>
-      <Pack>True</Pack>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mathtone.Sdk.Data\Mathtone.Sdk.Data.csproj" />
