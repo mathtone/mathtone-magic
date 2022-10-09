@@ -39,7 +39,7 @@ jobs:
             - src
             - tools
       
-  run-tests:
+  integration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
       - image: postgres
@@ -57,7 +57,7 @@ jobs:
       - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       #- sonarcloud/scan
 
-  shatter-test-projects:
+  disintegration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
       - image: postgres
@@ -119,11 +119,11 @@ workflows:
   build-release:
     jobs:
       - get-code
-      - run-tests:
+      - integration-tests:
           context: MATHTONE_DEV
           requires:
             - get-code
-      - shatter-test-projects:
+      - disintegration-tests:
           filters:
             branches:
                only:
@@ -138,8 +138,8 @@ workflows:
                   - /release.*/
           context: MATHTONE_DEV
           requires:
-            - run-tests
-            - shatter-test-projects
+            - integration-tests
+            - disintegration-tests
       - approve-ship:
           filters:
             branches:
