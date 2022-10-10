@@ -51,6 +51,11 @@ namespace Mathtone.Sdk.Rng {
 				chars = chars.Concat(symbol);
 			return chars.ToArray();
 		}
-		
+
+		public static bool NextBool(this IRandom rng) {
+
+			return Convert.ToBoolean(rng.Next(2));
+			
+		}
 	}
 }
