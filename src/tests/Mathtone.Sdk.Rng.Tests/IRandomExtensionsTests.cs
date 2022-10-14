@@ -1,4 +1,5 @@
-﻿using Mathtone.Sdk.Testing.Xunit;
+﻿using Mathtone.Sdk.Common.Extensions;
+using Mathtone.Sdk.Testing.Xunit;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Rng.Tests {
@@ -15,7 +16,6 @@ namespace Mathtone.Sdk.Rng.Tests {
 			var r = _rng.Random(items);
 			Assert.Equal(9, r);
 		}
-
 
 		[Fact]
 		public void Random_FromEnumerable() {
@@ -77,6 +77,13 @@ namespace Mathtone.Sdk.Rng.Tests {
 			Output.WriteLine(actual);
 			Assert.Equal("YiIUsXLFshYCtzYzUZtb", actual);
 			;
+		}
+
+		[Fact]
+		public void Random_NextBool() {
+			var rslt = Repeat.For(10,()=> _rng.NextBool()).ToArray();
+			var expected = "1011011100".Select(c => c == '1');
+			Assert.Equal(expected, rslt);			
 		}
 	}
 }
