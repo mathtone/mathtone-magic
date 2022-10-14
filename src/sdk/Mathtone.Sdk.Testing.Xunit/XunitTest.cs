@@ -1,11 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
 
-	public abstract class XunitTestBase<T> : XunitTestBase {
-		protected XunitTestBase(ITestOutputHelper output) : base(output) {
+	public abstract class XunitTestBase<T> : XunitTestBase, IClassFixture<T> where T : class{
+		
+		protected T Context { get; }
+
+		protected XunitTestBase(ITestOutputHelper output, T context) : base(output) {
+			Context = context;
 		}
 	}
 

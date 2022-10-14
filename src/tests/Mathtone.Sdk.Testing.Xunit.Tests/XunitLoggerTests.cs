@@ -14,13 +14,16 @@ namespace Mathtone.Sdk.Testing.Xunit.Tests {
 
 	public class XunitTestTests : XunitTestBase<XUnitTestTestsContext> {
 
-		public XunitTestTests(ITestOutputHelper output) : base(output) { }
+		public XunitTestTests(ITestOutputHelper output, XUnitTestTestsContext context) : base(output,context) { }
 
 		[Fact]
 		public void OutputTest() {
 			Assert.NotNull(Output);
 			Output.WriteLine("WRITTEN");
 		}
+
+		[Fact]
+		public void ContextTest() => Assert.NotNull(Context);
 	}
 
 	public class XunitLoggerTests : XunitTestBase, ITestOutputHelper {
