@@ -20,7 +20,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 			Output = output;
 		}
 
-		protected virtual ILogger CreateLogger<T>(string name = "") => new XunitLogger<T>(Output, new());
+		protected virtual ILogger<T> CreateLogger<T>(string name = "") => new XunitLogger<T>(Output, new());
 		protected virtual ILogger CreateLogger(string name = "") => new XunitLogger(Output, new(), name);
 	}
 }
