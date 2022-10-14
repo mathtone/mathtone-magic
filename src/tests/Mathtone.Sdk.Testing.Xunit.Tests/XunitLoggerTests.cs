@@ -35,6 +35,7 @@ namespace Mathtone.Sdk.Testing.Xunit.Tests {
 
 		[Fact]
 		public void LogOutput() {
+
 			var log = new XunitLogger<XunitLoggerTests>(this, new());
 			Assert.True(log.IsEnabled(LogLevel.Information));
 			log.LogInformation("TEST");
