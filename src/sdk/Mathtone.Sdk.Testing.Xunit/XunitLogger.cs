@@ -1,4 +1,5 @@
 ﻿using Mathtone.Sdk.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
@@ -13,7 +14,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 			_output = output;
 		}
 
-		public override bool IsEnabled(LogLevel logLevel) =>logLevel!=LogLevel.None;
+		public override bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
 
 		protected override void OnWrite(LogLevel level, EventId eventId, Exception? exception, string message) {
 			_output.WriteLine(message);
@@ -26,4 +27,10 @@ namespace Mathtone.Sdk.Testing.Xunit {
 		}
 	}
 
+	public static class ServiceCollectionExtensions {
+		public static IServiceCollection AddXunitLogging(this IServiceCollection services, ITestOutputHelper output) => services
+			.AddSingleton(output)
+			.AddSingleton<LoggerExternalScopeProvider>()
+			.AddTransient(typeof(ILogger<>), typeof(XunitLogger<>));
+	}
 }
