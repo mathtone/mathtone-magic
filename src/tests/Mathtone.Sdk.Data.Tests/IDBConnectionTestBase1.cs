@@ -1,5 +1,9 @@
-﻿using System.Data;
+﻿using Mathtone.Sdk.Common;
+using Mathtone.Sdk.Common.Extensions;
+using Mathtone.Sdk.Patterns;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Security;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Data.Tests {
@@ -24,6 +28,30 @@ namespace Mathtone.Sdk.Data.Tests {
 			Assert.Equal(ConnectionState.Closed, cn.State);
 		}
 	}
+
+	public class DictionaryRepositoryTests {
+
+		[Fact]
+		public void TestRepo() {
+			var id = 3;
+			var repo = new[] {
+				new { Id = 1, Val = "One" },
+				new { Id = 2, Val = "Two" },
+				new { Id = 3, Val = "Three" }
+			}.ToRepo(i => i.Id);
+
+			Assert.Equal("Two", repo.Read(2).Val);
+			Assert.Equal(4, repo.Create(new { Id = 4, Val = "Four" }));
+		}
+
+
+	}
+	//var repo = new DictionaryRepository<int, object> = new(i) {
+	//	{ 1, new{Id=1,Val="One"} },
+	//	{ 1, new{Id=1,Val="One"} },
+	//	{ 1, new{Id=1,Val="One"} }
+	//}
+	//Assert.Equal(repo.Create(new ))		}
 
 
 	//public abstract class DbTestBase<CN> where CN : IDbConnection, new() {
