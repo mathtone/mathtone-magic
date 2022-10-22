@@ -3,8 +3,8 @@
 		TimeZoneInfo CurrentTimeZone { get; }
 	}
 
-	public interface ICurrentTime<T> : ICurrentTime<T, TimeZoneInfo> { }
-	public interface ICurrentTime<T, in Z> {
+	public interface ICurrentTime<out T> : ICurrentTime<T, TimeZoneInfo> { }
+	public interface ICurrentTime<out T, in Z> {
 		T Now { get; }
 		T UtcNow { get; }
 		T In(Z zone);
@@ -14,5 +14,4 @@
 		public DateTimeOffset Time { get; set; }
 		public TimeZoneInfo Zone { get; set; }
 	}
-
 }

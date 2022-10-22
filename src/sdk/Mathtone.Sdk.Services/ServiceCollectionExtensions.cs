@@ -29,4 +29,9 @@ namespace Mathtone.Sdk.Services {
 			return services;
 		}
 	}
+
+	public static class IServiceProviderExtensions {
+		public static SVC Activate<SVC>(this IServiceProvider services, params object[] parameters) =>
+			ActivatorUtilities.CreateInstance<SVC>(services, parameters);
+	}
 }
