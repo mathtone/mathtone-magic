@@ -11,18 +11,18 @@
 		readonly Func<ITEM, ID> _idSelector;
 		readonly IDictionary<ID, ITEM> _items;
 
-		public ID Create(ITEM item) {
+		public virtual ID Create(ITEM item) {
 			var id = _idSelector(item);
 			_items.Add(id, item);
 			return id;
 		}
 
-		public ITEM Read(ID id) => _items[id];
+		public virtual ITEM Read(ID id) => _items[id];
 
-		public void Update(ITEM item) => _items[_idSelector(item)] = item;
+		public virtual void Update(ITEM item) => _items[_idSelector(item)] = item;
 
-		public void Delete(ID id) => _items.Remove(id);
+		public virtual void Delete(ID id) => _items.Remove(id);
 
-		public IEnumerable<ITEM> ReadAll() => _items.Values;
+		public virtual IEnumerable<ITEM> ReadAll() => _items.Values;
 	}
 }
