@@ -1,5 +1,9 @@
 ﻿namespace Mathtone.Sdk.Time {
-	public interface ITimeService : ICurrentTime<DateTime>, ICurrentTime<DateTimeOffset> {
+
+	public interface ITime : ICurrentTime<DateTime> { }
+	public interface ITimeOffset : ICurrentTime<DateTimeOffset> { }
+
+	public interface ITimeService : ITime, ITimeOffset {
 		TimeZoneInfo CurrentTimeZone { get; }
 	}
 
@@ -8,7 +12,6 @@
 		T Now { get; }
 		T UtcNow { get; }
 		T In(Z zone);
-		//T MyTime(T yourTime);
 	}
 	public struct TimeInZone {
 		public DateTimeOffset Time { get; set; }
