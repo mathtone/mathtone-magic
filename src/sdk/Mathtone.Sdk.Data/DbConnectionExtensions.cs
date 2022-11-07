@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System.Data;
+using System.Data.Common;
 
 namespace Mathtone.Sdk.Data {
 	public static class DbConnectionExtensions {
@@ -41,5 +42,9 @@ namespace Mathtone.Sdk.Data {
 				await connection.DisposeAsync();
 			}
 		}
+
+		public static CMD TextCommand<CN, CMD>(this CN cn, string commandText) where CN : IDbConnection where CMD : IDbCommand => cn.CreateCommand<CMD>(commandText, CommandType.Text);
+		public static CMD ProcCommand<CN, CMD>(this CN cn, string commandText) where CN : IDbConnection where CMD : IDbCommand => cn.CreateCommand<CMD>(commandText, CommandType.StoredProcedure);
+		public static CMD TableCommand<CN, CMD>(this CN cn, string commandText) where CN : IDbConnection where CMD : IDbCommand => cn.CreateCommand<CMD>(commandText, CommandType.TableDirect);
 	}
 }

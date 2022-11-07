@@ -25,5 +25,12 @@ namespace Mathtone.Sdk.Data.Sql {
 
 		public static SqlCommand WithInputOutput<T>(this SqlCommand command, string name, T value, SqlDbType type, int size = default) =>
 			command.WithParameter(name, value, ParameterDirection.InputOutput, type, size);
+
+		public static SqlCommand TextCommand(this SqlConnection cn, string commandText) => cn.CreateCommand(commandText, CommandType.Text);
+		public static SqlCommand ProcCommand(this SqlConnection cn, string commandText) => cn.CreateCommand(commandText, CommandType.StoredProcedure);
+		public static SqlCommand TableCommand(this SqlConnection cn, string commandText) => cn.CreateCommand(commandText, CommandType.TableDirect);
+
+		public static async Task<RSLT> ExecuteResult<EXEC, RSLT>(this SqlCommand cmd, Func<SqlCommand, Task<EXEC>> executor, Func<SqlCommand, EXEC, RSLT> selector) =>
+			selector(cmd, await executor(cmd));
 	}
 }
