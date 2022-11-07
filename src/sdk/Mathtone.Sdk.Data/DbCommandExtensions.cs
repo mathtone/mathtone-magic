@@ -18,4 +18,6 @@ namespace Mathtone.Sdk.Data {
 			where CMD : DbCommand =>
 			command.WithParameter(name, value, ParameterDirection.Input, type, size);
 	}
+
+
 }
