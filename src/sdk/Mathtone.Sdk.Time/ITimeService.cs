@@ -1,6 +1,6 @@
+
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
-
 namespace Mathtone.Sdk.Time {
 
 	public interface ITime : ICurrentTime<DateTime> { }
@@ -20,6 +20,7 @@ namespace Mathtone.Sdk.Time {
 		public DateTimeOffset Time { get; set; }
 		public TimeZoneInfo Zone { get; set; }
 	}
+
 	public static class TimeInZoneExtensions {
 		public static IServiceCollection AddTime<SVC>(this IServiceCollection services)
 			where SVC : class, ITimeService => services
