@@ -1,13 +1,17 @@
-
 <Project>
- <PropertyGroup>
-	<Authors>Mik3c</Authors>
-	<Company>Mathtone</Company>
-	<Copyright>2022 Mathtone Industries</Copyright>
-	<RepositoryUrl>https://github.com/mathtone/mathtone-magic</RepositoryUrl>
-	<VersionPrefix>1.0.7</VersionPrefix>
-	<IsPackable>true</IsPackable>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
- </PropertyGroup>
-</Project> 
+	<PropertyGroup>
+		<Authors>Mik3c</Authors>
+		<Company>Mathtone</Company>
+		<Copyright>2022 Mathtone Industries</Copyright>
+		<RepositoryUrl>https://github.com/mathtone/mathtone-magic</RepositoryUrl>
+		<VersionPrefix>1.0.7</VersionPrefix>
+		<IsPackable>true</IsPackable>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+</Project>

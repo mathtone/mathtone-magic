@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.editorconfig = .editorconfig
 		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
+		Icon.png = Icon.png
 		..\README.md = ..\README.md
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection
@@ -87,7 +88,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Time.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Patterns", "sdk\Mathtone.Sdk.Patterns\Mathtone.Sdk.Patterns.csproj", "{BB7F44DB-82E2-4FB4-9A30-B9034F9121AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Patterns.Tests", "tests\Mathtone.Sdk.Patterns.Tests\Mathtone.Sdk.Patterns.Tests.csproj", "{9243888F-1F0D-4BC8-B3AF-54431895678E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Patterns.Tests", "tests\Mathtone.Sdk.Patterns.Tests\Mathtone.Sdk.Patterns.Tests.csproj", "{9243888F-1F0D-4BC8-B3AF-54431895678E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
