@@ -7,7 +7,7 @@ namespace Mathtone.Sdk.Data.Sql {
 		public static SqlCommand WithParameter<T>(this SqlCommand command, string name, T value, ParameterDirection direction, SqlDbType type, int size = default) {
 			var p = command.CreateParameter();
 			p.ParameterName = name;
-			p.Value = value;
+			p.Value = value == null ? DBNull.Value : value;
 			p.Direction = direction;
 			p.Size = size;
 			p.SqlDbType = type;
