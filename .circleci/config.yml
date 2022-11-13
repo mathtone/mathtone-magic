@@ -28,7 +28,7 @@ orbs:
 jobs:
   get-code:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
     working_directory: /mnt/ramdisk
     steps:
       - checkout
@@ -41,7 +41,7 @@ jobs:
       
   integration-tests:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
       - image: postgres
         environment:
           POSTGRES_USER: postgres
@@ -59,7 +59,7 @@ jobs:
 
   disintegration-tests:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
       - image: postgres
         environment:
           POSTGRES_USER: postgres
@@ -93,7 +93,7 @@ jobs:
             - packages
   publish-artifactory:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
     steps:
       - attach_workspace:
           at: .
@@ -108,7 +108,7 @@ jobs:
 
   publish-nuget:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
     steps:
       - attach_workspace:
           at: .
