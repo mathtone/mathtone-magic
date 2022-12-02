@@ -24,17 +24,16 @@ namespace Mathtone.Sdk.Rng {
 		static readonly char[] number = "1234567890".ToArray();
 		static readonly char[] symbol = "!@#$%^&*_-=+".ToArray();
 
-		static ConcurrentDictionary<AlphaNumInclude, char[]> _cache = new();
+		static readonly ConcurrentDictionary<AlphaNumInclude, char[]> _cache = new();
 
 		public static Guid NewGuid(this IRandom rng) => new(rng.GetBytes(16));
 
-		public static string GetString(this IRandom rng, int length, AlphaNumInclude include = AlphaNumInclude.All) {
-			var chars = _cache.GetOrAdd(include, GetChars(include));
-			return new(Repeat.For(length, () => rng.Random(chars)).ToArray());
-		}
+		public static string GetString(this IRandom rng, int length, AlphaNumInclude include = AlphaNumInclude.All) =>
+			new(Repeat.For(length, () => rng.Random(_cache.GetOrAdd(include, GetChars(include)))).ToArray());
 
 		public static string Base64String(this IRandom rng, int bytes) => Convert.ToBase64String(rng.GetBytes(bytes));
-		public static string HexString(this IRandom rng, int bytes) => BitConverter.ToString(rng.GetBytes(bytes)).Replace("-","");
+
+		public static string HexString(this IRandom rng, int bytes) => BitConverter.ToString(rng.GetBytes(bytes)).Replace("-", "");
 
 		static char[] GetChars(AlphaNumInclude include) {
 			IEnumerable<char> chars = Array.Empty<char>();
@@ -52,10 +51,8 @@ namespace Mathtone.Sdk.Rng {
 			return chars.ToArray();
 		}
 
-		public static bool NextBool(this IRandom rng) {
+		public static bool NextBool(this IRandom rng) =>
+			Convert.ToBoolean(rng.Next(2));
 
-			return Convert.ToBoolean(rng.Next(2));
-			
-		}
 	}
 }
