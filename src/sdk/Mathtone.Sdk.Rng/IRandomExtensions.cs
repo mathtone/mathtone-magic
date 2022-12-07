@@ -35,6 +35,14 @@ namespace Mathtone.Sdk.Rng {
 
 		public static string HexString(this IRandom rng, int bytes) => BitConverter.ToString(rng.GetBytes(bytes)).Replace("-", "");
 
+
+		public static IEnumerable<T> Randomize<T>(this IRandom rng, IList<T> items) {
+
+			var indices = Enumerable.Range(0, items.Count).ToArray();
+			rng.UnSort(indices);
+			return indices.Select(i => items[i]);
+		}
+
 		static char[] GetChars(AlphaNumInclude include) {
 			IEnumerable<char> chars = Array.Empty<char>();
 			if (include.HasFlag(AlphaNumInclude.Lower))
@@ -54,5 +62,29 @@ namespace Mathtone.Sdk.Rng {
 		public static bool NextBool(this IRandom rng) =>
 			Convert.ToBoolean(rng.Next(2));
 
+
+		public static IEnumerable<T> Randomize<T>(this IRandom rng, IEnumerable<T> items) {
+
+			var indices = Enumerable.Range(0, items.Count()).ToArray();
+			rng.UnSort(indices);
+			return indices.Select(i => items.ElementAt(i));
+		}
+
+		public static void UnSort<T>(this IRandom rng, IList<T> items) {
+
+			for (var i = items.Count; i > 1; i--) {
+				var a = rng.Next(i);
+				var b = i - 1;
+				var t = items[a];
+				items[a] = items[b];
+				items[b] = t;
+			}
+		}
+
+		public static T Random<T>(this IRandom rng, IList<T> items) =>
+			items[rng.Next(items.Count)];
+
+		public static T Random<T>(this IRandom rng, IEnumerable<T> items) =>
+			items.ElementAt(rng.Next(items.Count()));
 	}
 }
