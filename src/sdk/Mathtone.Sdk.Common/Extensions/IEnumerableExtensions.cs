@@ -14,6 +14,11 @@
 
 	}
 
+	public static class IListExtensions {
+		public static void Swap<T>(this IList<T> items, int a, int b) =>
+			(items[b], items[a]) = (items[a], items[b]);
+	}
+
 	public static class Repeat {
 
 		public static IEnumerable<T> For<T>(int count, Func<T> func) => While(() => count-- > 0, func);
