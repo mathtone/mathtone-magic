@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		Icon.png = Icon.png
 		..\README.md = ..\README.md
 		sonar-project-properties = sonar-project-properties
+		..\.github\workflows\sonarcloud.yml = ..\.github\workflows\sonarcloud.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A. SDK", "A. SDK", "{B61610E1-BB47-42D5-808E-3DA370C7FA8B}"
