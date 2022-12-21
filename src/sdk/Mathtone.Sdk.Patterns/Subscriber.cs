@@ -17,6 +17,11 @@ namespace Mathtone.Sdk.Patterns {
 		}
 
 		public IAsyncEnumerable<T> ReadAllAsync() => _channel.Reader.ReadAllAsync();
+
+		protected override void OnDisposing() {
+			base.OnDisposing();
+			Close();
+		}
 	}
 
 	public interface ISubscriber<out T> : IDisposable {
