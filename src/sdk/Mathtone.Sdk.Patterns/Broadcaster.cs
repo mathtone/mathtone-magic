@@ -21,12 +21,13 @@ namespace Mathtone.Sdk.Patterns {
 
 		public ValueTask Send(T item) => _channel.Writer.WriteAsync(item);
 
-		public ISubscriber<T> Subscribe() {
+public ISubscriber<T> Subscribe() {
 			var rtn = new Subscriber<T>();
 			subscribers.Add(rtn);
 			return rtn;
 		}
-		public void UnSubscribe(ISubscriber<T> subscriber) {
+
+public void UnSubscribe(ISubscriber<T> subscriber) {
 			var s = (Subscriber<T>)subscriber;
 			subscribers.Remove(s);
 			s.Writer.TryComplete();
