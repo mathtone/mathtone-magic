@@ -1,4 +1,5 @@
 ﻿using Mathtone.Sdk.Common;
+using Mathtone.Sdk.Patterns;
 using System.Threading.Channels;
 
 namespace Mathtone.Sdk.Patterns {
@@ -21,14 +22,16 @@ namespace Mathtone.Sdk.Patterns {
 
 		public ValueTask Send(T item) => _channel.Writer.WriteAsync(item);
 
-public ISubscriber<T> Subscribe() {
+		public ISubscriber<T> Subscribe() {
 			var rtn = new Subscriber<T>();
+			rtn.Closing += Rtn_Closing;
 			subscribers.Add(rtn);
 			return rtn;
 		}
 
-public void UnSubscribe(ISubscriber<T> subscriber) {
-			var s = (Subscriber<T>)subscriber;
+		private void Rtn_Closing(object? sender, EventArgs e) {
+			var s = (Subscriber<T>)sender!;
+			s.Closing -= Rtn_Closing;
 			subscribers.Remove(s);
 			s.Writer.TryComplete();
 		}
@@ -46,4 +49,5 @@ public void UnSubscribe(ISubscriber<T> subscriber) {
 		ValueTask Send(T item);
 		ISubscriber<T> Subscribe();
 	}
+
 }
