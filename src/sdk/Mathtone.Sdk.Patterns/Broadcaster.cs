@@ -28,6 +28,7 @@ namespace Mathtone.Sdk.Patterns {
 		}
 		public void UnSubscribe(Subscriber<T> subscriber) {
 			subscribers.Remove(subscriber);
+			subscriber.Writer.TryComplete();
 		}
 
 		protected override async ValueTask OnDisposeAsync() {
