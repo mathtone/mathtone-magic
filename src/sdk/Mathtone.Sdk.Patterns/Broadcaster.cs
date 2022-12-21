@@ -2,7 +2,7 @@
 using System.Threading.Channels;
 
 namespace Mathtone.Sdk.Patterns {
-	public class Broadcaster<T> : AsyncDisposableBase {
+	public class Broadcaster<T> : AsyncDisposableBase, IBroadcaster<T> {
 
 		public Broadcaster() {
 			_processTask = Task.Run(async () => {
@@ -21,14 +21,15 @@ namespace Mathtone.Sdk.Patterns {
 
 		public ValueTask Send(T item) => _channel.Writer.WriteAsync(item);
 
-		public Subscriber<T> Subscribe() {
+		public ISubscriber<T> Subscribe() {
 			var rtn = new Subscriber<T>();
 			subscribers.Add(rtn);
 			return rtn;
 		}
-		public void UnSubscribe(Subscriber<T> subscriber) {
-			subscribers.Remove(subscriber);
-			subscriber.Writer.TryComplete();
+		public void UnSubscribe(ISubscriber<T> subscriber) {
+			var s = (Subscriber<T>)subscriber;
+			subscribers.Remove(s);
+			s.Writer.TryComplete();
 		}
 
 		protected override async ValueTask OnDisposeAsync() {
@@ -39,5 +40,9 @@ namespace Mathtone.Sdk.Patterns {
 				subscribers.Select(s => Task.Run(() => s.Writer.Complete()))
 			);
 		}
+	}
+	public interface IBroadcaster<T> : IAsyncDisposable {
+		ValueTask Send(T item);
+		ISubscriber<T> Subscribe();
 	}
 }
