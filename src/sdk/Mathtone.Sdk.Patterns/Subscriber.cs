@@ -23,7 +23,6 @@ namespace Mathtone.Sdk.Patterns {
 				}
 			}
 		}
-
 		protected override void OnDisposing() {
 			base.OnDisposing();
 			Close();
