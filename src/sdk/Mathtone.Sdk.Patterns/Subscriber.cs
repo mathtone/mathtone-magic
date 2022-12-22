@@ -16,7 +16,14 @@ namespace Mathtone.Sdk.Patterns {
 			eh?.Invoke(this, new());
 		}
 
-		public IAsyncEnumerable<T> ReadAllAsync() => _channel.Reader.ReadAllAsync();
+		public async IAsyncEnumerable<T> ReadAllAsync() {
+			T last;
+			await foreach var v in _channel.Reader.ReadAllAsync()) {
+				if (!v.Equals(last)) {
+					yield return v;
+				}
+			}
+		}
 
 		protected override void OnDisposing() {
 			base.OnDisposing();
