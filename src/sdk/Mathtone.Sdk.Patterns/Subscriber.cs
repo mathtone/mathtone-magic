@@ -4,7 +4,6 @@ using System.Threading.Channels;
 namespace Mathtone.Sdk.Patterns {
 	public class Subscriber<T> : DisposableBase, ISubscriber<T> {
 
-
 		readonly Channel<T> _channel = Channel.CreateUnbounded<T>();
 
 		public ChannelWriter<T> Writer => _channel.Writer;
@@ -16,8 +15,15 @@ namespace Mathtone.Sdk.Patterns {
 			eh?.Invoke(this, new());
 		}
 
-		public IAsyncEnumerable<T> ReadAllAsync() => _channel.Reader.ReadAllAsync();
-
+		public async IAsyncEnumerable<T> ReadAllAsync() {
+			T? last = default;
+			await foreach (var v in _channel.Reader.ReadAllAsync()) {
+				if (last == null || !v.Equals(last)) {
+					yield return v;
+				}
+			}
+		}
+		
 		protected override void OnDisposing() {
 			base.OnDisposing();
 			Close();
