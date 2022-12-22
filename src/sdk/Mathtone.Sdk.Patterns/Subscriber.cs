@@ -18,12 +18,12 @@ namespace Mathtone.Sdk.Patterns {
 		public async IAsyncEnumerable<T> ReadAllAsync() {
 			T? last = default;
 			await foreach (var v in _channel.Reader.ReadAllAsync()) {
-				if (last == null || !v.Equals(last)) {
-					yield return v;
+				if (last == null || !v!.Equals(last)) {
+					yield return last = v;
 				}
 			}
 		}
-		
+
 		protected override void OnDisposing() {
 			base.OnDisposing();
 			Close();
