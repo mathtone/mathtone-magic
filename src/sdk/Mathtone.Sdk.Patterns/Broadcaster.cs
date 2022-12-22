@@ -4,7 +4,7 @@ using System.Threading.Channels;
 
 namespace Mathtone.Sdk.Patterns {
 
-	
+
 	public class Broadcaster<T> : AsyncDisposableBase, IBroadcaster<T> {
 
 		public Broadcaster() {
@@ -20,14 +20,24 @@ namespace Mathtone.Sdk.Patterns {
 		readonly Task _processTask;
 		readonly List<Subscriber<T>> subscribers = new();
 		readonly Channel<T> _channel = Channel.CreateUnbounded<T>();
+		protected T? Last { get; set; }
 
+		public virtual ValueTask Send(T item) {
+			lock(subscribers) {
+				Last = item;
+			}
+			return _channel.Writer.WriteAsync(item);
+		}
 
-		public ValueTask Send(T item) => _channel.Writer.WriteAsync(item);
-
-		public ISubscriber<T> Subscribe() {
+		public virtual ISubscriber<T> Subscribe() {
 			var rtn = new Subscriber<T>();
-			rtn.Closing += Rtn_Closing;
-			subscribers.Add(rtn);
+			lock (subscribers) {
+				if (Last != null) {
+					rtn.Writer.TryWrite(Last);
+				}
+				rtn.Closing += Rtn_Closing;
+				subscribers.Add(rtn);
+			}
 			return rtn;
 		}
 
