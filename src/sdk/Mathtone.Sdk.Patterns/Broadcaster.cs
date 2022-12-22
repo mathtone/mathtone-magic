@@ -3,6 +3,8 @@ using Mathtone.Sdk.Patterns;
 using System.Threading.Channels;
 
 namespace Mathtone.Sdk.Patterns {
+
+	
 	public class Broadcaster<T> : AsyncDisposableBase, IBroadcaster<T> {
 
 		public Broadcaster() {
@@ -45,9 +47,11 @@ namespace Mathtone.Sdk.Patterns {
 			);
 		}
 	}
-	public interface IBroadcaster<T> : IAsyncDisposable {
+	public interface IBroadcaster<T> : ISubscribable<T>, IAsyncDisposable {
 		ValueTask Send(T item);
+		
+	}
+	public interface ISubscribable<out T> {
 		ISubscriber<T> Subscribe();
 	}
-
 }
