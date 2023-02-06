@@ -2,6 +2,7 @@
 	"Settings": {
 		"PackageProjects": [
 			"Mathtone.Sdk.Services",
+			"Mathtone.Sdk.Observables",
 			"Mathtone.Sdk.Common",
 			"Mathtone.Sdk.Logging",
 			"Mathtone.Sdk.Logging.Console",
