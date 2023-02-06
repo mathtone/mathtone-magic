@@ -1,7 +1,7 @@
 ﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace Calxium.Observable {
+namespace Mathtone.Sdk.Reactive {
 	public struct ObservableValue<T> : IObservableValue<T> {
 
 

@@ -15,7 +15,8 @@
 			"Mathtone.Sdk.Graphs",
 			"Mathtone.Sdk.Rng",
 			"Mathtone.Sdk.Time",
-			"Mathtone.Sdk.Patterns"
+			"Mathtone.Sdk.Patterns",
+			"Mathtone.Sdk.Reactive"
 		],
 		"PackageDirectory": "packages",
 		"Verbosity": "Quiet"
