@@ -1,9 +1,11 @@
 ﻿using Mathtone.Sdk.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
+
 	public abstract class XunitServiceTestBase {
 
 		protected XunitServiceTestBase(ITestOutputHelper output) {
@@ -26,5 +28,14 @@ namespace Mathtone.Sdk.Testing.Xunit {
 				.AddXunitTestLogger(Output)
 				.AddConsole()
 			);
+	}
+
+	public abstract class XunitServiceTestBase<CTX> : XunitServiceTestBase, IClassFixture<CTX> where CTX : class {
+		protected XunitServiceTestBase(ITestOutputHelper output, CTX context) :
+			base(output) {
+			Context = context;
+		}
+
+		protected CTX Context { get; }
 	}
 }

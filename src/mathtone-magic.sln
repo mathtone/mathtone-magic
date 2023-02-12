@@ -92,7 +92,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Patterns.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Reactive", "sdk\Mathtone.Sdk.Reactive\Mathtone.Sdk.Reactive.csproj", "{9002E606-76DD-47CE-BD1A-24953C2D0137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Reactive.Tests", "tests\Mathtone.Sdk.Reactive.Tests\Mathtone.Sdk.Reactive.Tests.csproj", "{409D91A8-439E-4F00-8BA4-01D8261D8F69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Reactive.Tests", "tests\Mathtone.Sdk.Reactive.Tests\Mathtone.Sdk.Reactive.Tests.csproj", "{409D91A8-439E-4F00-8BA4-01D8261D8F69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.PackageUtilities", "sdk\Mathtone.Sdk.PackageUtilities\Mathtone.Sdk.PackageUtilities.csproj", "{9AAFA148-BA23-4FCC-8C88-DF562E3CC104}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{824E103B-0A3D-4ECF-9C8C-0FC972B965B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{8AD3B899-E78A-4428-A169-104C673B2645}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.BuildUtilities.Tests", "tests\Mathtone.Sdk.BuildUtilities.Tests\Mathtone.Sdk.BuildUtilities.Tests.csproj", "{656B9B09-EF4B-4280-A35E-91ED6B256892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -224,6 +232,14 @@ Global
 		{409D91A8-439E-4F00-8BA4-01D8261D8F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{409D91A8-439E-4F00-8BA4-01D8261D8F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{409D91A8-439E-4F00-8BA4-01D8261D8F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AAFA148-BA23-4FCC-8C88-DF562E3CC104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AAFA148-BA23-4FCC-8C88-DF562E3CC104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AAFA148-BA23-4FCC-8C88-DF562E3CC104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AAFA148-BA23-4FCC-8C88-DF562E3CC104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{656B9B09-EF4B-4280-A35E-91ED6B256892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{656B9B09-EF4B-4280-A35E-91ED6B256892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{656B9B09-EF4B-4280-A35E-91ED6B256892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{656B9B09-EF4B-4280-A35E-91ED6B256892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +282,10 @@ Global
 		{9243888F-1F0D-4BC8-B3AF-54431895678E} = {F54C7977-D801-490D-91C6-D6BC81ED470D}
 		{9002E606-76DD-47CE-BD1A-24953C2D0137} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
 		{409D91A8-439E-4F00-8BA4-01D8261D8F69} = {F54C7977-D801-490D-91C6-D6BC81ED470D}
+		{9AAFA148-BA23-4FCC-8C88-DF562E3CC104} = {824E103B-0A3D-4ECF-9C8C-0FC972B965B3}
+		{824E103B-0A3D-4ECF-9C8C-0FC972B965B3} = {B61610E1-BB47-42D5-808E-3DA370C7FA8B}
+		{8AD3B899-E78A-4428-A169-104C673B2645} = {B70C3509-426C-415E-AB37-345F91111861}
+		{656B9B09-EF4B-4280-A35E-91ED6B256892} = {8AD3B899-E78A-4428-A169-104C673B2645}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}

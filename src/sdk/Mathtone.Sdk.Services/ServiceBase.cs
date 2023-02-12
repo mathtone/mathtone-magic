@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mathtone.Sdk.Services {
+﻿namespace Mathtone.Sdk.Services {
 
 	public abstract class ServiceBase {
-
+		Type? _type;
+		protected Type ServiceType => _type ??= GetType();
+		protected string ServiceTypeName => ServiceType.Name;
 	}
+
 }
