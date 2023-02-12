@@ -6,7 +6,7 @@ using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
 
-	public abstract class XunitServiceTestBase {
+	public abstract partial class XunitServiceTestBase {
 
 		protected XunitServiceTestBase(ITestOutputHelper output) {
 			Output = output;
@@ -19,6 +19,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 		protected readonly IServiceProvider Services;
 		protected readonly ITestOutputHelper Output;
 
+
 		protected virtual T GetService<T>() where T : notnull => Services.GetRequiredService<T>();
 		protected virtual IEnumerable<T> GetServices<T>() => Services.GetServices<T>();
 		protected virtual T ActivateServices<T>(params object[] args) => Services.Activate<T>(args);
@@ -28,6 +29,9 @@ namespace Mathtone.Sdk.Testing.Xunit {
 				.AddXunitTestLogger(Output)
 				.AddConsole()
 			);
+
+		[LoggerMessage(0, LogLevel.Information, "{message}")]
+		protected partial void LogMessage(string message);
 	}
 
 	public abstract class XunitServiceTestBase<CTX> : XunitServiceTestBase, IClassFixture<CTX> where CTX : class {
