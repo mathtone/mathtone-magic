@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run: ls -l
+      - run: git fetch --all
+      - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
+      - run: dotnet temp/build-utilities.dll ./solutionconfig.json
       - persist_to_workspace:
           root: .
           paths:
@@ -23,7 +26,6 @@ jobs:
           at: .
       - run: ls -l
       - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
-      - run: git fetch --all
       - run: dotnet temp/build-utilities.dll ./solutionconfig.json
       - persist_to_workspace:
           root: .
