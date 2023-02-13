@@ -17,4 +17,6 @@
 			GC.SuppressFinalize(this);
 		}
 	}
+
+	public class TestClass { }
 }
