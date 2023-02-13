@@ -13,6 +13,7 @@ jobs:
             - LICENSE.txt
             - src
             - tools
+            - solutionconfig.json
   build-tools:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:7.0
