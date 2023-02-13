@@ -6,12 +6,14 @@ jobs:
     working_directory: /mnt/ramdisk
     steps:
       - checkout
+      - run: ls -l
       - persist_to_workspace:
           root: .
           paths:
             - LICENSE.txt
             - src
             - tools
+            - solutionconfig.json
   build-tools:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:7.0
@@ -19,6 +21,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: ls -l
       - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
       - run: git fetch --all
       - run: dotnet temp/build-utilities.dll ./solutionconfig.json
