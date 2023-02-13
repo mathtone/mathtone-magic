@@ -20,6 +20,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
+      - run: dotnet temp/build-util.dll src/mathtone-magic.sln
       - persist_to_workspace:
           root: .
           paths:

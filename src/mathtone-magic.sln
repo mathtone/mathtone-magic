@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\.circleci\config.yml = ..\.circleci\config.yml
 		Icon.png = Icon.png
 		..\README.md = ..\README.md
+		..\solutionconfig.json = ..\solutionconfig.json
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection
 EndProject
@@ -102,9 +103,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{8AD3B899
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Secrets", "sdk\Mathtone.Sdk.Secrets\Mathtone.Sdk.Secrets.csproj", "{3B8AE2D5-4F42-4964-854C-B75B5283093B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "build-utilities", "..\tools\build-utilities\build-utilities.csproj", "{79760FAC-A84C-4936-9321-5C8A5F9684E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build-utilities", "..\tools\build-utilities\build-utilities.csproj", "{79760FAC-A84C-4936-9321-5C8A5F9684E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Secrets", "..\tools\Mathtone.Secrets\Mathtone.Secrets.csproj", "{19C94327-C2AD-46C0-B212-E7A7FA4560AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Secrets", "..\tools\Mathtone.Secrets\Mathtone.Secrets.csproj", "{19C94327-C2AD-46C0-B212-E7A7FA4560AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
