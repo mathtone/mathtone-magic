@@ -12,6 +12,7 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 		public bool HasChanged { get; set; }
 		public NuGetVersion CurrentReleaseVersion { get; set; } = default!;
 		public NuGetVersion CurrentPreReleaseVersion { get; set; } = default!;
+		public NuGetVersion NewReleaseVersion { get; set; } = default!;
 		public int BuildGeneration { get; set; }
 		public ProjectInSolution Project { get; }
 		public Tangle<ProjectAnalysis> Dependencies { get; }

@@ -9,29 +9,18 @@ using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
 using System.Diagnostics;
 using System.Net.WebSockets;
+using System.Runtime.CompilerServices;
+using System.Text;
 using System.Xml;
 
 namespace Mathtone.Sdk.PackageUtilities.Services {
-	public class SolutionAnalysisConfiguration {
-
-		public string DefaultVersionMask { get; set; } = "1.0";
-		public bool IsPreRelease { get; set; } = true;
-		public bool SyncVersion { get; set; } = false;
-		public string SolutionFilePath { get; set; } = "";
-		public PackageConfig[] Packages { get; set; } = Array.Empty<PackageConfig>();
-		public string[] PreReleaseProgression { get; set; } = new[] {
-			"alpha",
-			"beta",
-			"rc*"
-		};
-	}
 
 	public class PackageConfig {
 		public string Name { get; set; } = "";
 		public string? VersionMask { get; set; }
 	}
 
-	//TODO: Push this wreckage off tthe deck and write it better.
+	//TODO: Push this wreckage off the deck and write it better.
 	public partial class SolutionAnalysisService : LoggedServiceBase {
 		public SolutionAnalysisService(ILogger<SolutionAnalysisService> logger, ISecrets secrets, SolutionAnalysisConfiguration config) : base(logger) {
 			Secrets = secrets;
@@ -69,9 +58,12 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 			}
 
 			AssignBuildGenerations();
+
 			await FindProjectChanges();
 			await AssignBuildVersions();
 			await AssignNewVersions();
+			await CreatePackageScript();
+			//Create Build Scripts
 
 			LogAnalysisComplete("Solution", SolutionPath);
 			return CurrentAnalysis;
@@ -114,7 +106,7 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 						proc.StartInfo.RedirectStandardOutput = true;
 						proc.StartInfo.RedirectStandardError = true;
 						proc.StartInfo.FileName = "git";
-						proc.StartInfo.Arguments = $"diff --name-only main -- ./";
+						proc.StartInfo.Arguments = $"diff --name-only {Config.CompareBranch} -- ./";
 						proc.Start();
 
 						var output = proc.StandardOutput.ReadToEnd();
@@ -153,6 +145,7 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 
 					var cur = p.CurrentPreReleaseVersion ?? p.CurrentReleaseVersion;
 					var upd = GetNewVersion(cur, defaultMask[0], defaultMask[1], Config.PreReleaseProgression, !Config.IsPreRelease);
+					p.NewReleaseVersion= upd;
 					LogProjectVersion(cfg.Name, upd.ToString());
 				}
 				else {
@@ -162,96 +155,6 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 
 			return Task.CompletedTask;
 		}
-
-
-		public static NuGetVersion GetNewVersion(NuGetVersion currentVersion, int major, int minor, string[] releaseProgression, bool release) {
-			int rev;
-			string rel = "";
-
-			if (currentVersion == null || major > currentVersion.Major || minor > currentVersion.Minor) {
-				rev = 0;
-				rel = release ? "" : releaseProgression[0];
-			}
-			else {
-				if (!string.IsNullOrEmpty(currentVersion.Release) || !release) {
-					rev = currentVersion.Revision;
-				}
-				else {
-					rev = currentVersion.Revision + 1;
-				}
-
-				if (!release) {
-					if (currentVersion?.Release == null) {
-						rel = releaseProgression[0];
-					}
-					else {
-						rel = NextRelease(currentVersion!.Release, releaseProgression);
-					}
-				}
-			}
-
-			return release ?
-				new NuGetVersion(major, minor, rev) :
-				new NuGetVersion(major, minor, rev, rel);
-		}
-
-		public static string NextRelease(string currentRelease, string[] releaseProgression) {
-			var i = Array.IndexOf(releaseProgression, currentRelease) + 1;
-			if (i == 0) {
-				var l = releaseProgression.Last();
-				;
-				var x = int.Parse(currentRelease.Replace(l, "")) + 1;
-				return l + x.ToString();
-			}
-			else {
-				if (i >= releaseProgression.GetUpperBound(0)) {
-					return releaseProgression[i] + "1";
-				}
-				else {
-					return releaseProgression[i];
-				}
-			}
-		}
-
-		//public static NuGetVersion GetNewVersion(NuGetVersion currentVersion, int major, int minor, string[] releaseProgression, bool release) {
-		//	if (currentVersion == null) {
-		//		//currentVersion = 
-		//		if(release) {
-		//			return new NuGetVersion(major,minor, 0);
-		//		}
-		//		else {
-		//			return new NuGetVersion(major, minor, 0, releaseProgression[0]);
-		//		}
-		//	}
-		//	if (release) {
-		//		return new NuGetVersion(major, minor, string.IsNullOrEmpty(currentVersion.Release) ? currentVersion.Patch + 1 : currentVersion.Patch);
-		//	}
-		//	else {
-		//		;
-		//		if (!string.IsNullOrEmpty(currentVersion.Release)) {
-
-		//			var i = Array.IndexOf(releaseProgression, currentVersion.Release) + 1;
-		//			if (i == 0) {
-		//				var l = releaseProgression.Last();
-		//				var x = int.Parse(currentVersion.Release.Replace(l, "")) + 1;
-		//				return new NuGetVersion(major, minor, currentVersion.Patch, l + x.ToString())
-		//				;
-		//			}
-		//			else {
-		//				if (i >= releaseProgression.GetUpperBound(0)) {
-		//					return new NuGetVersion(major, minor, currentVersion.Patch, releaseProgression[i] + "1");
-		//				}
-		//				else {
-		//					return new NuGetVersion(major, minor, currentVersion.Patch, releaseProgression[i]);
-		//				}
-		//			}
-
-		//		}
-		//		else {
-		//			return new NuGetVersion(major, minor, currentVersion.Patch + 1, releaseProgression[0]);
-		//		}
-		//	}
-		//}
 
 		protected virtual void AssignBuildGenerations() {
 			var g = 0;
@@ -268,6 +171,83 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 				}
 				g++;
 				gen = CurrentAnalysis.AllProjects.Values.Where(p => p.BuildGeneration == g).ToArray();
+			}
+		}
+
+		protected virtual async Task CreatePackageScript() {
+			var sb = new StringBuilder();
+
+			foreach (var gen in CurrentAnalysis!.AllProjects.Values
+				.Where(p => p.HasChanged && Config.Packages.Any(c => c.Name == p.Project.ProjectName))
+				.GroupBy(p => p.BuildGeneration).OrderBy(p => p.Key)) {
+				
+				sb.AppendLine($"#GEN: {gen.Key}");
+				//Log.LogInformation("Generation {generation}", gen.Key);
+
+				foreach (var proj in gen) {
+					var sfx = Config.IsPreRelease ? "--version-suffix" : "";
+					var cmd = $"dotnet pack \"{proj.Project.AbsolutePath}\" {sfx} {proj.NewReleaseVersion} -c {Config.PackConfig} --output {Config.PackageOutput}";
+					sb.AppendLine(cmd);
+				}
+			}
+
+			await File.WriteAllTextAsync(Config.PackScriptLocation, sb.ToString());
+			Log.LogInformation("{file}", Path.GetFullPath(Config.PackScriptLocation));
+		}
+
+		public static NuGetVersion GetNewVersion(NuGetVersion currentVersion, int major, int minor, string[] releaseProgression, bool release) {
+
+			var rev = currentVersion?.Patch ?? 0;
+			var rel = currentVersion?.Release;
+			var isNew = currentVersion == null;
+
+			var verChange = currentVersion == null || currentVersion.Major != major || currentVersion.Minor != minor;
+
+			if (release) {
+				
+				if (currentVersion?.IsPrerelease ?? true) {
+					rel = "";
+				}
+				else {
+					rev += 1;
+					rel = "";
+				}
+			}
+			else {
+				if (isNew) {
+					rel = releaseProgression[0];
+				}
+				else if (currentVersion.IsPrerelease) {
+					;
+					rel = NextRelease(rel, releaseProgression);
+				}
+				else {
+					if (!verChange) {
+						rev += 1;
+					}
+					rel = releaseProgression[0];
+				}
+			}
+			return new(major, minor, rev, rel);
+		}
+
+		public static string NextRelease(string currentRelease, string[] releaseProgression) {
+			if ((currentRelease) == "") return releaseProgression[0];
+			var i = Array.IndexOf(releaseProgression, currentRelease) + 1;
+
+			if (i == 0) {
+				var l = releaseProgression.Last();
+				;
+				var x = int.Parse(currentRelease.Replace(l, "")) + 1;
+				return l + x.ToString();
+			}
+			else {
+				if (i >= releaseProgression.GetUpperBound(0)) {
+					return releaseProgression[i] + "1";
+				}
+				else {
+					return releaseProgression[i];
+				}
 			}
 		}
 

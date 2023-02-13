@@ -15,4 +15,9 @@
 	<ItemGroup>
 		<None Include="../../icon.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectCapability Include="ConfigurableFileNesting" />
+		<ProjectCapability Include="ConfigurableFileNestingFeatureEnabled" />
+	</ItemGroup>
 </Project>
