@@ -14,6 +14,6 @@
 		public string PackageOutput { get; set; } = "./packages";
 		public string PackScriptLocation { get; set; } = "./create-packages.sh";
 		public string PackConfig { get; set; } = "Release";
-		public string CompareBranch { get; set; } = "main";
+		public string CompareBranch { get; set; } = "origin/main";
 	}
 }
