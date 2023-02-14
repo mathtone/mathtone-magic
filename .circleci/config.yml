@@ -10,7 +10,7 @@ jobs:
          fingerprints:
          - "f6:ba:a8:50:a5:01:e0:96:b1:83:38:38:12:8a:c3:34"
       - run: ls -l
-      - run: git fetch --all
+      # - run: git fetch --all
       - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
       - run: dotnet temp/build-utilities.dll ./solutionconfig.json
       - persist_to_workspace:
@@ -27,13 +27,13 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: ls -l
-      - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
-      - run: dotnet temp/build-utilities.dll ./solutionconfig.json
-      - persist_to_workspace:
-          root: .
-          paths:
-            - temp
+      # - run: ls -l
+      # - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
+      # - run: dotnet temp/build-utilities.dll ./solutionconfig.json
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - temp
   integration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
