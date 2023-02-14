@@ -32,10 +32,10 @@ jobs:
       - run: ls -l packages
       # - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
       # - run: dotnet temp/build-utilities.dll ./solutionconfig.json
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - temp
+      - persist_to_workspace:
+         root: .
+         paths:
+           - packages
   integration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
