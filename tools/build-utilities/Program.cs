@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 Console.WriteLine("Hello, World!");
-var json = await File.ReadAllTextAsync(args.Any() ? args[0] : "./solutionconfig.json");
+var json = await File.ReadAllTextAsync(args[0]);
 var cfg = JsonSerializer.Deserialize<SolutionAnalysisConfiguration>(json)!;
 await new ServiceCollection()
 	.AddLogging(bld => bld.AddConsole())

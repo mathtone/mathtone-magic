@@ -1,0 +1,8 @@
+{
+  "profiles": {
+   "build-utilities": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../../../solutionconfig.json"
+   }
+  }
+}

@@ -187,8 +187,12 @@ namespace Mathtone.Sdk.PackageUtilities.Services {
 				foreach (var proj in gen) {
 					var sfx = Config.IsPreRelease ? "--version-suffix" : "";
 					var cmd = Config.IsPreRelease ?
-						$"dotnet pack \"{proj.Project.AbsolutePath}\" {proj.NewReleaseVersion.Version} --version-suffix {proj.NewReleaseVersion.Release} -c {Config.PackConfig} --output {Config.PackageOutput}" :
+						$"dotnet pack \"{proj.Project.AbsolutePath}\" --version \"{proj.NewReleaseVersion}\" --version-suffix \"{proj.NewReleaseVersion.Release}\" -c {Config.PackConfig} --output {Config.PackageOutput}" :
 						$"dotnet pack \"{proj.Project.AbsolutePath}\" {proj.NewReleaseVersion.Version} -c {Config.PackConfig} --output {Config.PackageOutput}";
+					;
+
+					//dotnet pack MyProject.csproj --configuration Release --version-suffix "alpha" --version "2.0.1" --output ./packages
+
 
 					sb.AppendLine(cmd);
 				}
