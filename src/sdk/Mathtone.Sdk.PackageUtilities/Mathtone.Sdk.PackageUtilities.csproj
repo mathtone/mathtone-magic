@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="17.4.0" />
+    <PackageReference Include="NuGet.Configuration" Version="6.4.0" />
+    <PackageReference Include="NuGet.Protocol" Version="6.4.0" />
+    <PackageReference Include="NuGet.Versioning" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mathtone.Sdk.Graphs\Mathtone.Sdk.Graphs.csproj" />
+    <ProjectReference Include="..\Mathtone.Sdk.Secrets\Mathtone.Sdk.Secrets.csproj" />
+    <ProjectReference Include="..\Mathtone.Sdk.Services\Mathtone.Sdk.Services.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
-
+	[Obsolete("Use XunitServiceTestBase instead", true)]
 	public class XunitLogger : Logger {
 
 		readonly ITestOutputHelper _output;
@@ -21,12 +21,15 @@ namespace Mathtone.Sdk.Testing.Xunit {
 		}
 	}
 
+	[Obsolete("Use XunitServiceTestBase & XunitServiceTestLogger instead", true)]
 	public class XunitLogger<T> : XunitLogger, ILogger<T> {
 		public XunitLogger(ITestOutputHelper output, LoggerExternalScopeProvider scopeProvider)
 			: base(output, scopeProvider, typeof(T).FullName!) {
 		}
 	}
 
+
+	[Obsolete("Use XunitServiceTestBase & XunitServiceTestLogger instead", true)]
 	public static class ServiceCollectionExtensions {
 		public static IServiceCollection AddXunitLogging(this IServiceCollection services, ITestOutputHelper output) => services
 			.AddSingleton(output)

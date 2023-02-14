@@ -2,18 +2,18 @@
 
 namespace Mathtone.Sdk.Services {
 	public static class ServiceCollectionExtensions {
-		
-		public static IServiceCollection ActivateSingleton<SVC, IMPL>(this IServiceCollection services, params object[] parameters)=>
-			services.AddActivator<SVC,IMPL>(ServiceLifetime.Singleton,parameters);
+
+		public static IServiceCollection ActivateSingleton<SVC, IMPL>(this IServiceCollection services, params object[] parameters) =>
+			services.AddActivator<SVC, IMPL>(ServiceLifetime.Singleton, parameters);
 
 		public static IServiceCollection ActivateSingleton<SVC>(this IServiceCollection services, params object[] parameters) =>
-			services.ActivateSingleton<SVC,SVC>(parameters);
+			services.ActivateSingleton<SVC, SVC>(parameters);
 
 		public static IServiceCollection ActivateTransient<SVC, IMPL>(this IServiceCollection services, params object[] parameters) =>
 			services.AddActivator<SVC, IMPL>(ServiceLifetime.Transient, parameters);
 
 		public static IServiceCollection ActivateTransient<SVC>(this IServiceCollection services, params object[] parameters) =>
-			services.ActivateTransient<SVC,SVC>(parameters);
+			services.ActivateTransient<SVC, SVC>(parameters);
 
 		public static IServiceCollection ActivateScoped<SVC, IMPL>(this IServiceCollection services, params object[] parameters) =>
 			services.AddActivator<SVC, IMPL>(ServiceLifetime.Scoped, parameters);
@@ -28,13 +28,13 @@ namespace Mathtone.Sdk.Services {
 			services.Add(new ServiceDescriptor(typeof(SVC), svc => ActivatorUtilities.CreateInstance<IMPL>(svc, parameters)!, lifetime));
 			return services;
 		}
-	}
 
-	public static class IServiceProviderExtensions {
-		public static SVC Activate<SVC>(this IServiceProvider services, params object[] parameters) =>
-			ActivatorUtilities.CreateInstance<SVC>(services, parameters);
+		public static IServiceCollection AddActivation<SVC, IMPL>(this IServiceCollection services)
+			where IMPL : SVC =>
+			services.AddSingleton<IActivator<SVC>, ServiceActivator<SVC, IMPL>>();
 
-		public static SVC Activate<SVC, IMPL>(this IServiceProvider services, params object[] parameters) where IMPL : SVC =>
-			services.Activate<IMPL>(parameters);
+		public static IServiceCollection AddActivation<SVC, IMPL, ARG>(this IServiceCollection services)
+			where IMPL : SVC =>
+			services.AddSingleton<IActivator<SVC,ARG>, ServiceActivator<SVC, IMPL, ARG>>();
 	}
 }

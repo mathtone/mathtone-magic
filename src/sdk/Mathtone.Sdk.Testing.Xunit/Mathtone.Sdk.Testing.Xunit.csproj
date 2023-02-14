@@ -8,12 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mathtone.Sdk.Logging\Mathtone.Sdk.Logging.csproj" />
+    <ProjectReference Include="..\Mathtone.Sdk.Services\Mathtone.Sdk.Services.csproj" />
     <ProjectReference Include="..\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj" />
   </ItemGroup>
 

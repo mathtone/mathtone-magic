@@ -1,0 +1,28 @@
+{
+	"DefaultVersionMask": "1.0",
+	"SolutionFilePath": "./src/mathtone-magic.sln",
+	"IsPreRelease": true,
+	"CompareBranch": "origin/main",
+	"PreReleaseProgression": [
+		"alpha","beta","rc" 
+	],
+	"Packages": [
+		{ "Name": "Mathtone.Sdk.Common" },
+		{ "Name": "Mathtone.Sdk.Data" },
+		{ "Name": "Mathtone.Sdk.Data.Npgsql" },
+		{ "Name": "Mathtone.Sdk.Data.Sql" },
+		{ "Name": "Mathtone.Sdk.Graphs" },
+		{ "Name": "Mathtone.Sdk.Logging" },
+		{ "Name": "Mathtone.Sdk.Logging.Console" },
+		{ "Name": "Mathtone.Sdk.PackageUtilities" },
+		{ "Name": "Mathtone.Sdk.Patterns" },
+		{ "Name": "Mathtone.Sdk.Reactive" },
+		{ "Name": "Mathtone.Sdk.Rng" },
+		{ "Name": "Mathtone.Sdk.Secrets" },
+		{ "Name": "Mathtone.Sdk.Services" },
+		{ "Name": "Mathtone.Sdk.Testing" },
+		{ "Name": "Mathtone.Sdk.Testing.Xunit" },
+		{ "Name": "Mathtone.Sdk.Time" },
+		{ "Name": "Mathtone.Sdk.Utilities" }
+	]
+}

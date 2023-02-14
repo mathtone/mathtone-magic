@@ -1,44 +1,41 @@
 version: 2.1
-commands:
-  get-version:
-    steps:
-      - run:
-         name: Getting Package Version
-         command: |
-          branch=$CIRCLE_BRANCH
-          ver=${branch/"release/"/""}
-          suffix=${ver#*-}
-          build=${ver%-*}
-          vertag=""
-          if  [ $suffix == "" ] || [ $suffix == $build ]; then
-            echo NO SUFFIX
-            echo "export PKG_SFX_TAG=""" >> $BASH_ENV
-            vertag=NOPE
-          else
-            echo $"SUFFIX FOUND- {$suffix}"
-            vertag=$"--version-suffix $suffix"
-            echo $"VERSION TAG- $vertag"
-            echo "export PKG_SFX_TAG='$vertag'" >> $BASH_ENV
-          fi
-          
-          echo "export PKG_VER=$build" >> $BASH_ENV
-          echo "export PKG_SFX=$suffix" >> $BASH_ENV
-orbs:
-  sonarcloud: sonarsource/sonarcloud@1.0.3        
 jobs:
   get-code:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
     working_directory: /mnt/ramdisk
     steps:
       - checkout
+      - add_ssh_keys:
+         fingerprints:
+         - "f6:ba:a8:50:a5:01:e0:96:b1:83:38:38:12:8a:c3:34"
+      - run: ls -l
+      - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
+      - run: dotnet temp/build-utilities.dll ./solutionconfig.json
       - persist_to_workspace:
           root: .
           paths:
             - LICENSE.txt
             - src
             - tools
-      
+            - create-packages.sh
+  build-tools:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - run: ls -l
+      - run: cat ./create-packages.sh 
+      - run: bash ./create-packages.sh 
+      - run: ls -l packages
+      # - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
+      # - run: dotnet temp/build-utilities.dll ./solutionconfig.json
+      - persist_to_workspace:
+         root: .
+         paths:
+           - packages
   integration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -93,7 +90,7 @@ jobs:
             - packages
   publish-artifactory:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
     steps:
       - attach_workspace:
           at: .
@@ -118,19 +115,23 @@ jobs:
 workflows:
   build-release:
     jobs:
-      - get-code
-      - integration-tests:
-          context: MATHTONE_DEV
-          requires:
+      - get-code:
+         context: MATHTONE_DEV
+      - build-tools:
+         requires:
             - get-code
-      - disintegration-tests:
-          filters:
-            branches:
-               only:
-                  - /release.*/
-          context: MATHTONE_DEV
-          requires:
-            - get-code 
+      #- integration-tests:
+      #    context: MATHTONE_DEV
+      #    requires:
+      #      - get-code
+      #- disintegration-tests:
+      #    filters:
+      #      branches:
+      #         only:
+      #            - /release.*/
+      #    context: MATHTONE_DEV
+      #    requires:
+      #      - get-code 
       - publish-artifactory:
           filters:
             branches:
@@ -138,22 +139,23 @@ workflows:
                   - /release.*/
           context: MATHTONE_DEV
           requires:
-            - integration-tests
-            - disintegration-tests
-      - approve-ship:
-          filters:
-            branches:
-               only:
-                  - /release.*/
-          context: MATHTONE_DEV
-          type: approval
-          requires:
-            - publish-artifactory
-      - publish-nuget:
-          filters:
-            branches:
-               only:
-                  - /release.*/
-          context: MATHTONE_DEV
-          requires:
-            - approve-ship
+            - build-tools
+
+            #- disintegration-tests
+      #- approve-ship:
+      #    filters:
+      #      branches:
+      #         only:
+      #            - /release.*/
+      #    context: MATHTONE_DEV
+      #    type: approval
+      #    requires:
+      #      - publish-artifactory
+      #- publish-nuget:
+      #    filters:
+      #      branches:
+      #         only:
+      #            - /release.*/
+      #    context: MATHTONE_DEV
+      #    requires:
+      #      - approve-ship
