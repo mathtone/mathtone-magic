@@ -1,7 +1,7 @@
 {
 	"DefaultVersionMask": "1.0",
 	"SolutionFilePath": "./src/mathtone-magic.sln",
-	"IsPreRelease": false,
+	"IsPreRelease": true,
 	"CompareBranch": "origin/main",
 	"PreReleaseProgression": [
 		"alpha","beta","rc" 
