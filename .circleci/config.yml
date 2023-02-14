@@ -90,7 +90,7 @@ jobs:
             - packages
   publish-artifactory:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
     steps:
       - attach_workspace:
           at: .
@@ -132,15 +132,16 @@ workflows:
       #    context: MATHTONE_DEV
       #    requires:
       #      - get-code 
-      #- publish-artifactory:
-      #    filters:
-      #      branches:
-      #         only:
-      #            - /release.*/
-      #    context: MATHTONE_DEV
-      #    requires:
-      #      - integration-tests
-      #      - disintegration-tests
+      - publish-artifactory:
+          filters:
+            branches:
+               only:
+                  - /release.*/
+          context: MATHTONE_DEV
+          requires:
+            - build-tools
+
+            #- disintegration-tests
       #- approve-ship:
       #    filters:
       #      branches:
