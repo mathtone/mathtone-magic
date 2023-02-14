@@ -19,7 +19,7 @@ jobs:
             - LICENSE.txt
             - src
             - tools
-            - solutionconfig.json
+            - create-packages.sh
   build-tools:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:7.0
@@ -27,7 +27,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      # - run: ls -l
+      - run: ls -l
       # - run: dotnet build tools/build-utilities/build-utilities.csproj --configuration Release --output temp
       # - run: dotnet temp/build-utilities.dll ./solutionconfig.json
       # - persist_to_workspace:
