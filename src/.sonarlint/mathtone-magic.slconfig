@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "mathtone",
+    "Name": "mik3c"
+  },
+  "ProjectKey": "mathtone_mathtone-magic",
+  "ProjectName": "mathtone-magic",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AYOgwPuiiRLaAmS9ELLG",
+      "ProfileTimestamp": "2023-02-02T09:07:47Z"
+    }
+  }
+}

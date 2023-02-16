@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{3EED3E78-37B6-4404-9022-73E41EA0F366}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
 		Icon.png = Icon.png
 		..\README.md = ..\README.md
@@ -65,8 +63,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Data.Sql.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Logging.Console", "sdk\Mathtone.Sdk.Logging.Console\Mathtone.Sdk.Logging.Console.csproj", "{CBD4D807-2B67-4262-910A-4959326F6E10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build-util", "..\tools\build-util\build-util.csproj", "{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Testing", "sdk\Mathtone.Sdk.Testing\Mathtone.Sdk.Testing.csproj", "{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Services", "sdk\Mathtone.Sdk.Services\Mathtone.Sdk.Services.csproj", "{F3896984-DB4E-4F5F-96F1-4572FB143893}"
@@ -106,6 +102,22 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "build-utilities", "..\tools\build-utilities\build-utilities.csproj", "{79760FAC-A84C-4936-9321-5C8A5F9684E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Secrets", "..\tools\Mathtone.Secrets\Mathtone.Secrets.csproj", "{19C94327-C2AD-46C0-B212-E7A7FA4560AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{702F593D-2B54-4329-A300-2571A6DD8409}"
+	ProjectSection(SolutionItems) = preProject
+		..\solutionconfig.json = ..\solutionconfig.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CircleCI", "CircleCI", "{32728598-CF55-4D79-98E0-F8FBB7DCB4EF}"
+	ProjectSection(SolutionItems) = preProject
+		..\.circleci\config.yml = ..\.circleci\config.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Editor", "Editor", "{9F70E485-D64E-44C0-85AC-845DF9D754F1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.runsettings = .runsettings
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,10 +189,6 @@ Global
 		{CBD4D807-2B67-4262-910A-4959326F6E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBD4D807-2B67-4262-910A-4959326F6E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBD4D807-2B67-4262-910A-4959326F6E10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -280,7 +288,6 @@ Global
 		{861D7AA6-3DC2-4AB8-A359-E7E69F1A71AD} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
 		{DBAEA763-BFE9-431B-A680-36D780B4025E} = {E4EBA490-FD3A-455C-884C-8FBD30C24C93}
 		{CBD4D807-2B67-4262-910A-4959326F6E10} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
-		{9F4F52DA-47CC-45D9-8FD6-C3C071B847FD} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
 		{BE59EC1F-34EB-4C55-B780-1AD245FEDC28} = {F89E0F7A-E9B3-4D45-A995-9E0C6F3D6E61}
 		{F3896984-DB4E-4F5F-96F1-4572FB143893} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
 		{FEA5F972-9C87-4B18-8D78-14F3FFF86849} = {F54C7977-D801-490D-91C6-D6BC81ED470D}
@@ -299,8 +306,11 @@ Global
 		{824E103B-0A3D-4ECF-9C8C-0FC972B965B3} = {B61610E1-BB47-42D5-808E-3DA370C7FA8B}
 		{8AD3B899-E78A-4428-A169-104C673B2645} = {B70C3509-426C-415E-AB37-345F91111861}
 		{3B8AE2D5-4F42-4964-854C-B75B5283093B} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
-		{79760FAC-A84C-4936-9321-5C8A5F9684E5} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
-		{19C94327-C2AD-46C0-B212-E7A7FA4560AC} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
+		{79760FAC-A84C-4936-9321-5C8A5F9684E5} = {702F593D-2B54-4329-A300-2571A6DD8409}
+		{19C94327-C2AD-46C0-B212-E7A7FA4560AC} = {702F593D-2B54-4329-A300-2571A6DD8409}
+		{702F593D-2B54-4329-A300-2571A6DD8409} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
+		{32728598-CF55-4D79-98E0-F8FBB7DCB4EF} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
+		{9F70E485-D64E-44C0-85AC-845DF9D754F1} = {3EED3E78-37B6-4404-9022-73E41EA0F366}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}
