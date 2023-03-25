@@ -1,26 +1,34 @@
 ﻿using Mathtone.Sdk.Common;
 using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace Mathtone.Sdk.Patterns {
 	public class Subscriber<T> : DisposableBase, ISubscriber<T> {
 
 		readonly Channel<T> _channel = Channel.CreateUnbounded<T>();
 
-		public ChannelWriter<T> Writer => _channel.Writer;
+		protected ChannelWriter<T> Writer => _channel.Writer;
+		public ValueTask SendAsync(T item, CancellationToken cancellationToken = default) {
 
+			return Writer.WriteAsync(item, cancellationToken);
+		}
 		public event EventHandler? Closing;
 
 		public void Close() {
 			var eh = Closing;
 			eh?.Invoke(this, new());
+			Writer.TryComplete();
 		}
 
+		public ValueTask<T> ReadAsync(CancellationToken cancellationToken = default) => _channel.Reader.ReadAsync(cancellationToken);
+
 		public async IAsyncEnumerable<T> ReadAllAsync() {
-			T? last = default;
+			T? last;
 			await foreach (var v in _channel.Reader.ReadAllAsync()) {
-				if (last == null || !v!.Equals(last)) {
-					yield return last = v;
-				}
+				last = v;
+
+				yield return last;
+
 			}
 		}
 		protected override void OnDisposing() {
@@ -29,8 +37,9 @@ namespace Mathtone.Sdk.Patterns {
 		}
 	}
 
-	public interface ISubscriber<out T> : IDisposable {
+	public interface ISubscriber<T> : IDisposable {
 		IAsyncEnumerable<T> ReadAllAsync();
+		ValueTask<T> ReadAsync(CancellationToken cancellation = default);
 		void Close();
 		event EventHandler Closing;
 	}

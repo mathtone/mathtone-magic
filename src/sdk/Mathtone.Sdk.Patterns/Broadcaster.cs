@@ -11,19 +11,21 @@ namespace Mathtone.Sdk.Patterns {
 			_processTask = Task.Run(async () => {
 				await foreach (var i in _channel.Reader.ReadAllAsync()) {
 					await Task.WhenAll(
-						subscribers.Select(s => s.Writer.WriteAsync(i).AsTask())
+						subscribers.Select(s => 
+						s.SendAsync(i).AsTask())
 					);
 				}
 			});
 		}
-
+		bool _isSet;
 		readonly Task _processTask;
 		readonly List<Subscriber<T>> subscribers = new();
 		readonly Channel<T> _channel = Channel.CreateUnbounded<T>();
-		protected T? Last { get; set; }
+		public T? Last { get; protected set; } 
 
 		public virtual ValueTask Send(T item) {
-			lock(subscribers) {
+			lock (subscribers) {
+				_isSet = true;
 				Last = item;
 			}
 			return _channel.Writer.WriteAsync(item);
@@ -32,9 +34,9 @@ namespace Mathtone.Sdk.Patterns {
 		public virtual ISubscriber<T> Subscribe() {
 			var rtn = new Subscriber<T>();
 			lock (subscribers) {
-				if (Last != null) {
-					rtn.Writer.TryWrite(Last);
-				}
+				//if (_isSet) {
+				//	rtn.SendAsync(Last);
+				//}
 				rtn.Closing += Rtn_Closing;
 				subscribers.Add(rtn);
 			}
@@ -45,7 +47,7 @@ namespace Mathtone.Sdk.Patterns {
 			var s = (Subscriber<T>)sender!;
 			s.Closing -= Rtn_Closing;
 			subscribers.Remove(s);
-			s.Writer.TryComplete();
+			
 		}
 
 		protected override async ValueTask OnDisposeAsync() {
@@ -53,15 +55,19 @@ namespace Mathtone.Sdk.Patterns {
 			_channel.Writer.TryComplete();
 			await _processTask;
 			await Task.WhenAll(
-				subscribers.Select(s => Task.Run(() => s.Writer.Complete()))
+				subscribers.Select(s => Task.Run(() => s.Close()))
 			);
+
 		}
 	}
+
+
+
 	public interface IBroadcaster<T> : ISubscribable<T>, IAsyncDisposable {
 		ValueTask Send(T item);
-		
+
 	}
-	public interface ISubscribable<out T> {
+	public interface ISubscribable<T> {
 		ISubscriber<T> Subscribe();
 	}
 }
