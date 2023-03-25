@@ -39,4 +39,8 @@
     <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Testing.Xunit\Mathtone.Sdk.Testing.Xunit.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logging\" />
+  </ItemGroup>
+
 </Project>

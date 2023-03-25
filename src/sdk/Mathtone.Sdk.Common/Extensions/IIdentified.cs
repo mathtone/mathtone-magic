@@ -9,4 +9,11 @@
 		}
 		public ID Id { get; }
 	}
+
+	public class Identified<ID, VALUE> : Identified<ID> {
+		public Identified(ID id, VALUE value) : base(id) {
+			Value = value;
+		}
+		public VALUE Value { get; set; }
+	}
 }

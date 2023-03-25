@@ -24,4 +24,5 @@ namespace Mathtone.Sdk.Patterns.Tests {
 
 		}
 	}
+
 }
