@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestResources2\Value1.txt" />
+    <None Remove="TestResources2\Value2.txt" />
+    <None Remove="TestResources2\Value3.txt" />
+    <None Remove="TestResources2\ValueFour.txt" />
+    <None Remove="TestResources1\Value1.txt" />
+    <None Remove="TestResources1\Value2.txt" />
+    <None Remove="TestResources1\Value3.txt" />
+    <None Remove="TestResources1\ValueFour.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestResources2\Value1.txt" />
+    <EmbeddedResource Include="TestResources2\Value2.txt" />
+    <EmbeddedResource Include="TestResources2\Value3.txt" />
+    <EmbeddedResource Include="TestResources2\ValueFour.txt" />
+    <EmbeddedResource Include="TestResources1\Value1.txt" />
+    <EmbeddedResource Include="TestResources1\Value2.txt" />
+    <EmbeddedResource Include="TestResources1\ValueFour.txt" />
+    <EmbeddedResource Include="TestResources1\Value3.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Testing.Xunit\Mathtone.Sdk.Testing.Xunit.csproj" />
+    <ProjectReference Include="..\..\sdk\Mathtone.Sdk.Utilities\Mathtone.Sdk.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
