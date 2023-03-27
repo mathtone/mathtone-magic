@@ -3,10 +3,39 @@ using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace Mathtone.Sdk.Common.Tests {
-
-	public class IdentifiedTests {
+	public class SequenceTests {
 		[Fact]
-		public void IsIdentified() => Assert.Equal(10, new Identified<int>(10).Id);
+		public void Sequence_ReturnsDates() {
+
+			var date = new DateTime(2020, 1, 1);
+			var sequence = Sequence.Create(date,d=>d.AddDays(1));
+			
+			// Assert
+			Assert.Equal(new DateTime(2020,1,5),sequence.ElementAt(4));
+		}
+
+		[Fact]
+		public void Sequence_ReturnsRange() {
+
+			var start = new DateTime(2020, 1, 1);
+			var end = new DateTime(2020, 1, 5);
+			
+
+			// Assert
+			Assert.Equal(5,Sequence.Create(start,end,d=>d.AddDays(1)).Count());
+		}
+
+
+		[Fact]
+		public void Sequence_ValidatesParameters () {
+
+			var start = new DateTime(2020, 1, 5);
+			var end = new DateTime(2020, 1, 1);
+
+
+			// Assert
+			Assert.Throws<ArgumentException>(()=>Sequence.Create(start,end,d=>d.AddDays(1)));
+		}
 	}
 	public class DisposableBaseTests {
 		[Fact]
