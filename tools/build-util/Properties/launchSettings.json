@@ -1,0 +1,8 @@
+{
+	"profiles": {
+		"build-util": {
+			"commandName": "Project",
+			"commandLineArgs": "../../../../../src/mathtone-magic.sln"
+		}
+	}
+}
