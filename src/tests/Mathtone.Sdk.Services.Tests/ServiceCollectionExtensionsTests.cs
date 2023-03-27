@@ -17,9 +17,25 @@ namespace Mathtone.Sdk.Services.Tests {
 		}
 	}
 
+	//Add xunit test class
+	public class IServiceProviderExtensionsTests {
+
+		[Fact]
+		public void ActivateGeneric_ShouldReturnCorrectType() {
+			//Arrange
+			var services = new ServiceCollection().BuildServiceProvider();
+
+			//Act
+			var result = services.Activate<ITestService, TestService>("Hello!");
+
+			//Assert
+			Assert.Equal("Hello!", result.Name);
+		}
+	}
+
 	public class ServiceCollectionExtensionsTests {
 
-		ServiceCollection _services = new();
+		readonly ServiceCollection _services = new();
 
 		[Fact]
 		public void AddActivator() {

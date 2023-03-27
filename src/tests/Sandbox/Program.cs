@@ -19,6 +19,9 @@ namespace Sandbox {
 
 		static void Main(string[] args) {
 
+			var x = new[] { 1, 2, 3, 4, 5 };
+			//x.ForeachAwaitAsync
+
 			using IHost host = Host
 				.CreateDefaultBuilder(args)
 				.ConfigureLogging(builder => {
@@ -50,5 +53,5 @@ namespace Sandbox {
 		}
 	}
 
-	
+
 }

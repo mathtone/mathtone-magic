@@ -19,7 +19,7 @@ namespace Mathtone.Sdk.Rng {
 		public override int Next(int min, int max) {
 
 			if (min > max)
-				
+
 				throw new ArgumentOutOfRangeException(nameof(min));
 
 			if (min == max)

@@ -81,9 +81,9 @@ namespace Mathtone.Sdk.Rng.Tests {
 
 		[Fact]
 		public void Random_NextBool() {
-			var rslt = Repeat.For(10,()=> _rng.NextBool()).ToArray();
+			var rslt = Repeat.For(10, () => _rng.NextBool()).ToArray();
 			var expected = "1011011100".Select(c => c == '1');
-			Assert.Equal(expected, rslt);			
+			Assert.Equal(expected, rslt);
 		}
 	}
 }

@@ -5,6 +5,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
+	public abstract class XunitServiceTestBase {
 
 	public abstract partial class XunitServiceTestBase {
 
@@ -22,7 +23,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 
 		protected virtual T GetService<T>() where T : notnull => Services.GetRequiredService<T>();
 		protected virtual IEnumerable<T> GetServices<T>() => Services.GetServices<T>();
-		protected virtual T ActivateService<T>(params object[] args) => Services.Activate<T>(args);
+		protected virtual T ActivateServices<T>(params object[] args) => Services.Activate<T>(args);
 
 		protected virtual IServiceCollection OnConfigureServices(IServiceCollection services) => services
 			.AddLogging(bld => bld

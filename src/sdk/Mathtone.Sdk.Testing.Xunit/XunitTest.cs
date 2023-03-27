@@ -5,8 +5,8 @@ using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
 	[Obsolete("Use XunitServiceTestBase instead", false)]
-	public abstract class XunitTestBase<T> : XunitTestBase, IClassFixture<T> where T : class{
-		
+	public abstract class XunitTestBase<T> : XunitTestBase, IClassFixture<T> where T : class {
+
 		protected T Context { get; }
 
 		protected XunitTestBase(ITestOutputHelper output, T context) : base(output) {
@@ -14,7 +14,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 		}
 	}
 	[Obsolete("Use XunitServiceTestBase instead", false)]
-	public abstract class XunitTestBase  {
+	public abstract class XunitTestBase {
 
 		ILogger? _log;
 		protected virtual ILogger Log => _log ??= CreateLogger();

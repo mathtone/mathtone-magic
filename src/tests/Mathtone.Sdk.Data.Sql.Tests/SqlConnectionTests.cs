@@ -14,5 +14,12 @@ namespace Mathtone.Sdk.Data.Sql.Tests {
 		public SqlConnectionTests(ITestOutputHelper output) : base(output) { }
 
 		protected override SqlConnection Connect() => new(DB.ConnectionString);
+
+		[Fact]
+		public void TextCommand() =>
+			Assert.Equal(CommandType.Text, new SqlConnection().TextCommand("TEST").CommandType);
+		[Fact]
+		public void ProcCommand() =>
+			Assert.Equal(CommandType.StoredProcedure, new SqlConnection().ProcCommand("TEST").CommandType);
 	}
 }

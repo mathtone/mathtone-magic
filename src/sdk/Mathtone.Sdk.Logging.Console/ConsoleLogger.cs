@@ -7,6 +7,7 @@ namespace Mathtone.Sdk.Logging.Console {
 		public int EventId { get; set; }
 	}
 
+	[Obsolete]
 	public class ConsoleLogger : Logger {
 
 		public ConsoleLogger() : base() { }
