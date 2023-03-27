@@ -5,7 +5,6 @@ using Xunit;
 using Xunit.Abstractions;
 
 namespace Mathtone.Sdk.Testing.Xunit {
-	public abstract class XunitServiceTestBase {
 
 	public abstract partial class XunitServiceTestBase {
 
