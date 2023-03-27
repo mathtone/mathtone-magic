@@ -11,7 +11,7 @@ namespace Mathtone.Sdk.Patterns {
 			_processTask = Task.Run(async () => {
 				await foreach (var i in _channel.Reader.ReadAllAsync()) {
 					await Task.WhenAll(
-						subscribers.Select(s => 
+						subscribers.Select(s =>
 						s.SendAsync(i).AsTask())
 					);
 				}
@@ -21,7 +21,7 @@ namespace Mathtone.Sdk.Patterns {
 		readonly Task _processTask;
 		readonly List<Subscriber<T>> subscribers = new();
 		readonly Channel<T> _channel = Channel.CreateUnbounded<T>();
-		public T? Last { get; protected set; } 
+		public T? Last { get; protected set; }
 
 		public virtual ValueTask Send(T item) {
 			lock (subscribers) {
@@ -47,7 +47,7 @@ namespace Mathtone.Sdk.Patterns {
 			var s = (Subscriber<T>)sender!;
 			s.Closing -= Rtn_Closing;
 			subscribers.Remove(s);
-			
+
 		}
 
 		protected override async ValueTask OnDisposeAsync() {
@@ -55,7 +55,7 @@ namespace Mathtone.Sdk.Patterns {
 			_channel.Writer.TryComplete();
 			await _processTask;
 			await Task.WhenAll(
-				subscribers.Select(s => Task.Run(() => s.Close()))
+				subscribers.ToArray().Select(s => Task.Run(() => s.Close()))
 			);
 
 		}

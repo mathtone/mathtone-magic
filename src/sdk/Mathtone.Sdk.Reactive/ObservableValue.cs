@@ -20,13 +20,15 @@ namespace Mathtone.Sdk.Reactive {
 
 		public static implicit operator T(ObservableValue<T> value) => value.Value;
 		public static implicit operator ObservableValue<T>(T value) => new(value);
+
+		public IDisposable Subscribe(IObserver<T> observer) =>
+			Observe.Subscribe(observer);
+		
 	}
 
 	public interface IObservableValue<T> : IObservable<T> {
 		T Value { get; set; }
 		IObservable<T> Observe { get; }
-		IDisposable IObservable<T>.Subscribe(IObserver<T> observer) =>
-			Observe.Subscribe(observer);
 	}
 
 	//public class ValueChangedEventArgs<T> : EventArgs {

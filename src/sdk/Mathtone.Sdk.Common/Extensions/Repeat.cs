@@ -2,7 +2,7 @@
 	public static class Repeat {
 
 		public static IEnumerable<T> For<T>(int count, Func<T> func) {
-			for(var i = 0; i < count; i++) {
+			for (var i = 0; i < count; i++) {
 				yield return func();
 			}
 		}

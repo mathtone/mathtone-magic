@@ -11,8 +11,8 @@ namespace Mathtone.Sdk.Data {
 		public static CMD CreateCommand<CMD>(this IDbConnection connection, string commandText, CommandType type = CommandType.Text, int timeout = 30)
 			where CMD : IDbCommand {
 			var rtn = connection.CreateCommand<CMD>();
-			rtn.CommandText = commandText;
 			rtn.CommandType = type;
+			rtn.CommandText = commandText;
 			rtn.CommandTimeout = timeout;
 			return rtn;
 		}

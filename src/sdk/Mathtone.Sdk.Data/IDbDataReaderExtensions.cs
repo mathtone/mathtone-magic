@@ -7,11 +7,6 @@ namespace Mathtone.Sdk.Data {
 			while (reader.Read())
 				yield return selector(reader);
 		}
-
-		//public static IEnumerable<T> Consume<RDR, T>(this RDR reader, Func<RDR, Task<T>> selector) where RDR : IDataReader {
-		//	while (reader.Read())
-		//		yield return selector(reader).Result;
-		//}
 	}
 
 	public static class IDataRecordExtensions {
@@ -21,4 +16,5 @@ namespace Mathtone.Sdk.Data {
 		public static T? Field<T>(this IDataRecord data, int index) => (T?)Convert.ChangeType(ToNull(data[index]), typeof(T));
 		public static object? ToNull(object value) => value == Convert.DBNull ? null : value;
 	}
+
 }

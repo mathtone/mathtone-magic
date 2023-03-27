@@ -9,7 +9,7 @@ namespace Mathtone.Sdk.Patterns.Tests {
 			var subscriber1 = broadcaster.Subscribe();
 			await broadcaster.DisposeAsync();
 			Assert.Empty(await subscriber1.ReadAllAsync().ToArrayAsync());
-			
+
 		}
 
 		[Fact]
@@ -20,8 +20,8 @@ namespace Mathtone.Sdk.Patterns.Tests {
 
 			Assert.Equal(1, broadcaster.Last);
 			await broadcaster.DisposeAsync();
-			
-			Assert.Equal(new[] { 1 },await subscriber1.ReadAllAsync().ToArrayAsync());
+
+			Assert.Equal(new[] { 1 }, await subscriber1.ReadAllAsync().ToArrayAsync());
 
 		}
 		[Fact]

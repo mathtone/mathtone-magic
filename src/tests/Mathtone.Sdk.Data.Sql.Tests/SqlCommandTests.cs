@@ -27,5 +27,17 @@ namespace Mathtone.Sdk.Data.Sql.Tests {
 		public void WithInputOutput_SqlDbType() => Assert.Equal(ParameterDirection.InputOutput,
 			new SqlCommand().WithInputOutput("@id", 1, SqlDbType.Int).Parameters["@id"].Direction
 		);
+
+		[Fact]
+		public async Task ExecuteResult() {
+			var rslt = await Connect().UsedAsync(cn => cn
+				.TextCommand("SELECT 'Hello'")
+				.ExecuteResult(cmd => cmd.ExecuteScalarAsync(), (cmd, rslt) => rslt!.ToString())
+			);
+			Assert.Equal("Hello", rslt);
+		}
+
+		
+
 	}
 }

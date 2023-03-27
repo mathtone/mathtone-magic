@@ -60,7 +60,7 @@ namespace Mathtone.Sdk.Patterns.Tests {
 			await repository.Update(newItem);
 
 			// Assert
-			Assert.Equal(newItem, await repository.Read(id));
+			Assert.Equal(newItem.Value, (await repository.Read(id)).Value);
 		}
 
 		[Fact]
@@ -81,7 +81,7 @@ namespace Mathtone.Sdk.Patterns.Tests {
 		public void CoverageTest() {
 			_ = new AsyncDictionaryRepository<int, string>(i => 1);
 			_ = new AsyncDictionaryRepository<int, string>(i => 1, Enumerable.Empty<string>());
-			_ = new AsyncDictionaryRepository<int, string>(i=> 1, Enumerable.Empty<string>().ToDictionary(i=>1,i=>i));
+			_ = new AsyncDictionaryRepository<int, string>(i => 1, Enumerable.Empty<string>().ToDictionary(i => 1, i => i));
 			Assert.True(true);
 		}
 	}

@@ -6,7 +6,7 @@ namespace Mathtone.Sdk.Common.Tests {
 
 	public class IdentifiedTests {
 		[Fact]
-		public void IsIdentified() =>Assert.Equal(10, new Identified<int>(10).Id);	
+		public void IsIdentified() => Assert.Equal(10, new Identified<int>(10).Id);
 	}
 	public class DisposableBaseTests {
 		[Fact]

@@ -14,7 +14,7 @@ namespace Mathtone.Sdk.Data.Npgsql {
 			p.Value = value;
 			p.Direction = direction;
 			p.Size = size;
-			p.NpgsqlDbType = type;			
+			p.NpgsqlDbType = type;
 			return command.WithParameter(p);
 		}
 

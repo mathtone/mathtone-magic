@@ -13,7 +13,7 @@
 			Assert.True(disposable.OnDisposeAsyncCalled);
 		}
 
-		
+
 		private class TestAsyncDisposable : AsyncDisposableBase {
 			public bool OnDisposeAsyncCalled { get; private set; }
 			public bool SuppressFinalizeCalled { get; private set; }

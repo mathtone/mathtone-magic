@@ -10,7 +10,7 @@ using static System.Environment;
 namespace Mathtone.Sdk.Logging.Tests {
 
 	public class TestLogger : Logger {
-		
+
 		public TestLogger() : base() { }
 
 		public override bool IsEnabled(LogLevel logLevel) {
