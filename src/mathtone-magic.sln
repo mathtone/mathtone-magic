@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\.circleci\config.yml = ..\.circleci\config.yml
 		Icon.png = Icon.png
 		..\README.md = ..\README.md
+		RemoteDebug.ps1 = RemoteDebug.ps1
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection
 EndProject
@@ -92,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Patterns.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Reactive", "sdk\Mathtone.Sdk.Reactive\Mathtone.Sdk.Reactive.csproj", "{9002E606-76DD-47CE-BD1A-24953C2D0137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Reactive.Tests", "tests\Mathtone.Sdk.Reactive.Tests\Mathtone.Sdk.Reactive.Tests.csproj", "{409D91A8-439E-4F00-8BA4-01D8261D8F69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Reactive.Tests", "tests\Mathtone.Sdk.Reactive.Tests\Mathtone.Sdk.Reactive.Tests.csproj", "{409D91A8-439E-4F00-8BA4-01D8261D8F69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
