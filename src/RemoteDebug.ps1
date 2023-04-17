@@ -1,8 +1,10 @@
 # Define your variables
-$projectName = "<YourProjectName>"
-$containerName = "<YourContainerName>"
-$remoteIp = "<EC2-Instance-IP>"
-$remotePort = <RemoteDebuggerPort>
+param (
+    [string]$projectName = "<YourProjectName>",
+    [string]$containerName = "<YourContainerName>",
+    [string]$remoteIp = "<EC2-Instance-IP>",
+    [int]$remotePort = 2222
+)
 
 # Build and publish the project
 dotnet publish -c Release -o ./publish
