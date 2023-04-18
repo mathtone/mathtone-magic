@@ -3,11 +3,12 @@ param (
     [string]$projectName = "<YourProjectName>",
     [string]$containerName = "<YourContainerName>",
     [string]$remoteIp = "<EC2-Instance-IP>",
+    [string]$keyFile = "<Path to Key File>",
     [int]$remotePort = 2222
 )
 
 # Build and publish the project
-dotnet publish -c Release -o ./publish
+dotnet publish -c Debug -o ./publish
 
 # Build the Docker image
 docker build -t $containerName -f ./Dockerfile .
@@ -17,10 +18,10 @@ $tarFileName = "$containerName.tar"
 docker save -o $tarFileName $containerName
 
 # Copy the tar file to the EC2 instance using scp
-scp -i "<path-to-your-private-key>.pem" $tarFileName ec2-user@$remoteIp:~
+scp -i $keyFile $tarFileName ec2-user@$remoteIp:~
 
 # SSH into the EC2 instance, load the Docker image, and run the container with remote debugging enabled
-ssh -i "<path-to-your-private-key>.pem" ec2-user@$remoteIp `
+ssh -i $keyFile ec2-user@$remoteIp `
     "docker load -i $tarFileName; docker stop $containerName; docker rm $containerName; docker run -d -p $remotePort:$remotePort --name $containerName $containerName"
 
 # Wait for the container to start
@@ -31,28 +32,16 @@ $debugArguments = "/Command `"`"Debug.AttachtoProcess /DockerLinuxTarget $($remo
 & 'devenv' $debugArguments
 
 
-{
-  "iisSettings": {
-    // ...
-  },
-  "profiles": {
-    "IIS Express": {
-      // ...
-    },
-    "YourProjectName": {
-      // ...
-    },
-    "Remote Debug": {
-      "commandName": "Executable",
-      "executablePath": "cmd.exe",
-      "commandLineArgs": "/C powershell -File \"${ProjectDir}RemoteDebug.ps1\"",
-      "workingDirectory": "${ProjectDir}",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    }
+"Remote Debug": {
+  "commandName": "Executable",
+  "executablePath": "cmd.exe",
+  "commandLineArgs": "/C powershell -File \"${ProjectDir}RemoteDebug.ps1\" -projectName \"MyProject\" -containerName \"mycontainer\" -remoteIp \"12.34.56.78\" -remotePort 2222",
+  "workingDirectory": "${ProjectDir}",
+  "environmentVariables": {
+    "ASPNETCORE_ENVIRONMENT": "Development"
   }
 }
+
 
 # Use the official .NET image as the base image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
@@ -76,3 +65,4 @@ WORKDIR /app
 
 # Start the application and the remote debugger
 ENTRYPOINT ["sh", "-c", "dotnet /app/YourAppName.dll & /vsdbg/vsdbg --interpreter=vscode --connection=/tmp/pipe --pipeTransport 'docker exec -i <container_id> \"$@\"'"]
+

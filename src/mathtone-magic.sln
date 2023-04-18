@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\.circleci\config.yml = ..\.circleci\config.yml
 		Icon.png = Icon.png
 		..\README.md = ..\README.md
-		RemoteDebug.ps1 = RemoteDebug.ps1
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection
 EndProject

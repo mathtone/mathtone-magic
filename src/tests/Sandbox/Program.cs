@@ -13,8 +13,8 @@ namespace Sandbox {
 
 		[Fact]
 		public void Test1() {
-
-
+			
+				
 			var f1 = new PipelineFunction<IEnumerable<int>>(() => Enumerable.Range(1, 100))
 				.Then(i => i.Select(i => i + 1))
 				.Then(i => i.Select(i => i.ToString()));
