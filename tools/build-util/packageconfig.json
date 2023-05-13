@@ -1,6 +1,7 @@
 {
 	"Settings": {
 		"PackageProjects": [
+			"Mathtone.Sdk.NeuralNetworks",
 			"Mathtone.Sdk.Services",
 			"Mathtone.Sdk.Observables",
 			"Mathtone.Sdk.Common",
