@@ -65,5 +65,19 @@ namespace Mathtone.Sdk.Services.Tests {
 			Assert.Equal(ServiceLifetime.Scoped, svc.Single(d => d.ServiceType == typeof(TestService)).Lifetime);
 			Assert.Equal("TEST", svc.BuildServiceProvider().GetRequiredService<TestService>().Name);
 		}
+
+		[Fact]
+		public void AddConfiguration() {
+			var cfg = new ServiceCollection()
+				.BuildConfigFromFile("appsettings.json")
+				.AddConfiguration<TestConfiguration>()
+				.BuildServiceProvider()
+				.GetRequiredService<TestConfiguration>();
+			Assert.Equal("TEST", cfg.Value);
+		}
+	}
+
+	public class TestConfiguration {
+		public string? Value { get; set; }
 	}
 }
