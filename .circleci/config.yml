@@ -142,7 +142,7 @@ workflows:
           requires:
             - get-code
       - sonar-pulse-one-ping-onleh:
-          context: SonarCloud
+          context: MATHTONE_DEV
           requires:
             - get-code
       - disintegration-tests:
