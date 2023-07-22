@@ -91,20 +91,20 @@ jobs:
           root: .
           paths:
             - packages
-  publish-artifactory:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: "Add Artifactory"
-          command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
-      - run:
-         name: Publish to Artifactory
-         command: |
-            ls -l packages
-            dotnet nuget push packages/*.nupkg --source Mathtone-Dev
+  # publish-artifactory:
+  #   docker:
+  #     - image: mcr.microsoft.com/dotnet/sdk:6.0
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     - run:
+  #         name: "Add Artifactory"
+  #         command: dotnet nuget add source https://mathtone.jfrog.io/artifactory/api/nuget/v3/mathtone-dev --name Mathtone-Dev --username ${ARTIFACTORY_USER} --password ${ARTIFACTORY_PWD} --store-password-in-clear-text
+  #     - run:
+  #        name: Publish to Artifactory
+  #        command: |
+  #           ls -l packages
+  #           dotnet nuget push packages/*.nupkg --source Mathtone-Dev
 
   publish-nuget:
     docker:
@@ -131,15 +131,15 @@ workflows:
           context: MATHTONE_DEV
           requires:
             - get-code 
-      - publish-artifactory:
-          filters:
-            branches:
-               only:
-                  - /release.*/
-          context: MATHTONE_DEV
-          requires:
-            - integration-tests
-            - disintegration-tests
+      # - publish-artifactory:
+      #     filters:
+      #       branches:
+      #          only:
+      #             - /release.*/
+      #     context: MATHTONE_DEV
+      #     requires:
+      #       - integration-tests
+      #       - disintegration-tests
       - approve-ship:
           filters:
             branches:
@@ -148,7 +148,7 @@ workflows:
           context: MATHTONE_DEV
           type: approval
           requires:
-            - publish-artifactory
+            - disintegration-tests
       - publish-nuget:
           filters:
             branches:
