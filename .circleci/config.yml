@@ -107,7 +107,16 @@ jobs:
   #           dotnet nuget push packages/*.nupkg --source Mathtone-Dev
   sonar-pulse-one-ping-onleh:
     docker:
-       - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test!1234
+      - image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+          MSSQL_SA_PASSWORD: Test!1234
+          ACCEPT_EULA: Y
+    working_directory: /mnt/ramdisk
     steps:
        - attach_workspace:
            at: .
