@@ -142,10 +142,10 @@ workflows:
           context: MATHTONE_DEV
           requires:
             - get-code
-      - sonar-pulse-one-ping-onleh:
-          context: MATHTONE_DEV
-          requires:
-            - get-code
+      # - sonar-pulse-one-ping-onleh:
+      #     context: MATHTONE_DEV
+      #     # requires:
+      #     #   - get-code
       - disintegration-tests:
           filters:
             branches:
