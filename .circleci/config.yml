@@ -120,6 +120,7 @@ jobs:
     steps:
        - attach_workspace:
            at: .
+       - run: sudo apt-get install unzip
        - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
        - sonarcloud/scan
   publish-nuget:
