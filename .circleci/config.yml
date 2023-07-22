@@ -123,6 +123,7 @@ jobs:
        - run: apt update
        - run: apt-get install unzip
        - checkout
+       - run: ls 
        - sonarcloud/scan
   publish-nuget:
     docker:
