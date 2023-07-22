@@ -118,11 +118,11 @@ jobs:
           ACCEPT_EULA: Y
     working_directory: /mnt/ramdisk
     steps:
-       - attach_workspace:
-           at: .
+       # - attach_workspace:
+       #     at: .
        - run: apt update
        - run: apt-get install unzip
-       - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
+       - checkout
        - sonarcloud/scan
   publish-nuget:
     docker:
