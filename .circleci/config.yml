@@ -105,7 +105,16 @@ jobs:
   #        command: |
   #           ls -l packages
   #           dotnet nuget push packages/*.nupkg --source Mathtone-Dev
-
+  sonar-pulse-one-ping-onleh:
+   docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+   steps:
+      - attach_workspace:
+          at: .
+   run: |
+      dotnet sonarscanner begin  /o:mathtone /k:mathtone_mathtone-magic /d:sonar.host.url=https://sonarcloud.io
+      dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
+      dotnet sonarscanner end
   publish-nuget:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -120,6 +129,10 @@ workflows:
     jobs:
       - get-code
       - integration-tests:
+          context: MATHTONE_DEV
+          requires:
+            - get-code
+      - sonar-pulse-one-ping-onleh:
           context: MATHTONE_DEV
           requires:
             - get-code
