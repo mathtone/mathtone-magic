@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,32 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Mathtone.Sdk.Services.Tests {
-	interface ITestService {
-		string Name { get; }
-	}
-
-	class TestService : ITestService {
-		public string Name { get; }
-		public TestService(string name) {
-			Name = name;
-		}
-	}
-
-	//Add xunit test class
-	public class IServiceProviderExtensionsTests {
-
-		[Fact]
-		public void ActivateGeneric_ShouldReturnCorrectType() {
-			//Arrange
-			var services = new ServiceCollection().BuildServiceProvider();
-
-			//Act
-			var result = services.Activate<ITestService, TestService>("Hello!");
-
-			//Assert
-			Assert.Equal("Hello!", result.Name);
-		}
-	}
 
 	public class ServiceCollectionExtensionsTests {
 
@@ -75,9 +50,46 @@ namespace Mathtone.Sdk.Services.Tests {
 				.GetRequiredService<TestConfiguration>();
 			Assert.Equal("TEST", cfg.Value);
 		}
+
+
+		[Fact]
+		public void AddConfiguration_2() {
+			var cfg = new ServiceCollection()
+				.BuildConfigFromFile("appsettings.json")
+				.AddConfiguration<TestConfiguration>("TestConfigurationSection")
+				.BuildServiceProvider()
+				.GetRequiredService<TestConfiguration>();
+			Assert.Equal("SECTION", cfg.Value);
+		}
+
+		[Fact]
+		public void AddConfiguration_3() {
+
+			var cf = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json")
+				.Build();
+
+			var cfg = new ServiceCollection()
+				.AddConfiguration<TestConfiguration>(cf)
+				.BuildServiceProvider()
+				.GetRequiredService<TestConfiguration>();
+
+			Assert.Equal("TEST", cfg.Value);
+		}
 	}
 
-	public class TestConfiguration {
+	class TestConfiguration {
 		public string? Value { get; set; }
+	}
+
+	interface ITestService {
+		string Name { get; }
+	}
+
+	class TestService : ITestService {
+		public string Name { get; }
+		public TestService(string name) {
+			Name = name;
+		}
 	}
 }
