@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using static Microsoft.Extensions.DependencyInjection.ServiceLifetime;
+using System;
 namespace Mathtone.Sdk.Services {
 	public static class ServiceCollectionExtensions {
 
@@ -31,7 +32,7 @@ namespace Mathtone.Sdk.Services {
 		}
 
 		public static IServiceCollection AddConfiguration<CFG>(this IServiceCollection services, IConfiguration configuration, string sectionName)
-			where CFG : class, new() => services.Configure<CFG>(configuration.GetSection(sectionName));
+			where CFG : class, new() => services.AddSingleton(configuration.GetSection(sectionName).Get<CFG>()!);
 
 		public static IServiceCollection AddConfiguration<CFG>(this IServiceCollection services, IConfiguration configuration)
 			where CFG : class, new() => services.AddConfiguration<CFG>(configuration, typeof(CFG).Name);

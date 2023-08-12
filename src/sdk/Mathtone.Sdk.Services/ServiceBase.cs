@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Mathtone.Sdk.Services {
 
-	[SuppressMessage("Minor Code Smell", "S2094:Classes should not be empty", Justification = "<Pending>")]
 	public abstract class ServiceBase {
-
+		string? _serviceName;
+		public virtual string ServiceName => _serviceName ??= GetType().Name;
 	}
 
 	public abstract class AppServiceBase : ServiceBase {
