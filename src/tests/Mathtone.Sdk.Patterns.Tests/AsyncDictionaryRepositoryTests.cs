@@ -2,6 +2,7 @@
 using Mathtone.Sdk.Testing;
 
 namespace Mathtone.Sdk.Patterns.Tests {
+
 	public class AsyncDictionaryRepositoryTests {
 		[Fact]
 		public async Task Create_ReturnsId() {
