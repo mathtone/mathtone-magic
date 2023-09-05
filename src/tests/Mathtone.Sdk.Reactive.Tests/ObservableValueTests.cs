@@ -32,7 +32,6 @@ namespace Mathtone.Sdk.Reactive.Tests {
 
 		[Fact]
 		public void Subscribe_Should_Subscribe_Observer_To_Observable() {
-			//Arrange
 			var observable = new ObservableValue<int>(1);
 			var observer = new Mock<IObserver<int>>();
 			using var sub = observable.Subscribe(observer.Object);

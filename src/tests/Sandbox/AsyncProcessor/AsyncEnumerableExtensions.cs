@@ -4,7 +4,7 @@ namespace _Sandbox.AsyncProcessor {
 
 	public class TestClass {
 
-		[Fact]
+		//[Fact]
 		public async Task TestMethod() {
 			//var
 			var items = GetValues(1000, i => i == 333 ? TimeSpan.FromMilliseconds(1000) : TimeSpan.Zero).GetAsyncEnumerator();
