@@ -11,6 +11,7 @@ namespace Mathtone.Sdk.Reactive.Tests {
 
 		[Fact]
 		public void Subscribe_To_Obsaervable() {
+
 			var items = new List<int>();
 			var val = 0.CreateObservable();
 			val.Observe.Subscribe(items.Add);
