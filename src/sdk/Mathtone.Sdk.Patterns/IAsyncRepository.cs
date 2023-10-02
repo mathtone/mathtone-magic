@@ -1,7 +1,7 @@
 ﻿namespace Mathtone.Sdk.Patterns {
 	public interface IAsyncRepository<ID, ITEM> {
 		ValueTask<ID> Create(ITEM item);
-		ValueTask<ITEM> Read(ID id);
+		ValueTask<ITEM?> Read(ID id);
 		Task Update(ITEM item);
 		Task Delete(ID id);
 	}
@@ -9,4 +9,3 @@
 		IAsyncEnumerable<ITEM> ReadAll();
 	}
 }
-

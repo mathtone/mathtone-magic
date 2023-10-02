@@ -1,6 +1,6 @@
 ﻿using Mathtone.Sdk.Data;
-using System.Data;
 using Npgsql;
+using System.Data;
 
 namespace Mathtone.Sdk.Data.Npgsql {
 

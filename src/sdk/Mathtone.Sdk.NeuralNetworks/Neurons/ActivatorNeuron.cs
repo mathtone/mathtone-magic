@@ -37,7 +37,7 @@ namespace Mathtone.NeuralNetworks.Neurons {
 
 			// compute weighted sum of inputs
 
-			for(var i = 0; i < this.InputWeights.Length; i++) {
+			for (var i = 0; i < this.InputWeights.Length; i++) {
 				sum += InputWeights[i] * input[i];
 			}
 			sum += Threshold;

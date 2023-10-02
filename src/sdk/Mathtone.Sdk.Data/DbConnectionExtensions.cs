@@ -50,5 +50,11 @@ namespace Mathtone.Sdk.Data {
 		public static CMD TextCommand<CN, CMD>(this CN cn, string commandText) where CN : IDbConnection where CMD : DbCommand => cn.CreateCommand<CMD>(commandText, CommandType.Text);
 		public static CMD ProcCommand<CN, CMD>(this CN cn, string commandText) where CN : IDbConnection where CMD : DbCommand => cn.CreateCommand<CMD>(commandText, CommandType.StoredProcedure);
 		public static CMD TableCommand<CN, CMD>(this CN cn, string commandText) where CN : IDbConnection where CMD : DbCommand => cn.CreateCommand<CMD>(commandText, CommandType.TableDirect);
+
+		public static DbCommand TextCommand<CN>(this CN cn, string commandText) where CN : DbConnection => cn.CreateCommand<DbCommand>(commandText, CommandType.Text);
+		public static DbCommand ProcCommand<CN>(this CN cn, string commandText) where CN : DbConnection => cn.CreateCommand<DbCommand>(commandText, CommandType.Text);
+		public static DbCommand TableCommand<CN>(this CN cn, string commandText) where CN : DbConnection => cn.CreateCommand<DbCommand>(commandText, CommandType.Text);
 	}
+
+
 }

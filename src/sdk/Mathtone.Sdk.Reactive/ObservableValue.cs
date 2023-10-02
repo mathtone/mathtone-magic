@@ -10,8 +10,7 @@ namespace Mathtone.Sdk.Reactive {
 		T _value;
 		readonly Subject<T> _subject = new();
 
-		public T Value {
-			get => _value;
+		public T Value { readonly get => _value;
 			set => _subject.OnNext(_value = value);
 		}
 
@@ -23,7 +22,7 @@ namespace Mathtone.Sdk.Reactive {
 
 		public IDisposable Subscribe(IObserver<T> observer) =>
 			Observe.Subscribe(observer);
-		
+
 	}
 
 	public interface IObservableValue<T> : IObservable<T> {

@@ -42,7 +42,7 @@ namespace Mathtone.Sdk.NeuralNetworks {
 		/// <returns>System.Double[].</returns>
 		public virtual double[] Compute(double[] inputs) {
 
-			for(int i = 0; i < Neurons.Length; i++) {
+			for (int i = 0; i < Neurons.Length; i++) {
 				Output[i] = Neurons[i].Compute(inputs);
 			}
 
@@ -56,8 +56,8 @@ namespace Mathtone.Sdk.NeuralNetworks {
 		/// <param name="max">Maximum input weight value.</param>
 		public void Scramble(double min = 0, double max = 1) {
 			var l = max - min;
-			foreach(var n in Neurons) {
-				for(var i = 0; i < n.InputWeights.Length; i++) {
+			foreach (var n in Neurons) {
+				for (var i = 0; i < n.InputWeights.Length; i++) {
 					n.InputWeights[i] = random.NextDouble() * l + min;
 				}
 			}

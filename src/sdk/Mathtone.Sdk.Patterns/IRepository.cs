@@ -10,4 +10,3 @@
 		IEnumerable<ITEM> ReadAll();
 	}
 }
-
