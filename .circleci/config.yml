@@ -45,7 +45,7 @@ jobs:
       - image: postgres
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test!1234
+          POSTGRES_PASSWORD: postgres
       - image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
           MSSQL_SA_PASSWORD: test!1234
@@ -63,7 +63,7 @@ jobs:
       - image: postgres
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test!1234
+          POSTGRES_PASSWORD: postgres
       - image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
           MSSQL_SA_PASSWORD: test!1234
