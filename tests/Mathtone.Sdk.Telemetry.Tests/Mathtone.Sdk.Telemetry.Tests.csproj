@@ -24,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\sdk\Mathtone.Sdk.Telemetry.Generators\Mathtone.Sdk.Telemetry.Generators.csproj" />
+    <ProjectReference Include="..\..\src\sdk\Mathtone.Sdk.Telemetry\Mathtone.Sdk.Telemetry.csproj" />
     <ProjectReference Include="..\..\src\sdk\Mathtone.Sdk.Testing.Xunit\Mathtone.Sdk.Testing.Xunit.csproj" />
   </ItemGroup>
 
