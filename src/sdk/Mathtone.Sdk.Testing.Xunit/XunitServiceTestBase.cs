@@ -19,7 +19,7 @@ namespace Mathtone.Sdk.Testing.Xunit {
 
 		protected virtual T GetService<T>() where T : notnull => Services.GetRequiredService<T>();
 		protected virtual IEnumerable<T> GetServices<T>() => Services.GetServices<T>();
-		protected virtual T ActivateServices<T>(params object[] args) => Services.Activate<T>(args);
+		protected virtual T Activate<T>(params object[] args) => Services.Activate<T>(args);
 
 		protected virtual IServiceCollection OnConfigureServices(IServiceCollection services) => services
 			.AddLogging(bld => bld
@@ -27,4 +27,15 @@ namespace Mathtone.Sdk.Testing.Xunit {
 				.AddConsole()
 			);
 	}
+
+	//public class ServiceTestContext {
+	//	public IServiceProvider? Services { get; set; }
+
+	//	protected virtual IServiceCollection OnConfigureServices(IServiceCollection services) => services
+	//		.AddLogging(bld => bld
+	//			.AddXunitTestLogger(Output)
+	//			.AddConsole()
+	//		);
+
+	//}
 }

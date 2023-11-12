@@ -1,0 +1,3 @@
+﻿namespace Mathtone.Sdk.Telemetry {
+
+}

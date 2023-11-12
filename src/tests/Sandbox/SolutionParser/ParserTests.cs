@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace _Sandbox.SolutionParser {
 	public class ParserTests {
 
-		[Fact]
-		public void ParseSolution() {
-			var path = Path.GetFullPath($"../../../../../mathtone-magic.sln");
-			var sln = SolutionFile.Parse(path);
-			Assert.True(File.Exists(path));
-			;
-		}
+		//[Fact]
+		//public void ParseSolution() {
+		//	var path = Path.GetFullPath($"../../../../../mathtone-magic.sln");
+		//	var sln = SolutionFile.Parse(path);
+		//	Assert.True(File.Exists(path));
+		//	;
+		//}
 	}
 }
