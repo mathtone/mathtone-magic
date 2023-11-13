@@ -1,5 +1,6 @@
 namespace Mathtone.Sdk.Telemetry.Tests {
-	public class UnitTest1 {
+	public class TelemetryGeneratorTests {
+
 		[Fact]
 		public void Test1() {
 
