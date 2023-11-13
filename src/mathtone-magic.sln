@@ -100,6 +100,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Telemetry", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Telemetry.Generators", "sdk\Mathtone.Sdk.Telemetry.Generators\Mathtone.Sdk.Telemetry.Generators.csproj", "{9BA1E39E-00B2-48C5-8C9E-F994C7D44018}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Telemetry.Tests", "tests\Mathtone.Sdk.Telemetry.Tests\Mathtone.Sdk.Telemetry.Tests.csproj", "{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +244,10 @@ Global
 		{9BA1E39E-00B2-48C5-8C9E-F994C7D44018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BA1E39E-00B2-48C5-8C9E-F994C7D44018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BA1E39E-00B2-48C5-8C9E-F994C7D44018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -287,6 +293,7 @@ Global
 		{C8A4C1CB-8A6E-4D10-AC59-847FE6A0D014} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
 		{79807C58-06AF-4705-A87F-8993B5D4D64E} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
 		{9BA1E39E-00B2-48C5-8C9E-F994C7D44018} = {C778CE6C-DBA7-45F9-9D75-4C9175C5C004}
+		{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF} = {F54C7977-D801-490D-91C6-D6BC81ED470D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1ECC16B-6552-46D7-A5D2-53F968867145}
