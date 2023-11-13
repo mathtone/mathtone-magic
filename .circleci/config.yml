@@ -56,6 +56,7 @@ jobs:
           at: .
       - run: ls -l
       - run: ls ./src -l
+      - run: ls ./src/tests -l
       - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       #- sonarcloud/scan
 
