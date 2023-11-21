@@ -3,84 +3,79 @@ using Microsoft.Extensions.Logging;
 
 namespace Mathtone.Sdk.Telemetry {
 
-	[AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
-	public class MetricAttribute : Attribute {
+	//public static class TelemetryServiceCollectionExtensions {
+	//	public static IServiceCollection AddTelemetry(this IServiceCollection services) =>
+	//		services.AddSingleton(typeof(ITelemetry<>), typeof(TelemetryService<>));
+	//}
 
-	}
+	//public class TelemetryService<T> : TelemetryService, ITelemetry<T> {
+	//	public TelemetryService(ILogger<T> log) :
+	//		base(log) { }
+	//}
 
-	public static class TelemetryServiceCollectionExtensions {
-		public static IServiceCollection AddTelemetry(this IServiceCollection services) =>
-			services.AddSingleton(typeof(ITelemetry<>), typeof(TelemetryService<>));
-	}
+	//public class TelemetryService : ITelemetry {
 
-	public class TelemetryService<T> : TelemetryService, ITelemetry<T> {
-		public TelemetryService(ILogger<T> log) :
-			base(log) { }
-	}
+	//	protected ILogger Logger { get; }
 
-	public class TelemetryService : ITelemetry {
+	//	public TelemetryService(ILogger log) {
+	//		Logger = log;
+	//	}
 
-		protected ILogger Logger { get; }
+	//	public IDisposable? BeginScope<TState>(TState state) where TState : notnull =>
+	//		Logger.BeginScope(state);
 
-		public TelemetryService(ILogger log) {
-			Logger = log;
-		}
+	//	public void Collect<T>(IMetric<T> metric) {
+	//		throw new NotImplementedException();
+	//	}
 
-		public IDisposable? BeginScope<TState>(TState state) where TState : notnull =>
-			Logger.BeginScope(state);
+	//	public bool IsEnabled(LogLevel logLevel) =>
+	//		Logger.IsEnabled(logLevel);
 
-		public void Collect<T>(IMetric<T> metric) {
-			throw new NotImplementedException();
-		}
+	//	public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) =>
+	//		Logger.Log(logLevel, eventId, state, exception, formatter);
+	//}
 
-		public bool IsEnabled(LogLevel logLevel) =>
-			Logger.IsEnabled(logLevel);
+	//public interface ITelemetry<out T> : ILogger<T> {
+	//}
 
-		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) =>
-			Logger.Log(logLevel, eventId, state, exception, formatter);
-	}
+	//public interface ITelemetry : ILogger {
+	//	void Collect<T>(IMetric<T> metric);
+	//	void Collect<T>(CollectionType type, string name, string description, T value) => Collect<T>(new Metric<T>(type, name, description, value));
+	//}
 
-	public interface ITelemetry<out T> : ILogger<T> {
-	}
+	//public interface IMetric {
+	//	CollectionType CollectionType { get; }
+	//	string Name { get;  }
+	//	string Description { get; }
+	//}
 
-	public interface ITelemetry : ILogger {
-		void Collect<T>(IMetric<T> metric);
-		void Collect<T>(CollectionType type, string name, string description, T value) => Collect<T>(new Metric<T>(type, name, description, value));
-	}
+	//public interface IMetric<out T> : IMetric {
+	//	T Value { get; }
+	//}
 
-	public interface IMetric {
-		CollectionType CollectionType { get; }
-		string Name { get;  }
-		string Description { get; }
-	}
+	//public class Metric {
 
-	public interface IMetric<out T> : IMetric {
-		T Value { get; }
-	}
+	//	public CollectionType CollectionType { get; set; }
+	//	public string Name { get; set; }
+	//	public string Description { get; set; }
 
-	public class Metric {
+	//	public Metric(CollectionType collectionType, string name, string description) {
+	//		CollectionType = collectionType;
+	//		Name = name;
+	//		Description = description;
+	//	}
+	//}
 
-		public CollectionType CollectionType { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
+	//public class Metric<T> : Metric, IMetric<T> {
+	//	public Metric(CollectionType collectionType, string name, string description, T value) :
+	//		base(collectionType, name, description) {
+	//		Value = value;
+	//	}
 
-		public Metric(CollectionType collectionType, string name, string description) {
-			CollectionType = collectionType;
-			Name = name;
-			Description = description;
-		}
-	}
+	//	public T Value { get; }
+	//}
 
-	public class Metric<T> : Metric, IMetric<T> {
-		public Metric(CollectionType collectionType, string name, string description, T value) :
-			base(collectionType, name, description) {
-			Value = value;
-		}
-
-		public T Value { get; }
-	}
-
-	public enum CollectionType {
-		Count, Sample, Summary
-	}
+	//public enum CollectionType {
+	//	Count, Sample, Summary
+	//}
 }

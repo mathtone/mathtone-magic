@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.editorconfig = .editorconfig
 		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
-		Icon.png = Icon.png
+		..\..\..\..\..\Users\mike\Downloads\Icon.png = ..\..\..\..\..\Users\mike\Downloads\Icon.png
 		..\README.md = ..\README.md
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection
@@ -100,9 +100,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Telemetry", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Telemetry.Generators", "sdk\Mathtone.Sdk.Telemetry.Generators\Mathtone.Sdk.Telemetry.Generators.csproj", "{9BA1E39E-00B2-48C5-8C9E-F994C7D44018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Telemetry.Tests", "tests\Mathtone.Sdk.Telemetry.Tests\Mathtone.Sdk.Telemetry.Tests.csproj", "{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Telemetry.Tests", "tests\Mathtone.Sdk.Telemetry.Tests\Mathtone.Sdk.Telemetry.Tests.csproj", "{9B1B6C2A-E50A-42AF-8A0C-F01613FE98EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathtone.Sdk.Telemetry.Abstractions", "sdk\Mathtone.Sdk.Telemetry.Abstractions\Mathtone.Sdk.Telemetry.Abstractions.csproj", "{C775B0D9-685B-48F4-9789-C046EBFB61C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Telemetry.Abstractions", "sdk\Mathtone.Sdk.Telemetry.Abstractions\Mathtone.Sdk.Telemetry.Abstractions.csproj", "{C775B0D9-685B-48F4-9789-C046EBFB61C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
