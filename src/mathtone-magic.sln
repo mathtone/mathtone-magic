@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.editorconfig = .editorconfig
 		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
-		Icon.png = Icon.png
+		..\..\..\..\..\Users\mike\Downloads\Icon.png = ..\..\..\..\..\Users\mike\Downloads\Icon.png
 		..\README.md = ..\README.md
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection

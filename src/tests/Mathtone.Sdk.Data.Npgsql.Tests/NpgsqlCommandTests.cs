@@ -19,6 +19,7 @@ namespace Mathtone.Sdk.Data.Npgsql.Tests {
 			Assert.Equal(1, p.Value);
 			Assert.Equal(ParameterDirection.Input, p.Direction);
 		}
+
 		[Fact]
 		public async Task ExecuteResult() {
 			var rslt = await Connect().UsedAsync(cn => cn
@@ -27,5 +28,14 @@ namespace Mathtone.Sdk.Data.Npgsql.Tests {
 			);
 			Assert.Equal("Hello", rslt);
 		}
+
+		//[Fact]
+		//public async Task Used() {
+		//	var rslt = Connect().Used(cn => cn
+		//		.TextCommand("SELECT 'Hello'")
+		//		.ExecuteResult(cmd => cmd.ExecuteScalar(), (cmd, rslt) => rslt!.ToString())
+		//	);
+		//	Assert.Equal("Hello", rslt);
+		//}
 	}
 }

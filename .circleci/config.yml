@@ -45,7 +45,7 @@ jobs:
       - image: postgres
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test!1234
+          POSTGRES_PASSWORD: postgres
       - image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
           MSSQL_SA_PASSWORD: test!1234
@@ -54,6 +54,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: ls -l
+      - run: ls ./src -l
+      - run: ls ./src/tests -l
       - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       #- sonarcloud/scan
 
@@ -63,7 +66,7 @@ jobs:
       - image: postgres
         environment:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: test!1234
+          POSTGRES_PASSWORD: postgres
       - image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
           MSSQL_SA_PASSWORD: test!1234
