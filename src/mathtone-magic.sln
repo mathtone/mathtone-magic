@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		.editorconfig = .editorconfig
 		.runsettings = .runsettings
 		..\.circleci\config.yml = ..\.circleci\config.yml
-		..\..\..\..\..\Users\mike\Downloads\Icon.png = ..\..\..\..\..\Users\mike\Downloads\Icon.png
+		Icon.png = Icon.png
 		..\README.md = ..\README.md
 		sonar-project-properties = sonar-project-properties
 	EndProjectSection
@@ -95,6 +95,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Reactive.Tests", "tests\Mathtone.Sdk.Reactive.Tests\Mathtone.Sdk.Reactive.Tests.csproj", "{409D91A8-439E-4F00-8BA4-01D8261D8F69}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.NeuralNetworks", "sdk\Mathtone.Sdk.NeuralNetworks\Mathtone.Sdk.NeuralNetworks.csproj", "{C8A4C1CB-8A6E-4D10-AC59-847FE6A0D014}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3928B94D-58B6-45D2-B5F0-9DFD6DC0E946}"
+	ProjectSection(SolutionItems) = preProject
+		Icon.png = Icon.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
