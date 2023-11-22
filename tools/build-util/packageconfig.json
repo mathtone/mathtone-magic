@@ -17,10 +17,7 @@
 			"Mathtone.Sdk.Rng",
 			"Mathtone.Sdk.Time",
 			"Mathtone.Sdk.Patterns",
-			"Mathtone.Sdk.Reactive",
-			"Mathtone.Sdk.Telemetry",
-			"Mathtone.Sdk.Telemetry.Abstractions",
-			"Mathtone.Sdk.Telemetry.Generators"
+			"Mathtone.Sdk.Reactive"
 		],
 		"PackageDirectory": "packages",
 		"Verbosity": "Quiet"
