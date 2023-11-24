@@ -101,6 +101,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Icon.png = Icon.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "tests\TestConsole\TestConsole.csproj", "{4DFFFF72-140B-4FFC-8B69-27F5D39A7258}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -235,6 +237,10 @@ Global
 		{C8A4C1CB-8A6E-4D10-AC59-847FE6A0D014}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8A4C1CB-8A6E-4D10-AC59-847FE6A0D014}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8A4C1CB-8A6E-4D10-AC59-847FE6A0D014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DFFFF72-140B-4FFC-8B69-27F5D39A7258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DFFFF72-140B-4FFC-8B69-27F5D39A7258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DFFFF72-140B-4FFC-8B69-27F5D39A7258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DFFFF72-140B-4FFC-8B69-27F5D39A7258}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
