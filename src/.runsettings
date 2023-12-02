@@ -37,7 +37,7 @@ Included items must then not match any entries in the exclude list to remain inc
 								<ModulePath>.*\System.*.dll$</ModulePath>
 								<ModulePath>.*\Xunit.*.dll$</ModulePath>
 								<ModulePath>.*\Moq.*.dll$</ModulePath>
-								<ModulePath>.*\Mathtone.Sdk.*.Tests.dll$</ModulePath>
+								<ModulePath>.*.Tests.dll$</ModulePath>
 								<ModulePath>.*\Mathtone.Sdk.Testing.dll$</ModulePath>
 							</Exclude>
 							<!-- Specifies additional list of directories where binaries static native instrumentation should be searched. -->

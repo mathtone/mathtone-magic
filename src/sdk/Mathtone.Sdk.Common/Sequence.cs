@@ -3,9 +3,11 @@
 namespace Mathtone.Sdk.Common {
 	public static class Sequence {
 
-		[SuppressMessage("Blocker Bug", "S2190:Recursion should not be infinite", Justification = "It's a possiblyn infinite sequence")]
+		[SuppressMessage("Blocker Bug", "S2190:Recursion should not be infinite", Justification = "It's a possibly infinite sequence")]
 		public static IEnumerable<T> Create<T>(T start, Func<T, T> next) {
+			
 			yield return start;
+
 			while (true) {
 				start = next(start);
 				yield return start;

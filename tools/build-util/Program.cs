@@ -12,6 +12,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 namespace Build_Util {
 	public static class Program {
 		static async Task Main(string[] args) {
+			//var i = new 
 			var config = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/packageconfig.json")
