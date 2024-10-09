@@ -111,7 +111,7 @@ jobs:
 
   publish-nuget:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:.0
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
     steps:
       - attach_workspace:
           at: .
