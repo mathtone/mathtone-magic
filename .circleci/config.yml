@@ -144,7 +144,9 @@ workflows:
   build-release:
     jobs:
       - get-code
-      - create-packages
+      - create-packages:
+            requires:
+                - get-code
       - integration-tests:
           context: MATHTONE_DEV
           requires:
