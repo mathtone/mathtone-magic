@@ -60,6 +60,7 @@ jobs:
       - run: ls ./src -l
       - run: ls ./src/tests -l
       - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
+      - run: dotnet pack src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       #- sonarcloud/scan
 
   disintegration-tests:
@@ -155,7 +156,7 @@ workflows:
           context: MATHTONE_DEV
           type: approval
           requires:
-            - disintegration-tests
+            - integration-tests
       - publish-nuget:
           filters:
             branches:
