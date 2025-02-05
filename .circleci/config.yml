@@ -60,9 +60,26 @@ jobs:
       - run: ls ./src -l
       - run: ls ./src/tests -l
       - run: dotnet test src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
-      - run: dotnet pack src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true
       #- sonarcloud/scan
 
+  create-packages:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
+
+    working_directory: /mnt/ramdisk
+    steps:
+      - attach_workspace:
+          at: .
+      - run: ls -l
+      - run: ls ./src -l
+      - run: ls ./src/tests -l
+      - run: dotnet pack src/mathtone-magic.sln --configuration Release -- xunit.parallelizeAssembly=true --artifacts-path ./packages
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
+- 
   disintegration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
@@ -127,6 +144,7 @@ workflows:
   build-release:
     jobs:
       - get-code
+      - create-packages
       - integration-tests:
           context: MATHTONE_DEV
           requires:
