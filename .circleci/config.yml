@@ -79,7 +79,7 @@ jobs:
           root: .
           paths:
             - packages
-- 
+
   disintegration-tests:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:6.0
