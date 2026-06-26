@@ -1,5 +1,7 @@
 ﻿using Mathtone.Sdk.Common;
 using Mathtone.Sdk.Testing;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Mathtone.Sdk.Patterns.Tests {
 	public class AsyncDictionaryRepositoryTests {

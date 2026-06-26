@@ -1,4 +1,6 @@
-﻿namespace Mathtone.Sdk.Rng.Tests {
+﻿using System;
+
+namespace Mathtone.Sdk.Rng.Tests {
 	public class CryptoRandomTests {
 		CryptoRandom _rng = new();
 

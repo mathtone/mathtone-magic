@@ -1,4 +1,6 @@
-﻿namespace Mathtone.Sdk.Common.Tests {
+﻿using System.Threading.Tasks;
+
+namespace Mathtone.Sdk.Common.Tests {
 	public class AsyncDisposableBaseTests {
 
 		[Fact]

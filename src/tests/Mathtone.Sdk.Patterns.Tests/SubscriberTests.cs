@@ -1,4 +1,7 @@
-﻿namespace Mathtone.Sdk.Patterns.Tests {
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+namespace Mathtone.Sdk.Patterns.Tests {
 	//Add xunit test class
 	public class SubscriberTests {
 		[Fact]

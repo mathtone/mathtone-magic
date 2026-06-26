@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Mathtone.Sdk.Patterns.Tests {
 	public class BroadcasterTests {

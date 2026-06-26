@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32825.248
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.11918.235 insiders
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{3EED3E78-37B6-4404-9022-73E41EA0F366}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,6 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A. SDK", "A. SDK", "{B61610
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "X. Tests", "X. Tests", "{B70C3509-426C-415E-AB37-345F91111861}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathtone.Sdk.Utilities", "sdk\Mathtone.Sdk.Utilities\Mathtone.Sdk.Utilities.csproj", "{FFC2D217-D8E3-4A7E-9B3A-D405E2D29E3C}"
 EndProject

@@ -1,4 +1,7 @@
-﻿namespace Mathtone.Sdk.Time.Tests {
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Mathtone.Sdk.Time.Tests {
 	public class FlexTimeServiceTests : TimeServiceTests<FlexTimeService> {
 		public FlexTimeServiceTests() {
 		}

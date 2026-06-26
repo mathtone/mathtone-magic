@@ -1,4 +1,7 @@
-﻿using Mathtone.Sdk.Common.Extensions;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Mathtone.Sdk.Common.Extensions;
 
 namespace Mathtone.Sdk.Common.Tests.Extensions {
 	public class WaitHandleExtensionsTests {

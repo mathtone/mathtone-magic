@@ -1,4 +1,5 @@
-﻿using Mathtone.Sdk.Data.Tests.Support;
+﻿using System.Threading.Tasks;
+using Mathtone.Sdk.Data.Tests.Support;
 
 namespace Mathtone.Sdk.Data.Tests {
 	public class DBCommandExtensionsTest {

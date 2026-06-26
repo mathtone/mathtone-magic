@@ -1,4 +1,6 @@
-﻿using Mathtone.Sdk.Common.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using Mathtone.Sdk.Common.Extensions;
 
 namespace Mathtone.Sdk.Common.Tests.Extensions {
 	public class IListExtensionsTests {

@@ -1,4 +1,5 @@
-﻿using Mathtone.Sdk.Common.Extensions;
+﻿using System.Linq;
+using Mathtone.Sdk.Common.Extensions;
 using Mathtone.Sdk.Testing.Xunit;
 using Xunit.Abstractions;
 

@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Mathtone.Sdk.Graphs.Tests {
 	public class TreeTests {
 
